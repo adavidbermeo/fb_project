@@ -41,7 +41,7 @@ use Facebook\Facebook as FB;
             $this->ad_account_id = $ad_account_id;
             $this->id_page = $id_page;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAOQYmRNRKvfYHtJH8IZBoq04YkSAp13912K9Pl9EV8dNwQiVyr6YmXWZCcNWnn3e8PvhbP9lLvTxiA95sOjZANqfiL6LLydEfXax1E9X346GdPs2hZAKigynluYZCALynNFxWam0tmMhTLapOOZBctofq372pudBbr6ZAecOXJAQZAYokGZCUON1Ej8ES16ZByMAZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBAEV2JTfPRGOocm1K6kgpeHoaDPDMsDYGizDsOQl6GvlWaSH4laKUmyr4xsse4BbXqctEJb8vBIl4QTHY7UtpBwnfLgre7w99gmXXEYZAJz4QMA4ex7ExepMfN3PZCrW8iNSZByAAsmCV2Etbx0cu7spFlPEWxALskZBNk4wWDigFApGH8jszLhFoVBZBHuKewZBAhR66IHdi9dzx1ugPefaV5zvRwbZAAZDZD';
 
             /**
              * Invoque the callMethods function 
