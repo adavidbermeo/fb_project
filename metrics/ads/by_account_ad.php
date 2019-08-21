@@ -41,7 +41,7 @@ use Facebook\Facebook as FB;
             $this->ad_account_id = $ad_account_id;
             $this->id_page = $id_page;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAKJ0pMqiqdnVld4TtaPTI04zmlD2ZB8MSZCdsdPeXcAfK449ZCNHDiL6iWpdVXkreK5YVQZBzemiGNjtQiwrL00vI9rtsiDCKKZCHC9FshRTnZBYhUWQsqEGe6pn3sgMoLQLFc2gLZA5puXqZBedU1gBHOPFVy6MeNbykpCK6eZATnUwdkQrkrk510ZBpcsov251dKyyV6PyKcZB3NHHb4snFXsGQ230ZC1JYgZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBAOVaCqHjnxasMfG6LtXE3fVMZABpZAihTt94qx53k6MJDRsMxqNqttu5vWzlsIx8zPRCahJ4fHq5b7NM2XIIGXLQuOnhSSFhTb4bpytZBHgXGDQ1pKpjvfRM5W6Qtg5QBZAhjz3ZAMNw3k1lzW1yUdj0hCiIhSSTZB46RjO4gA4uU7ZBynzBj8ISmsMZBFGLvQZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -62,6 +62,7 @@ use Facebook\Facebook as FB;
             $this->totalReactions();
             $this->setInteractions();
             $this->setAdPerformance();
+            $this->getAdPerformance();
             $this->getAdPerformanceTable();
         }
         public function setAdIdRequest(){
@@ -170,13 +171,14 @@ use Facebook\Facebook as FB;
     }
         public function setAdPerformance(){
             $this->adPerformance = [
-                'post_page_id' => $this->post_page_id,
-                'interactions' => $this->interactions,
-                'post_ids' => $this->post_ids, 
                 'ad_ids' => $this->ad_ids,
                 'ad_name' => $this->ad_name,
                 'ad_effective_status' => $this->ad_effective_status,
+                'post_page_id' => $this->post_page_id,
+                'post_ids' => $this->post_ids, 
+                'interactions' => $this->interactions,
                 'ad_account_id' => $this->ad_account_id, 
+                
                 'likes' => $this->likes, 
                 'love' => $this->love, 
                 'wow' => $this->wow, 
@@ -211,6 +213,7 @@ use Facebook\Facebook as FB;
                     echo 'IMPRESSIONS ORGANIC: '. $this->adPerformance['impressions_organic'][$i]."<br>";
                     echo 'TOTAL IMPRESSIONS: '. $this->adPerformance['total_impressions'][$i]."<br>";
                     echo 'POST CLICKS: '. $this->adPerformance['post_clicks'][$i]."<br><br><br>";
+                    echo 'AD ACCOUNT ID: '. $this->adPerformance['ad_account_id']."<br><br><br>";
             }
         }
         public function getAdPerformanceTable(){
