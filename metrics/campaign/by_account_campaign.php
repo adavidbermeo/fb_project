@@ -103,10 +103,8 @@
     }
     public function setCampaignStatisticsArray(){
       $this->campaign_statistics = [
-        'id_adAccount' => $this->id_adAccount,
-        'ad_account_name' => $this->ad_account_name,
-        'campaign_name' => $this->campaign_name,
         'campaign_id' => $this->campaign_id,
+        'campaign_name' => $this->campaign_name,
         'status' => $this->status,
         'clicks' => $this->clicks,
         'impressions' => $this->impressions,
@@ -115,6 +113,8 @@
         'objective' => $this->objective,
         'cost_per_lead' => $this->cost_per_lead,
         'cost_per_result' => $this->cost_per_result,
+        'id_adAccount' => $this->id_adAccount,
+        'ad_account_name' => $this->ad_account_name,
       ];
     }
     public function getCampaignStatisticsArray(){
