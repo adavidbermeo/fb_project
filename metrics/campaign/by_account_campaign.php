@@ -35,7 +35,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBAESY5m6mbcSfCxWrkaJUIalOT8VjJu8ls7iQsZAZBQpk8QmZCUrFeXJjZBtcDh1iLCJcRMSLx8mDH42QCZCTtZBN2ymnUtY8vECDZCcCzNDFfA2qddxl8SZACP22VkOz0tfq82eph86qZApXhavjkSDbBfMHXw5jGlC63y5NbaZChRP3YaOOuD471UatK2ZAoj5uQZDZD';
+      $this->access_token ='EAAhZAgMuzLKgBAKJ0pMqiqdnVld4TtaPTI04zmlD2ZB8MSZCdsdPeXcAfK449ZCNHDiL6iWpdVXkreK5YVQZBzemiGNjtQiwrL00vI9rtsiDCKKZCHC9FshRTnZBYhUWQsqEGe6pn3sgMoLQLFc2gLZA5puXqZBedU1gBHOPFVy6MeNbykpCK6eZATnUwdkQrkrk510ZBpcsov251dKyyV6PyKcZB3NHHb4snFXsGQ230ZC1JYgZDZD';
       $this->id_adAccount = $id_adAccount;
 
       /**
@@ -51,6 +51,7 @@
       $this->setDataArray();
       $this->setCampaignStatistics();
       $this->setCampaignStatisticsArray();
+      //$this->getCampaignStatisticsArray();
       $this->getCampaignStatisticsTable();
     }
     public function setRequest(){
@@ -95,6 +96,8 @@
                   if(@$n['insights'][0]['cost_per_action_type']){
                     foreach (@$n['insights'][0]['cost_per_action_type'] as $severals =>$i) {
                       $this->cost_per_result[] = $i;
+                      $this->action_type[] = $i['action_type'];
+                      $this->action_value[] = $i['value'];
                     }
                   }
               // }
@@ -115,6 +118,8 @@
         'objective' => $this->objective,
         'cost_per_lead' => $this->cost_per_lead,
         'cost_per_result' => $this->cost_per_result,
+        'action_type' => $this->action_type,
+        'action_value' => $this->action_value,
         'id_adAccount' => $this->id_adAccount,
         'ad_account_name' => $this->ad_account_name,
       ];
@@ -157,9 +162,7 @@
                   }
                 }
                 if(@$this->campaign_statistics['cost_per_result'][$i]){
-                  $this->action_type[] = $this->campaign_statistics['cost_per_result'][$i]['action_type'];
-                  $this->action_value[] = $this->campaign_statistics['cost_per_result'][$i]['value'];
-                  echo '<td>' . $this->campaign_statistics['cost_per_result'][$i]['action_type'] . ' => ' . $this->campaign_statistics['cost_per_result'][$i]['value'] . '</td>';
+                  echo '<td>' . $this->campaign_statistics['action_type'][$i] . ' => ' . $this->campaign_statistics['action_value'][$i] . '</td>';
                 }else{
                   echo '<td>x</td>';
                 }
