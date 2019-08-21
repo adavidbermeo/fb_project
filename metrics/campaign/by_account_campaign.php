@@ -24,6 +24,8 @@
     public $objective = [];
     public $cost_per_lead = [];
     public $cost_per_result = [];
+    public $action_type = [];
+    public $action_value = [];
 
 
     // Methods 
@@ -33,7 +35,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBAEV2JTfPRGOocm1K6kgpeHoaDPDMsDYGizDsOQl6GvlWaSH4laKUmyr4xsse4BbXqctEJb8vBIl4QTHY7UtpBwnfLgre7w99gmXXEYZAJz4QMA4ex7ExepMfN3PZCrW8iNSZByAAsmCV2Etbx0cu7spFlPEWxALskZBNk4wWDigFApGH8jszLhFoVBZBHuKewZBAhR66IHdi9dzx1ugPefaV5zvRwbZAAZDZD';
+      $this->access_token ='EAAhZAgMuzLKgBAESY5m6mbcSfCxWrkaJUIalOT8VjJu8ls7iQsZAZBQpk8QmZCUrFeXJjZBtcDh1iLCJcRMSLx8mDH42QCZCTtZBN2ymnUtY8vECDZCcCzNDFfA2qddxl8SZACP22VkOz0tfq82eph86qZApXhavjkSDbBfMHXw5jGlC63y5NbaZChRP3YaOOuD471UatK2ZAoj5uQZDZD';
       $this->id_adAccount = $id_adAccount;
 
       /**
@@ -155,6 +157,8 @@
                   }
                 }
                 if(@$this->campaign_statistics['cost_per_result'][$i]){
+                  $this->action_type[] = $this->campaign_statistics['cost_per_result'][$i]['action_type'];
+                  $this->action_value[] = $this->campaign_statistics['cost_per_result'][$i]['value'];
                   echo '<td>' . $this->campaign_statistics['cost_per_result'][$i]['action_type'] . ' => ' . $this->campaign_statistics['cost_per_result'][$i]['value'] . '</td>';
                 }else{
                   echo '<td>x</td>';
