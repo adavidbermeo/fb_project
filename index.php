@@ -72,7 +72,7 @@
 
         </div> -->
         <div class="business-manager-info">
-            <h3>Welcome to Facebook Api Project </h3>
+            <h3>Welcome to Facebook Api Projectss</h3>
             <img src="img/paxzu.png" alt="Index Background" id="index-back">
         </div>
 
