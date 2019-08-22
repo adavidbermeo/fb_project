@@ -25,7 +25,7 @@ Class AccountsPageData{
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
             'default_graph_version'=>'v3.3',
         ]);
-        $this->access_token = 'EAAhZAgMuzLKgBAJH9YZAAn69YhXOOv1ZClCoasVaUDpZCOFnCFbxdOY2BCRQwic1e1P8LbYLT9xZCIzq54x9TPqRgJVYXxem4U2B0pBwQk3Io2G7GHJVzezDXVO9MC7v9W3pE6QuczZAlhtliNJQaXbTY5MtpqpUyjUUMU8mth3vwMe9j98UJbJywtcl4k8adNKACBNoLw0QZDZD';
+        $this->access_token = 'EAAhZAgMuzLKgBAC1cllZChl0AAnAQgAJFv1Xl5hLZAOPBObE6h32FwUKLAWL3hX6nRsRVOdEGJEcOMjaDTq6cyZAoqgoZA0andnUncZBbjgEnVOW0bEWXxTJ1q6DgHq9SLfbEu8CZBYklBRRrgRyJcN3HqgZC15vCBNB7J6A6Hn4ZCwZAYd8WON0aNefCW6ZB5HqINGqbgVdZA8JB87ZB54I1Bh0kgHPU4K4fmxcZAIeRGfgDkdQZDZD';
         $this->request = $this->fb->get('me/adaccounts?fields=id,name,adcreatives.limit(10){object_story_id}&limit=100',$this->access_token);
 
         /**
@@ -41,7 +41,7 @@ Class AccountsPageData{
         $this->setAccountsPageData();
         $this->callFunction();
         $this->setArray();
-        $this->callReporting();
+        // $this->callReporting();
     }
     public function setDataArray(){
         $GraphRequest = $this->request->getGraphEdge();

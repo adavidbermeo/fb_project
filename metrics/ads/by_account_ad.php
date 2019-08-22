@@ -7,6 +7,7 @@ session_start();
 
     class ByAccountAd{
 
+        public $db_table_name = "ad";
         public $ad_account_id;
         public $ad_ids = [];
         public $ad_name = [];
@@ -44,7 +45,7 @@ session_start();
             $this->ad_account_id = $ad_account_id;
             $this->id_page = $id_page;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAJH9YZAAn69YhXOOv1ZClCoasVaUDpZCOFnCFbxdOY2BCRQwic1e1P8LbYLT9xZCIzq54x9TPqRgJVYXxem4U2B0pBwQk3Io2G7GHJVzezDXVO9MC7v9W3pE6QuczZAlhtliNJQaXbTY5MtpqpUyjUUMU8mth3vwMe9j98UJbJywtcl4k8adNKACBNoLw0QZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBAC1cllZChl0AAnAQgAJFv1Xl5hLZAOPBObE6h32FwUKLAWL3hX6nRsRVOdEGJEcOMjaDTq6cyZAoqgoZA0andnUncZBbjgEnVOW0bEWXxTJ1q6DgHq9SLfbEu8CZBYklBRRrgRyJcN3HqgZC15vCBNB7J6A6Hn4ZCwZAYd8WON0aNefCW6ZB5HqINGqbgVdZA8JB87ZB54I1Bh0kgHPU4K4fmxcZAIeRGfgDkdQZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -66,7 +67,7 @@ session_start();
             $this->setInteractions();
             $this->setAdPerformance();
             // $this->getAdPerformance();
-            // $this->getAdPerformanceTable();
+            $this->getAdPerformanceTable();
             $this->callReporting();
         }
         public function setAdIdRequest(){
@@ -277,7 +278,7 @@ session_start();
                 echo "
                 <div id='callReporting'>
                 
-                <a href='index.php?idPage=". $this->id_page ."&idAccount=". $this->ad_account_id ."' id='reporting-ad'>Click here<a>
+               <a href='index.php?click=$this->id_page'>Campaign</a>
 
                 </div>
                 ";

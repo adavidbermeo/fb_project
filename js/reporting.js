@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".menu a").click(function (event) {
+    $(".report-options a").click(function (event) {
         event.preventDefault();
 
         var selected = $(this).attr('href');

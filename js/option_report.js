@@ -7,7 +7,7 @@ $(document).ready(function () {
         // var page = $("#page").attr('href');
 
         $.ajax({
-            url: "functions/option_report.php",
+            url: "reporting/option_report.php",
             type: "get", //send it through get method
             data: {
                 selected: selected,

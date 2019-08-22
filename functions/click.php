@@ -1,12 +1,12 @@
 <?php 
- require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/include/include_click.php');
-use functions\AccountsPageData;       
-use metrics\campaign\ByAccountCampaign;
-use metrics\ads\ByAccountAd;
-use metrics\page\ByAccountPage;
-use metrics\ads\AdIds;
+    require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/include/include_click.php');
+    use functions\AccountsPageData;       
+    use metrics\campaign\ByAccountCampaign;
+    use metrics\ads\ByAccountAd;
+    use metrics\page\ByAccountPage;
+    use metrics\ads\AdIds;
 
-$AccountsPageData = new AccountsPageData();
+    $AccountsPageData = new AccountsPageData();
 
     if (isset($_GET['selected'])) {
         $selected = $_GET['selected'];
@@ -23,6 +23,7 @@ $AccountsPageData = new AccountsPageData();
         echo "<a href='index.php?click=yesAd_$selected_register_id'>Ad</a>";
         echo "<a href='index.php?click=yesPage_$selected_register_id'>Page</a>";
         echo "</div>";
+        
         
         switch ($click_value) {
             case 'yesCampaign':

@@ -11,6 +11,7 @@
     public $request;
     public $campaign_info;
     public $campaign_statistics = [];
+    public $db_table_name = "campaign";
 
     public $id_adAccount;
     public $ad_account_name;
