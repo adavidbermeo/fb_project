@@ -3,6 +3,7 @@ namespace metrics\ads;
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php'); 
 use Facebook\Facebook as FB;
+session_start();
 
     class ByAccountAd{
 
@@ -31,6 +32,8 @@ use Facebook\Facebook as FB;
         public $post_clicks = [];
         public $interactions = [];
         public $adPerformance;
+
+        
         
         public function __construct($id_page, $ad_account_id ,$more_interaction = 0){
             $this->fb = new FB([
@@ -41,7 +44,7 @@ use Facebook\Facebook as FB;
             $this->ad_account_id = $ad_account_id;
             $this->id_page = $id_page;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAJ4bl4Dv3Vx3rU7KhaQphYYTSwOc4PBnPcERQFJrbLSz0OxVtMPZCLmUD2e7dZB6iekCrxvKZCHe8ANHb5QNZAHjExMBdYKC4lOH1k1ZCZB324Bgvaw97RNVZAJZBYpL1J5pnuTpLY1wJ1TxeOHVkPMqKgWKJBaIccZAOpBj0YiyOj14HrIFsNz69ZCZBzmYjR01QZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBAJH9YZAAn69YhXOOv1ZClCoasVaUDpZCOFnCFbxdOY2BCRQwic1e1P8LbYLT9xZCIzq54x9TPqRgJVYXxem4U2B0pBwQk3Io2G7GHJVzezDXVO9MC7v9W3pE6QuczZAlhtliNJQaXbTY5MtpqpUyjUUMU8mth3vwMe9j98UJbJywtcl4k8adNKACBNoLw0QZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -62,8 +65,8 @@ use Facebook\Facebook as FB;
             $this->totalReactions();
             $this->setInteractions();
             $this->setAdPerformance();
-            $this->getAdPerformance();
-            $this->getAdPerformanceTable();
+            // $this->getAdPerformance();
+            // $this->getAdPerformanceTable();
             $this->callReporting();
         }
         public function setAdIdRequest(){
@@ -273,12 +276,13 @@ use Facebook\Facebook as FB;
             public function callReporting(){
                 echo "
                 <div id='callReporting'>
+                
+                <a href='index.php?idPage=". $this->id_page ."&idAccount=". $this->ad_account_id ."' id='reporting-ad'>Click here<a>
+
                 </div>
-                <a href='index.php?click=". serialize($this->adPerformance) ."' id='reporting-ad'>
                 ";
             }
         }
-        
         // For Sessions arrays
         // $_SESSION['adPerformance']['data'] = $adPerformance;
     ?>

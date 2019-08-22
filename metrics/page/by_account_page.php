@@ -34,7 +34,7 @@ Class ByAccountPage{
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
       'default_graph_version' => 'v3.3',
     ]);
-    $this->app_access_token ='EAAhZAgMuzLKgBAJ4bl4Dv3Vx3rU7KhaQphYYTSwOc4PBnPcERQFJrbLSz0OxVtMPZCLmUD2e7dZB6iekCrxvKZCHe8ANHb5QNZAHjExMBdYKC4lOH1k1ZCZB324Bgvaw97RNVZAJZBYpL1J5pnuTpLY1wJ1TxeOHVkPMqKgWKJBaIccZAOpBj0YiyOj14HrIFsNz69ZCZBzmYjR01QZDZD';
+    $this->app_access_token ='EAAhZAgMuzLKgBAJH9YZAAn69YhXOOv1ZClCoasVaUDpZCOFnCFbxdOY2BCRQwic1e1P8LbYLT9xZCIzq54x9TPqRgJVYXxem4U2B0pBwQk3Io2G7GHJVzezDXVO9MC7v9W3pE6QuczZAlhtliNJQaXbTY5MtpqpUyjUUMU8mth3vwMe9j98UJbJywtcl4k8adNKACBNoLw0QZDZD';
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
 
@@ -236,7 +236,7 @@ Class ByAccountPage{
     public function callReporting(){
       echo "
       <div id='callReporting'>
-        <a href='index.php?click=" . serialize($this->database_account_info_array) ."' id='reporting-page'>
+        <a href='index.php?click=" . serialize($this->database_account_info_array) ."' id='reporting-page'>Click Here</a>
       </div>";
     }
 }
