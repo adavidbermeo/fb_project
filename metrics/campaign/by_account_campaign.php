@@ -35,7 +35,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBAHUrVy86SEETjRfBZBR7LgukhzFo1m54o6sDOCJjnjEGsUkwkeN9SNZBGYCsQkHiloKZBE5JBTsuLSl3ovgZB58ciOc4S9FWDM0YRaJNCye5Ia6pWWwhQXDFKcaWB89TPrz6Sp4tHJMxXVe2ZBAdwu2FSzlKz2cXYUEeMUu8nNoGNUZC1hZCMmQhN14LzZCqM6ZBZCXKyZBC1IlupdHYSZCJM3WjKZBI5s7csVwZDZD';
+      $this->access_token ='EAAhZAgMuzLKgBAJ4bl4Dv3Vx3rU7KhaQphYYTSwOc4PBnPcERQFJrbLSz0OxVtMPZCLmUD2e7dZB6iekCrxvKZCHe8ANHb5QNZAHjExMBdYKC4lOH1k1ZCZB324Bgvaw97RNVZAJZBYpL1J5pnuTpLY1wJ1TxeOHVkPMqKgWKJBaIccZAOpBj0YiyOj14HrIFsNz69ZCZBzmYjR01QZDZD';
       $this->id_adAccount = $id_adAccount;
 
       /**
@@ -53,6 +53,7 @@
       $this->setCampaignStatisticsArray();
       //$this->getCampaignStatisticsArray();
       $this->getCampaignStatisticsTable();
+      $this->callReporting();
     }
     public function setRequest(){
       try {
@@ -123,6 +124,21 @@
         'id_adAccount' => $this->id_adAccount,
         'ad_account_name' => $this->ad_account_name,
       ];
+      $this->database_campaign_statistics = [
+        'campaign_id' => $this->campaign_id,
+        'campaign_name' => $this->campaign_name,
+        'status' => $this->status,
+        'clicks' => $this->clicks,
+        'impressions' => $this->impressions,
+        'spend' => $this->spend,
+        'reach' => $this->reach,
+        'objective' => $this->objective,
+        'cost_per_lead' => $this->cost_per_lead,
+        'action_type' => $this->action_type,
+        'action_value' => $this->action_value,
+        'id_adAccount' => $this->id_adAccount,
+      ];
+      
     }
     public function getCampaignStatisticsArray(){
       // echo "<pre>";
@@ -177,7 +193,7 @@
     public function callReporting(){
         echo "
           <div id='callReporting'>
-            <a href='index.php?click=$this->campaign_statistics' id='reporting-campaign'>
+            <a href='index.php?click=". serialize($this->database_campaign_statistics)."' id='reporting-campaign'>Reporting</a>
           </div>";
     } 
   }

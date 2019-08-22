@@ -13,13 +13,14 @@
 <body>
     <?
     if(isset($_GET['selected'])){
-        $statistics_array = $_GET['selected'];
-        reportingInfo($statistics_array);
+        $statistics = $_GET['selected'];
+        reportingInfo($statistics);
     }else{
         echo "There is no data";
     }
-    function reportingInfo($statistics_array){
-
+    function reportingInfo($statistics){
+        list($action_selected, $statistics_array) = explode('_', $statistics);
+        
         echo "
         <h1>Reporting System &copy;</h1>
         
@@ -29,28 +30,30 @@
         <a href='index.php?click=delete_$statistics_array'></a>
         </div>";
         
-        switch ($click_value) {
-            case 'insert':
-            //For Campaign Info   
-                $database = new Database();
+        echo "Si funciona";
+        // switch ($click_value) {
+        //     case 'insert':
+        //     //For Campaign Info   
+        //         $database = new Database();
                 
-                break;
-            case 'select':
-            //For Ad Info
-                $database = new Database();
+        //         break;
+        //     case 'select':
+        //     //For Ad Info
+        //         $database = new Database();
 
-                break;
-            case 'delete':
-            //For Page Info
-                $database = new Database();
+        //         break;
+        //     case 'delete':
+        //     //For Page Info
+        //         $database = new Database();
 
-                break;
-            default:
+        //         break;
+        //     default:
                 
-                break;
-        }
+        //         break;
+        // }
     }
     ?>
+    <script src="js/repeat_report.js">
     </body>
     </html>
     

@@ -16,6 +16,7 @@ Class AccountsPageData{
     public $account_id = [];
     public $ad_ids;
     public $account_ads = [];
+
     // protected $value = 1;
 
     public function __construct(){
@@ -24,7 +25,7 @@ Class AccountsPageData{
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
             'default_graph_version'=>'v3.3',
         ]);
-        $this->access_token = 'EAAhZAgMuzLKgBAHUrVy86SEETjRfBZBR7LgukhzFo1m54o6sDOCJjnjEGsUkwkeN9SNZBGYCsQkHiloKZBE5JBTsuLSl3ovgZB58ciOc4S9FWDM0YRaJNCye5Ia6pWWwhQXDFKcaWB89TPrz6Sp4tHJMxXVe2ZBAdwu2FSzlKz2cXYUEeMUu8nNoGNUZC1hZCMmQhN14LzZCqM6ZBZCXKyZBC1IlupdHYSZCJM3WjKZBI5s7csVwZDZD';
+        $this->access_token = 'EAAhZAgMuzLKgBAJ4bl4Dv3Vx3rU7KhaQphYYTSwOc4PBnPcERQFJrbLSz0OxVtMPZCLmUD2e7dZB6iekCrxvKZCHe8ANHb5QNZAHjExMBdYKC4lOH1k1ZCZB324Bgvaw97RNVZAJZBYpL1J5pnuTpLY1wJ1TxeOHVkPMqKgWKJBaIccZAOpBj0YiyOj14HrIFsNz69ZCZBzmYjR01QZDZD';
         $this->request = $this->fb->get('me/adaccounts?fields=id,name,adcreatives.limit(10){object_story_id}&limit=100',$this->access_token);
 
         /**
@@ -40,6 +41,7 @@ Class AccountsPageData{
         $this->setAccountsPageData();
         $this->callFunction();
         $this->setArray();
+        $this->callReporting();
     }
     public function setDataArray(){
         $GraphRequest = $this->request->getGraphEdge();
@@ -139,18 +141,31 @@ Class AccountsPageData{
             'post_id' => $this->post_id,
             'ad_account_id' => $this->ad_account_id,
         ];
+        $this->database_page_data = [
+            'ad_account_id' => $this->ad_account_id,
+            'page_name' => $this->page_name,
+        ];
     }
+
     public function getAccountsPageData(){
         print_r($this->page_data);      
+    }
+    public function callReporting(){
+      echo "
+      <div id='callReporting'>
+        <a href='index.php?click=" . serialize($this->database_page_data) ."' id='reporting-account'>
+      </div>";
     }
     public function getCountPageData(){
         return count($this->page_name);
     }
 }
-// $accounts_data = new AccountsPageData();
+?>
+<script type="text/javascript" src="js/option_report.js"></script>
+<!-- // $accounts_data = new AccountsPageData();
 // $accounts_data->setDataArray();
 // $accounts_data->setAccountsPageData();
 // $accounts_data->callFunction();
 // $accounts_data->setArray();
-// $accounts_data->adIdRequest();
-//me/adaccounts?fields=id,name,adcreatives{object_story_id}&limit=100;
+// $accounts_data->adIdRequest(); -->
+<!-- //me/adaccounts?fields=id,name,adcreatives{object_story_id}&limit=100; -->

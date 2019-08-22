@@ -24,6 +24,7 @@ Class ByAccountPage{
   protected $page_post_engagements= [];
 
   protected $account_info_array= [];
+  public $table_fields = [];
   
 
   // Methods
@@ -33,7 +34,7 @@ Class ByAccountPage{
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
       'default_graph_version' => 'v3.3',
     ]);
-    $this->app_access_token ='EAAhZAgMuzLKgBAOVaCqHjnxasMfG6LtXE3fVMZABpZAihTt94qx53k6MJDRsMxqNqttu5vWzlsIx8zPRCahJ4fHq5b7NM2XIIGXLQuOnhSSFhTb4bpytZBHgXGDQ1pKpjvfRM5W6Qtg5QBZAhjz3ZAMNw3k1lzW1yUdj0hCiIhSSTZB46RjO4gA4uU7ZBynzBj8ISmsMZBFGLvQZDZD';
+    $this->app_access_token ='EAAhZAgMuzLKgBAJ4bl4Dv3Vx3rU7KhaQphYYTSwOc4PBnPcERQFJrbLSz0OxVtMPZCLmUD2e7dZB6iekCrxvKZCHe8ANHb5QNZAHjExMBdYKC4lOH1k1ZCZB324Bgvaw97RNVZAJZBYpL1J5pnuTpLY1wJ1TxeOHVkPMqKgWKJBaIccZAOpBj0YiyOj14HrIFsNz69ZCZBzmYjR01QZDZD';
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
 
@@ -54,6 +55,7 @@ Class ByAccountPage{
     $this->getAdPerformanceGeneralTable();
     $this->getAgeGenderTable();
     $this->getfansCityTable();
+    $this->callReporting();
     
     $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id);
     $most_interactionsPost->moreInteraction();
@@ -131,6 +133,14 @@ Class ByAccountPage{
       'people_unpaid_like' => $this->people_unpaid_like,  
       'fans_age_gender' => $this->fans_age_gender,  
       'fans_city' => $this->fans_city,  
+      'page_post_engagements' => $this->page_post_engagements,  
+    ];
+     $this->database_account_info_array = [
+      'id_page'=>$this->id_page,
+      'end_time' => $this->end_time,
+      'total_new_likes' => $this->total_new_likes,  
+      'people_paid_like' => $this->people_paid_like,  
+      'people_unpaid_like' => $this->people_unpaid_like,  
       'page_post_engagements' => $this->page_post_engagements,  
     ];
   }
@@ -226,7 +236,7 @@ Class ByAccountPage{
     public function callReporting(){
       echo "
       <div id='callReporting'>
-        <a href='index.php?click=$this->account_info_array' id='reporting-page'>
+        <a href='index.php?click=" . serialize($this->database_account_info_array) ."' id='reporting-page'>
       </div>";
     }
 }

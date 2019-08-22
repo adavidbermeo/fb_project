@@ -30,12 +30,12 @@ class Database{
                 for ($i=0; $i <count($values[$fields[0]]) ; $i++) { 
                     foreach ($fields as $field) {
                         if($i>1){
-                            $this->sql = "INSERT INTO '$table($field[$i])' VALUES (', $values[$field][$i]')";
+                            $this->sql = "INSERT INTO '$table($field)' VALUES (', $values[$field][$i]')";
                             // Answer
                             $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
                             
                         }else{
-                            $this->sql = "INSERT INTO '$table($field[$i])' VALUES ('$values[$field][$i]')";
+                            $this->sql = "INSERT INTO '$table($field)' VALUES ('$values[$field][$i]')";
                             // Answer
                             $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
                         }

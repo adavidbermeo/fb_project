@@ -41,7 +41,7 @@ use Facebook\Facebook as FB;
             $this->ad_account_id = $ad_account_id;
             $this->id_page = $id_page;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAHUrVy86SEETjRfBZBR7LgukhzFo1m54o6sDOCJjnjEGsUkwkeN9SNZBGYCsQkHiloKZBE5JBTsuLSl3ovgZB58ciOc4S9FWDM0YRaJNCye5Ia6pWWwhQXDFKcaWB89TPrz6Sp4tHJMxXVe2ZBAdwu2FSzlKz2cXYUEeMUu8nNoGNUZC1hZCMmQhN14LzZCqM6ZBZCXKyZBC1IlupdHYSZCJM3WjKZBI5s7csVwZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBAJ4bl4Dv3Vx3rU7KhaQphYYTSwOc4PBnPcERQFJrbLSz0OxVtMPZCLmUD2e7dZB6iekCrxvKZCHe8ANHb5QNZAHjExMBdYKC4lOH1k1ZCZB324Bgvaw97RNVZAJZBYpL1J5pnuTpLY1wJ1TxeOHVkPMqKgWKJBaIccZAOpBj0YiyOj14HrIFsNz69ZCZBzmYjR01QZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -64,6 +64,7 @@ use Facebook\Facebook as FB;
             $this->setAdPerformance();
             $this->getAdPerformance();
             $this->getAdPerformanceTable();
+            $this->callReporting();
         }
         public function setAdIdRequest(){
             $request = $this->fb->get($this->ad_account_id . '?fields=ads{id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
@@ -191,6 +192,7 @@ use Facebook\Facebook as FB;
                 'total_impressions' => $this->total_impressions, 
                 'post_clicks' => $this->post_clicks, 
             ];
+            // $this->table_fields = array_keys($this->adPerformance);
         }
         
         public function getAdPerformance(){
@@ -271,8 +273,8 @@ use Facebook\Facebook as FB;
             public function callReporting(){
                 echo "
                 <div id='callReporting'>
-                    <a href='index.php?click=$this->adPerformance' id='reporting-ad'>
                 </div>
+                <a href='index.php?click=". serialize($this->adPerformance) ."' id='reporting-ad'>
                 ";
             }
         }
