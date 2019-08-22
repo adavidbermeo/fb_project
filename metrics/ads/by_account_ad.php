@@ -268,10 +268,19 @@ use Facebook\Facebook as FB;
                     echo "There is no available campaigns";
                 }
             }  
+            public function callReporting(){
+                echo "
+                <div id='callReporting'>
+                    <a href='index.php?click=$this->adPerformance' id='reporting-ad'>
+                </div>
+                ";
+            }
         }
+        
         // For Sessions arrays
         // $_SESSION['adPerformance']['data'] = $adPerformance;
     ?>
+    <script type="text/javascript" src="js/option_report.js"></script>
     <!-- For Session Arrays -->
     <!-- <a href="../../index.php">Ad Performance</a> --> 
 

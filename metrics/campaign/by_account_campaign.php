@@ -173,5 +173,14 @@
             }
             echo '
               </table>';   
+    }
+    public function callReporting(){
+        echo "
+          <div id='callReporting'>
+            <a href='index.php?click=$this->campaign_statistics' id='reporting-campaign'>
+          </div>";
     } 
   }
+?>
+<script type="text/javascript" src="js/option_report.js"></script>
+  

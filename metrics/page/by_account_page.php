@@ -223,7 +223,15 @@ Class ByAccountPage{
         </tfoot>
       </table>';  
     }
+    public function callReporting(){
+      echo "
+      <div id='callReporting'>
+        <a href='index.php?click=$this->account_info_array' id='reporting-page'>
+      </div>";
+    }
 }
+?>
+<script type="text/javascript" src="js/option_report.js"></script>
 
   
 
