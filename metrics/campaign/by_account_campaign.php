@@ -6,12 +6,15 @@
 
   Class ByAccountCampaign{
     // Properties 
+
+    public $db_table_name = "campaign";
+
     public $access_token;
     public $fb;
     public $request;
     public $campaign_info;
     public $campaign_statistics = [];
-    public $db_table_name = "campaign";
+    
 
     public $id_adAccount;
     public $ad_account_name;
@@ -194,7 +197,7 @@
     public function callReporting(){
         echo "
           <div id='callReporting'>
-            <a href='index.php?click=". serialize($this->database_campaign_statistics)."' id='reporting-campaign'>Reporting</a>
+            <a href='index.php?accountid=". $this->id_adAccount ."&accountname=". $this->ad_account_name ."&tablename=". $this->db_table_name ."' id='reporting-campaign'>Campaign Reporting</a>
           </div>";
     } 
   }

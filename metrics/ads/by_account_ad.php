@@ -8,6 +8,7 @@ session_start();
     class ByAccountAd{
 
         public $db_table_name = "ad";
+
         public $ad_account_id;
         public $ad_ids = [];
         public $ad_name = [];
@@ -163,7 +164,6 @@ session_start();
         
         for ($i=0; $i <count($this->total) ; $i++) { 
             $this->total_reactions[$i] = array_sum($this->total[$i]);
-            
         }
         
     }
@@ -278,7 +278,7 @@ session_start();
                 echo "
                 <div id='callReporting'>
                 
-               <a href='index.php?click=$this->id_page'>Campaign</a>
+               <a href='index.php?idpage=" . $this->id_page . " &accountid=" . $this->ad_account_id ." &tablename=". $this->db_table_name . "'>Ad Reporting</a>
 
                 </div>
                 ";

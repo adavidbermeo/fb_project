@@ -7,7 +7,9 @@ use functions\Interactions;
 use Facebook\Facebook as FB;
 
 Class ByAccountPage{
-  // Attributes 
+  // Attributes
+  public $db_table_name = "page";
+
   protected $fb;
   protected $app_access_token;
   protected $page_access_token;
@@ -24,7 +26,6 @@ Class ByAccountPage{
   protected $page_post_engagements= [];
 
   protected $account_info_array= [];
-  public $table_fields = [];
   
 
   // Methods
@@ -236,7 +237,7 @@ Class ByAccountPage{
     public function callReporting(){
       echo "
       <div id='callReporting'>
-        <a href='index.php?click=" . serialize($this->database_account_info_array) ."' id='reporting-page'>Click Here</a>
+        <a href='index.php?idpage=". $this->id_page ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting-page'>Page Reporting</a>
       </div>";
     }
 }
