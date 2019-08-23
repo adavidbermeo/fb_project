@@ -25,7 +25,7 @@ Class AccountsPageData{
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
             'default_graph_version'=>'v3.3',
         ]);
-        $this->access_token = 'EAAhZAgMuzLKgBAG3RH7iiUZARc8uHPfueVRWl5DHZBuhigF5CyyB41R1LzueQvhrCSe3UDNFOgeFnYSoBzZAsFSDx5Ts6HonqrB72Dd0HEVZB5dOqlTrA1IXfPCuQkncjodG5CeG5ytJEu9AoCFVuXRjVYZAS9f6LgZAF8uZBDzYUecfxGtd385ZCgtE7Yq6Y6x4giWyOe1NgEAZDZD';
+        $this->access_token = 'EAAhZAgMuzLKgBAP4BLZACy4wHZB9txZBZCntO5FiEzp7wggSJjzxhFYCC1dlZCyA3cF6ZC5cafUZBxpfiA0vwdnVUjoX0fXIdz4NXcb7KjZAF2ZBbFRZBW8XejTYkcdKZBHKWMdvrim7CM4jJKsqP4zqBGZBAFo0facVG0vaboJO3cZBCug0sKZBx6HVLLIWdtLCzJ7LEJM2Cl7gtcBl2JqzTok9AZC3QZCOJIYZCpgCkWE3ctIx3gRQZDZD';
         $this->request = $this->fb->get('me/adaccounts?fields=id,name,adcreatives.limit(10){object_story_id}&limit=100',$this->access_token);
 
         /**
@@ -154,18 +154,11 @@ Class AccountsPageData{
       echo "
       <div id='callReporting'>
         <a href='index.php?click=" . serialize($this->database_page_data) ."' id='reporting-account'>Click Here</a>
-      </div>";
+      </div>
+      <script type='text/javascript' src='js/option_report.js'></script>";
     }
     public function getCountPageData(){
         return count($this->page_name);
     }
 }
-?>
-<script type="text/javascript" src="js/option_report.js"></script>
-<!-- // $accounts_data = new AccountsPageData();
-// $accounts_data->setDataArray();
-// $accounts_data->setAccountsPageData();
-// $accounts_data->callFunction();
-// $accounts_data->setArray();
-// $accounts_data->adIdRequest(); -->
-<!-- //me/adaccounts?fields=id,name,adcreatives{object_story_id}&limit=100; -->
+

@@ -43,10 +43,11 @@ session_start();
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
             'default_graph_version'=>'v3.3',
             ]);
-            $this->ad_account_id = $ad_account_id;
+
             $this->id_page = $id_page;
+            $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAG3RH7iiUZARc8uHPfueVRWl5DHZBuhigF5CyyB41R1LzueQvhrCSe3UDNFOgeFnYSoBzZAsFSDx5Ts6HonqrB72Dd0HEVZB5dOqlTrA1IXfPCuQkncjodG5CeG5ytJEu9AoCFVuXRjVYZAS9f6LgZAF8uZBDzYUecfxGtd385ZCgtE7Yq6Y6x4giWyOe1NgEAZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBADn9nI8Ug1BxUPQH7rdxRZC2R4IYHZApZBPIjJvGPYFrk6aZBfpXxCRGGAvb7onIjyNml6p3Ia7y1wPZBf9gZC8c5emZCKMA84ci55067BP8kOUdQwCix4m9oLNwDrNlMJlVhmJMNK1rDw5AjfbmAWFIkvPofAZCPjN7AwIgXVdK6caM5HIbZCJbJxBSI5MIvXAZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -68,15 +69,15 @@ session_start();
             $this->setInteractions();
             $this->setAdPerformance();
             // $this->getAdPerformance();
-            $this->getAdPerformanceTable();
-            $this->callReporting();
+            // $this->getAdPerformanceTable();
+            // $this->callReporting();
         }
         public function setAdIdRequest(){
             $request = $this->fb->get($this->ad_account_id . '?fields=ads{id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
             $GraphRequest = $request->getGraphNode();
             // echo "<pre>";
             $this->data_array_post_ad = $GraphRequest->asArray();
-          
+            $this->data_array_post_ad;
         }
         public function getDataRequest(){
         
@@ -183,7 +184,6 @@ session_start();
                 'post_ids' => $this->post_ids, 
                 'interactions' => $this->interactions,
                 'ad_account_id' => $this->ad_account_id, 
-                
                 'likes' => $this->likes, 
                 'love' => $this->love, 
                 'wow' => $this->wow, 
@@ -196,7 +196,6 @@ session_start();
                 'total_impressions' => $this->total_impressions, 
                 'post_clicks' => $this->post_clicks, 
             ];
-            // $this->table_fields = array_keys($this->adPerformance);
         }
         
         public function getAdPerformance(){
@@ -278,17 +277,15 @@ session_start();
                 echo "
                 <div id='callReporting'>
                 
-               <a href='index.php?idpage=" . $this->id_page . " &accountid=" . $this->ad_account_id ." &tablename=". $this->db_table_name . "'>Ad Reporting</a>
+               <a href='index.php?idpage=". $this->id_page ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."'>Ad Reporting</a>
 
                 </div>
+                <script type='text/javascript' src='js/option_report.js'></script>
                 ";
             }
         }
         // For Sessions arrays
         // $_SESSION['adPerformance']['data'] = $adPerformance;
-    ?>
-    <script type="text/javascript" src="js/option_report.js"></script>
-    <!-- For Session Arrays -->
-    <!-- <a href="../../index.php">Ad Performance</a> --> 
+
 
  
