@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("button[type='submit'").click(function(event){
+    $("button[type='submit']").click(function(event){
         event.preventDefault();
 
         var search = $("#search").val();

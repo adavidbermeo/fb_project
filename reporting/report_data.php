@@ -21,10 +21,14 @@
             list($entrada[],$index_value[]) = explode('=',$index);
         }
         generateResponse($index_value,$action_selected,$values);
+        print_r($values);
     //    print_r($entrada);
     //    print_r($index_value);
     }
-    function generateResponse($index_value, $action_selected , $values){
+    function generateResponse($index_value,$action_selected,$values){
+        // Load Script to action
+        echo "<script src='js/get_reporting.js'></script>";
+        echo "<script src='js/post_reporting.js'></script>";
         switch ($action_selected) {
             case 'insert':
                 switch ($index_value[2]) {
@@ -103,7 +107,7 @@
                         <form>
                             <input list='db_fields' name='db_field' placeholder='Select a field'>
                             <input list='db_values' name='field_value' placeholder='Field value'>
-                            <input type='hidden' name
+                            <input type='hidden' name='". $values ."'>
                             <input type='submit' value='SEND DATA'>
                         </form>
                       ";
