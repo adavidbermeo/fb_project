@@ -1,5 +1,5 @@
 <?php  
-// namespace functions\submit;
+namespace functions\submit;
         if(isset($_POST['search'])){
                 $option = $_POST['search'];
                 list($selected_page_name, $selected_register_id) = explode('-  ', $option);
