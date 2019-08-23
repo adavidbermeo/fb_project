@@ -44,14 +44,6 @@
     
     <!-- <video src="videos/video-background.mp4" autoplay loop muted id="index"></video> -->
     <div class="custom-container">
-        
-        <!-- <div id="popup" class="popup">
-            <a onclick="closeDialog('popup');" class="close"><i class="fas fa-window-close fa-4x"></i></a>
-            <div>
-            <h2>Si funciona</h2>
-            </div>
-        </div> -->
-        
         <datalist id="options">    
         <?php 
             for ($i=0; $i<= $iterador; $i++) { 

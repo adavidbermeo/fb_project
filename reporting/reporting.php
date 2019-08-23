@@ -28,7 +28,7 @@
     }else{
         echo "There is no data";
     }
-    function reportingInfo($click){
+    function reportingInfo($action_selected, $db_table_name){
         //list($action_selected, $parameters) = explode('_', $click);
         
         echo '<div class="buttons">';
