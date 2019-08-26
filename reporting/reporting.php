@@ -59,13 +59,13 @@
                     case 'ad':
                         
                         $ad = new ByAccountAd($first_value,$ad_account_id);
-                        $field_values = $ad->adPerformance;
-                        $fields = array_keys($ad->adPerformance);
+                        $array = $ad->adPerformance;
+                        // $fields = array_keys($ad->adPerformance);
                         // print_r($fields);
 
                         $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
-                        $database->action($action_selected, $db_table_name, $fields ,$field_values);
+                        $database->insert($db_table_name, $array);
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');

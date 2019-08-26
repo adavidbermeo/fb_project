@@ -21,7 +21,39 @@ class DbStatistics{
     }
     public function connectDatabase(){
         $this->con = mysqli_connect($this->host,$this->username,$this->password, $this->database) or die('Error Connection Database');
-        echo "Se ha conectado correctamente";
+        // echo "Se ha conectado correctamente";
+    }
+    public function insert($table, $array){
+        // echo $table;
+        // print_r($array);
+        switch ($table) {
+            case 'ad':
+               for ($iterador=0; $iterador <25 ; $i++) { 
+                   echo $iterador;
+                    // for ($i=0; $i <count($array[$fields]); $i++) { 
+                        
+                    //     $this->sql = "INSERT INTO '$table' VALUES (null , ".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].")";
+                    //     // Answer
+                    //     $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
+                    // }
+                }
+                if(mysqli_affected_rows($con)>0){
+                    echo "Sus datos fueron insertados correctamente";
+                }else{
+                    "Hubo un error en la insercion. Intentelo de nuevo";
+                }
+
+                break;
+            case 'campaign':
+                # code...
+                break;
+            case 'page':
+                # code...
+                break;    
+            default:
+                echo "Error";
+                break;
+        }
     }
     public function action($action,$table,$fields = 0,$values = 0){
         /**
