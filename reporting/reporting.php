@@ -4,16 +4,17 @@
     use Database\DbStatistics;
     if(isset($_GET['selected'])){
         $selected = $_GET['selected'];
-
         list($url, $click) = explode('?click=', $selected);
+        
         list($action_selected, $values) = explode('%', $click);
+        
         list($index1,$index2,$index3) = explode('&',$values);
         $indexs = [$index1, $index2, $index3];
         foreach ($indexs as $index) {
             list($entrada[], $index_value[]) = explode('=',$index);
         }
-       print_r($entrada);
-       print_r($index_value);
+    //    print_r($entrada);
+    //    print_r($index_value);
             
         //Execute function
         reportingInfo($action_selected, $index_value);
@@ -56,15 +57,15 @@
             case 'insert':  
                 switch ($db_table_name) {
                     case 'ad':
+                        
                         $ad = new ByAccountAd($first_value,$ad_account_id);
-                        $field_value = $ad->adPerformance;
+                        $field_values = $ad->adPerformance;
                         $fields = array_keys($ad->adPerformance);
-                        print_r($fields);
+                        // print_r($fields);
 
                         $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
-                        
-                        $database->action($action_selected, $db_table_name, $db_field, $db_field_value);
+                        $database->action($action_selected, $db_table_name, $fields ,$field_values);
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');

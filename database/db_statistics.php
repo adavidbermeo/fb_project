@@ -21,6 +21,7 @@ class DbStatistics{
     }
     public function connectDatabase(){
         $this->con = mysqli_connect($this->host,$this->username,$this->password, $this->database) or die('Error Connection Database');
+        echo "Se ha conectado correctamente";
     }
     public function action($action,$table,$fields = 0,$values = 0){
         /**
@@ -28,18 +29,18 @@ class DbStatistics{
          */
         switch ($action) {
             case 'insert':
-            for ($iterador=0; $iterador <25 ; $i++) { 
-                for ($i=0; $i <count($values[$fields]); $i++) { 
-                       
-                    $this->sql = "INSERT INTO '$table' VALUES (null , ".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].")";
-                    // Answer
-                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
+                for ($iterador=0; $iterador <25 ; $i++) { 
+                    for ($i=0; $i <count($values[$fields]); $i++) { 
+                        
+                        $this->sql = "INSERT INTO '$table' VALUES (null , ".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].")";
+                        // Answer
+                        $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
+                    }
                 }
-            }
-            if ($this->result) {
-                echo "Se han insertado correctamente los datos";
-            }
-                break;
+                // if ($this->result) {
+                //     echo "Se han insertado correctamente los datos";
+                // }
+                    break;
 
             case 'specificselect':
                 echo $table . "<br>";

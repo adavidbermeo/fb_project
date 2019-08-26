@@ -37,23 +37,23 @@
             case 'insert':
                 switch ($db_table_name){
                     case 'ad':
-
+                        
                         echo "Se insertara la actual consulta de Anuncios. ¿Desea continuar?";
-                        echo "<div id='decision'>";
-                        echo "<a href='index.php?click=". $click ."'>Si</a>";
+                        echo '<div class="call">';
+                        echo "<a href='index.php?click=$click'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
                     case 'campaign':
                         echo "Se insertara la actual consulta de Campañas. ¿Desea continuar?";
-                        echo '<div id="decision">';
+                        echo '<div class="call">';
                         echo "<a href='index.php?click=$click'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
                     case 'page':
                         echo "Se insertara la actual consulta de Pagina. ¿Desea continuar?";
-                        echo '<div id="decision">';
+                        echo '<div class="call">';
                         echo "<a href='index.php?click=$click'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
@@ -185,6 +185,4 @@
         }
            
     }
-    ?>
-</body>
-</html>
+
