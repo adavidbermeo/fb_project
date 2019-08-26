@@ -20,12 +20,12 @@
         foreach ($indexs as $index) {
             list($entrada[],$index_value[]) = explode('=',$index);
         }
-        generateResponse($index_value,$action_selected,$values);
-        print_r($values);
+        generateResponse($index_value,$action_selected,$click);
+        // print_r($values);
     //    print_r($entrada);
     //    print_r($index_value);
     }
-    function generateResponse($index_value,$action_selected,$values){
+    function generateResponse($index_value,$action_selected,$click){
         // Load Script to action
         echo "<script src='js/get_reporting.js'></script>";
         echo "<script src='js/post_reporting.js'></script>";
@@ -34,22 +34,22 @@
                 switch ($index_value[2]) {
                     case 'ad':
                         echo "Se insertara la actual consulta de Anuncios. ¿Desea continuar?";
-                        echo "<div>";
-                        echo "<a href='index.php?click=insert%$values'>Si</a>";
+                        echo "<div class='call'>";
+                        echo "<a href='index.php?click=".$click."'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
                     case 'campaign':
                         echo "Se insertara la actual consulta de Campañas. ¿Desea continuar?";
-                        echo "<div>";
-                        echo "<a href='index.php?click=insert%$values'>Si</a>";
+                        echo "<div class='call'>";
+                        echo "<a href='index.php?click=".$click."'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
                     case 'page':
                         echo "Se insertara la actual consulta de Pagina. ¿Desea continuar?";
-                        echo "<div>";
-                        echo "<a href='index.php?click=insert%$values'>Si</a>";
+                        echo "<div class='call'>";
+                        echo "<a href='index.php?click=".$click."'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
@@ -63,22 +63,22 @@
                 switch ($index_value[2]) {
                     case 'ad':
                         echo "Se procedera a consultar todos los registros de los anuncios existentes. ¿Desea continuar?";
-                        echo "<div>";
-                        echo "<a href='index.php?click=generalselect%$values'>Si</a>";
+                        echo "<div class='call'>";
+                        echo "<a href='index.php?click=$click'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
                     case 'campaign':
                         echo "Se procedera a consultar todos los registros de las campañas existentes. ¿Desea continuar?";
-                        echo "<div>";
-                        echo "<a href='index.php?click=generalselect%$values'>Si</a>";
+                        echo "<div class='call'>";
+                        echo "<a href='index.php?click=$click'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
                     case 'page':
                         echo "Se procedera a consultar todos los registros de la pagina solicitada. ¿Desea continuar?";
-                        echo "<div>";
-                        echo "<a href='index.php?click=generalselect%$values'>Si</a>";
+                        echo "<div class='call'>";
+                        echo "<a href='index.php?click=$click'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
@@ -91,8 +91,7 @@
             case 'specificselect':
                 switch ($index_value[2]) {
                     case 'ad':
-                    $id_page = $index_value[0]; $ad_account_id = $index_value[1];
-                    $ad = new ByAccountAd($id_page, $ad_account_id);
+                    $ad = new ByAccountAd($index_value[0], $index_value[1]);
                     $keys = array_keys($ad->adPerformance);
                     echo "
                       <datalist id='db_fields'>";
@@ -104,10 +103,10 @@
                      "</datalist>"; 
                        
                         echo "
-                        <form>
-                            <input list='db_fields' name='db_field' placeholder='Select a field'>
-                            <input list='db_values' name='field_value' placeholder='Field value'>
-                            <input type='hidden' name='". $values ."'>
+                        <form id='db-query'>
+                            <input list='db_fields' name='db_field' placeholder='Select a field' id='db_field'>
+                            <input list='db_values' name='field_value' placeholder='Field value' id='db_values'>
+                            <input type='hidden' name='parameters' id='parameters' value='". $click ."'>
                             <input type='submit' value='SEND DATA'>
                         </form>
                       ";
@@ -135,11 +134,25 @@
             case 'delete':
                 switch ($index_value[2]) {
                     case 'ad':
-                        echo "Se insertara la actual consulta de Anuncios. ¿Desea continuar?";
-                        echo "<div>";
-                        echo    "<a href='index.php?click=insert%$values'>Si</a>";
-                        echo    "<a href='index.php'>No</a>";
-                        echo "</div>";
+                        $ad = new ByAccountAd($index_value[0], $index_value[1]);
+                        $keys = array_keys($ad->adPerformance);
+                        echo "
+                        <datalist id='db_fields'>";
+                        foreach ($keys as $key) {
+                            echo '<option id="option" value="'.$key .'"' .
+                            ' label="options">' . '</option>';
+                        }
+                        echo   
+                        "</datalist>"; 
+                       
+                        echo "
+                        <form id='db-query'>
+                            <input list='db_fields' name='db_field' placeholder='Select a field' id='db_field'>
+                            <input list='db_values' name='field_value' placeholder='Field value' id='db_values'>
+                            <input type='hidden' name='". $click ."' id='parameters'>
+                            <input type='submit' value='SEND DATA'>
+                        </form>
+                      ";
                     break;
                     case 'campaign':
                         echo "

@@ -27,26 +27,20 @@ class Database{
          */
         switch ($action) {
             case 'insert':
-                for ($i=0; $i <count($values[$fields[0]]) ; $i++) { 
-                    foreach ($fields as $field) {
-                        if($i>1){
-                            $this->sql = "INSERT INTO '$table($field)' VALUES (', $values[$field][$i]')";
-                            // Answer
-                            $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
-                            
-                        }else{
-                            $this->sql = "INSERT INTO '$table($field)' VALUES ('$values[$field][$i]')";
-                            // Answer
-                            $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
-                        }
-                    }
+            for ($iterador=0; $iterador <25 ; $i++) { 
+                for ($i=0; $i <count($values[$fields]); $i++) { 
+                       
+                    $this->sql = "INSERT INTO '$table' VALUES (null , ".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].")";
+                    // Answer
+                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
                 }
-                if ($this->result) {
-                    echo "Se han insertado correctamente los datos";
-                }
+            }
+            if ($this->result) {
+                echo "Se han insertado correctamente los datos";
+            }
                 break;
 
-            case 'especific_select':
+            case 'especificselect':
                 $this->sql = "SELECT * FROM '$table' WHERE '$fields' = '$values'";
                 // Answer
                 $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica');
@@ -59,7 +53,7 @@ class Database{
                     echo "0 results";
                 }
                 break;
-            case 'general_select':
+            case 'generalselect':
                 $this->sql = "SELECT * FROM '$table'";
                 // Answer
                 $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general');
