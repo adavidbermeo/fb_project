@@ -65,7 +65,7 @@
 
                         $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
-                        $database->insert($db_table_name, $array);
+                        $database->insertAd($db_table_name, $array);
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');
@@ -121,10 +121,12 @@
                switch ($db_table_name) {
                     case 'ad':
                         $ad = new ByAccountAd($first_value, $ad_account_id);
+                        $array = $ad->adPerformance;
+
                         $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
-                        $database->action($action_selected, $db_table_name, $db_field, $db_field_value);
+                        $database->action($action_selected, $db_table_name, $array, $db_field, $db_field_value);
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');
