@@ -1,8 +1,7 @@
 <?php 
-    require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/database/insert_statistics.php'); 
     require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/include/include_click.php');
     use metrics\ads\ByAccountAd;
-
+    use Database\DbStatistics;
     if(isset($_GET['selected'])){
         $selected = $_GET['selected'];
 
@@ -20,8 +19,10 @@
         reportingInfo($action_selected, $index_value);
 
     }elseif(isset($_POST['db_field'],$_POST['field_value'],$_POST['parameter'])){
-        
-        echo $click = $_POST['parameter'];
+        $click = $_POST['parameter'];
+        $db_field = $_POST['db_field'];
+        $db_field_value = $_POST['field_value'];
+
         list($action_selected, $values) = explode('%', $click);
 
         list($index1,$index2,$index3) = explode('&',$values);
@@ -32,12 +33,14 @@
         }
 
         //Execute function
-        reportingInfo($action_selected, $index_value);
+        reportingInfo($action_selected, $index_value, $db_field, $db_field_value);
 
     }else{
         echo "There is no data";
     }
-    function reportingInfo($action_selected, $index_value){
+    function reportingInfo($action_selected, $index_value, $db_field = 0, $db_field_value = 0){
+        $first_value = $index_value[0];
+        $ad_account_id = $index_value[1];
         $db_table_name = $index_value[2]; 
         //list($action_selected, $parameters) = explode('_', $click);
         
@@ -53,26 +56,26 @@
             case 'insert':  
                 switch ($db_table_name) {
                     case 'ad':
-                        $ad = new ByAccountAd($index_value[0],$index_value[1]);
+                        $ad = new ByAccountAd($first_value,$ad_account_id);
                         $field_value = $ad->adPerformance;
                         $fields = array_keys($ad->adPerformance);
                         print_r($fields);
 
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
-
-                        $database->action($action_selected, $db_table_name, $fields, $field_value);
+                        
+                        $database->action($action_selected, $db_table_name, $db_field, $db_field_value);
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
                         break;
                      case 'page':
                         $page = new ByAccountPage('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
@@ -86,22 +89,22 @@
             case 'generalselect':
                switch ($db_table_name) {
                     case 'ad':
-                        $ad = new ByAccountAd('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $ad = new ByAccountAd($first_value,$ad_account_id);
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
                         break;
                      case 'page':
                         $page = new ByAccountPage('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
@@ -116,23 +119,22 @@
             case 'specificselect':
                switch ($db_table_name) {
                     case 'ad':
-                    echo "LLEGA AQUI";
-                        // $ad = new ByAccountAd('');
-                        // $database = new Database('localhost','root','','fb_project');
-                        // $database->connectDatabase();
+                        $ad = new ByAccountAd($first_value, $ad_account_id);
+                        $database = new DbStatistics('localhost','root','','fb_project');
+                        $database->connectDatabase();
 
-                        $database->action();
+                        $database->action($action_selected, $db_table_name, $db_field, $db_field_value);
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
                         break;
                      case 'page':
                         $page = new ByAccountPage('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
@@ -147,21 +149,21 @@
                 switch ($db_table_name) {
                     case 'ad':
                         $ad = new ByAccountAd('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();
                         break;
                      case 'page':
                         $page = new ByAccountPage('');
-                        $database = new Database('localhost','root','','fb_project');
+                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
 
                         $database->action();

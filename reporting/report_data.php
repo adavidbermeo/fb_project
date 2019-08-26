@@ -26,30 +26,35 @@
     //    print_r($index_value);
     }
     function generateResponse($index_value,$action_selected,$click){
+        $first_value = $index_value[0];
+        $ad_account_id = $index_value[1];
+        $db_table_name = $index_value[2]; 
         // Load Script to action
         echo "<script src='js/get_reporting.js'></script>";
         echo "<script src='js/post_reporting.js'></script>";
+
         switch ($action_selected) {
             case 'insert':
-                switch ($index_value[2]) {
+                switch ($db_table_name){
                     case 'ad':
+
                         echo "Se insertara la actual consulta de Anuncios. ¿Desea continuar?";
-                        echo "<div class='call'>";
-                        echo "<a href='index.php?click=".$click."'>Si</a>";
+                        echo "<div id='decision'>";
+                        echo "<a href='index.php?click=". $click ."'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
                     case 'campaign':
                         echo "Se insertara la actual consulta de Campañas. ¿Desea continuar?";
-                        echo "<div class='call'>";
-                        echo "<a href='index.php?click=".$click."'>Si</a>";
+                        echo '<div id="decision">';
+                        echo "<a href='index.php?click=$click'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
                     case 'page':
                         echo "Se insertara la actual consulta de Pagina. ¿Desea continuar?";
-                        echo "<div class='call'>";
-                        echo "<a href='index.php?click=".$click."'>Si</a>";
+                        echo '<div id="decision">';
+                        echo "<a href='index.php?click=$click'>Si</a>";
                         echo "<a href='index.php'>No</a>";
                         echo "</div>";
                     break;
@@ -60,7 +65,7 @@
                 }
                 break;
             case 'generalselect':
-                switch ($index_value[2]) {
+                switch ($db_table_name) {
                     case 'ad':
                         echo "Se procedera a consultar todos los registros de los anuncios existentes. ¿Desea continuar?";
                         echo "<div class='call'>";
@@ -89,9 +94,9 @@
                 }
                 break;
             case 'specificselect':
-                switch ($index_value[2]) {
+                switch ($db_table_name) {
                     case 'ad':
-                    $ad = new ByAccountAd($index_value[0], $index_value[1]);
+                    $ad = new ByAccountAd($first_value, $ad_account_id);
                     $keys = array_keys($ad->adPerformance);
                     echo "
                       <datalist id='db_fields'>";
@@ -105,7 +110,7 @@
                         echo "
                         <form id='db-query'>
                             <input list='db_fields' name='db_field' placeholder='Select a field' id='db_field'>
-                            <input list='db_values' name='field_value' placeholder='Field value' id='db_values'>
+                            <input list='db_values' name='db_field_value' placeholder='Field value' id='db_values'>
                             <input type='hidden' name='parameters' id='parameters' value='". $click ."'>
                             <input type='submit' value='SEND DATA'>
                         </form>
@@ -132,9 +137,9 @@
                 }
                 break;
             case 'delete':
-                switch ($index_value[2]) {
+                switch ($db_table_name) {
                     case 'ad':
-                        $ad = new ByAccountAd($index_value[0], $index_value[1]);
+                        $ad = new ByAccountAd($first_value, $ad_account_id);
                         $keys = array_keys($ad->adPerformance);
                         echo "
                         <datalist id='db_fields'>";
@@ -148,8 +153,8 @@
                         echo "
                         <form id='db-query'>
                             <input list='db_fields' name='db_field' placeholder='Select a field' id='db_field'>
-                            <input list='db_values' name='field_value' placeholder='Field value' id='db_values'>
-                            <input type='hidden' name='". $click ."' id='parameters'>
+                            <input list='db_values' name='db_field_value' placeholder='Field value' id='db_values'>
+                            <input type='hidden' name='$click' id='parameters'>
                             <input type='submit' value='SEND DATA'>
                         </form>
                       ";

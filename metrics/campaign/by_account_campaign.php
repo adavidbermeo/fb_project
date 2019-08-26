@@ -39,7 +39,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBAG6mpvDOZCb02rFAKuVYCQQyqWvQYBV24N2BfVpe2gtBjInq4Af9iURAZCLomHsFBuRDNHbx9Jpi6RWUpzD7uUWrMRU3b7kPMdHf9ea4WkX20Eawh7FYyRj2wZBF4odvQg4SBZADPZAxelFBCw9u60gw7SNy6JrgQIWuVb74StcezD9ZCDoBvkNApMObMkJ6fQgg9kgX0BPPUWaZBVOmulMOWjTpc6WVAZDZD';
+      $this->access_token ='EAAhZAgMuzLKgBAOPBiI89WTzjp9natBn78r38iWNst6aEHCSo2CRKnOhoBR73k87kRVpXEAGOVS5ZABmTaZA9kQEZA0mhuuZCUyuVZBLgJSXCCwdVwZBLKp51andjxMSNd8nX1O8RZA9B1PvNP1ZBPDphJHoktgDJsCif7FuBlkYL3JwdLHn4YRNukX2lO7u0ZA1APFlFjZAujTxc2G25AWj7fVTNBgp46GeqDynVWW95XbZBwZDZD';
       $this->id_adAccount = $id_adAccount;
 
       /**
