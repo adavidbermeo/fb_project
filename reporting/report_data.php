@@ -3,7 +3,7 @@
     use metrics\ads\ByAccountAd;
     if(isset($_GET['selected'])){
         
-        $selected = $_GET['selected'];
+        echo $selected = $_GET['selected'];
         list($url, $click) = explode('?click=', $selected);
         // echo $click . "<br>";
         list($action_selected, $values) = explode('%', $click);
@@ -26,6 +26,7 @@
     //    print_r($index_value);
     }
     function generateResponse($index_value,$action_selected,$click){
+        echo $action_selected;
         $first_value = $index_value[0];
         $ad_account_id = $index_value[1];
         $db_table_name = $index_value[2]; 
@@ -41,22 +42,22 @@
                         echo "Se insertara la actual consulta de Anuncios. ¿Desea continuar?";
                         echo '<div class="call">';
                         echo "<a href='index.php?click=$click'>Si</a>";
-                        echo "<a href='index.php'>No</a>";
                         echo "</div>";
+                         echo "<a href='index.php'>No</a>";
                     break;
                     case 'campaign':
                         echo "Se insertara la actual consulta de Campañas. ¿Desea continuar?";
                         echo '<div class="call">';
                         echo "<a href='index.php?click=$click'>Si</a>";
-                        echo "<a href='index.php'>No</a>";
                         echo "</div>";
+                        echo "<a href='index.php'>No</a>";
                     break;
                     case 'page':
                         echo "Se insertara la actual consulta de Pagina. ¿Desea continuar?";
                         echo '<div class="call">';
                         echo "<a href='index.php?click=$click'>Si</a>";
-                        echo "<a href='index.php'>No</a>";
                         echo "</div>";
+                        echo "<a href='index.php'>No</a>";
                     break;
                           
                     default:
@@ -70,22 +71,22 @@
                         echo "Se procedera a consultar todos los registros de los anuncios existentes. ¿Desea continuar?";
                         echo "<div class='call'>";
                         echo "<a href='index.php?click=$click'>Si</a>";
-                        echo "<a href='index.php'>No</a>";
                         echo "</div>";
+                         echo "<a href='index.php'>No</a>";
                     break;
                     case 'campaign':
                         echo "Se procedera a consultar todos los registros de las campañas existentes. ¿Desea continuar?";
                         echo "<div class='call'>";
                         echo "<a href='index.php?click=$click'>Si</a>";
-                        echo "<a href='index.php'>No</a>";
                         echo "</div>";
+                        echo "<a href='index.php'>No</a>";
                     break;
                     case 'page':
                         echo "Se procedera a consultar todos los registros de la pagina solicitada. ¿Desea continuar?";
                         echo "<div class='call'>";
                         echo "<a href='index.php?click=$click'>Si</a>";
-                        echo "<a href='index.php'>No</a>";
                         echo "</div>";
+                        echo "<a href='index.php'>No</a>";
                     break;
                           
                     default:

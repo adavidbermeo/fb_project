@@ -183,3 +183,9 @@ table{
     position: relative;
     margin-top:0;
 }
+.repeat a{
+    padding: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    border-left: 0.8px solid #9b0021;
+}

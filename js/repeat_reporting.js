@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".buttons a").click(function (event) {
+    $(".repeat a").click(function (event) {
         event.preventDefault();
 
         var selected = $(this).attr('href');
@@ -7,7 +7,7 @@ $(document).ready(function () {
         // var page = $("#page").attr('href');
 
         $.ajax({
-            url: "reporting/reporting.php",
+            url: "reporting/report_data.php",
             type: "get", //send it through get method
             data: {
                 selected: selected,
