@@ -76,17 +76,24 @@
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign($ad_account_id);
-                        $campaign_array = $campaign->campaign_statistics; 
+                        $campaign_array = $campaign->db_campaign_statistics; 
 
                         $database->connectDatabase();
                         $database->insertData($db_table_name, $campaign_array);
                         break;
                      case 'page':
                         $page = new ByAccountPage($first_value, $ad_account_id,0);
-                        $page_array = $page->account_info_array;
+                        $page_array = $page->db_account_info_array;
 
                         $database->connectDatabase();
                         $database->insertData($db_table_name, $page_array);
+                        break;
+                     case 'account':
+                        $account = new AccountsPageData();
+                        $account_array = $account->db_page_data;
+
+                        $database->connectDatabase();
+                        $database->insertData($db_table_name, $account_array);
                         break;    
                     default:
                         echo "The model case does not exist";
@@ -96,22 +103,32 @@
             case 'generalselect':
                switch ($db_table_name) {
                     case 'ad':
-                     
+                        $ad = new ByAccountAd($first_value,$ad_account_id);
+                        $ad_array = $ad->adPerformance;
+
                         $database->connectDatabase();
                         $database->action();
                         break;
                      case 'campaign':
+                        $campaign = new ByAccountCampaign($ad_account_id);
+                        $campaign_array = $campaign->db_campaign_statistics; 
+
                         $database->connectDatabase();
-                        $database->action();
+                        $database->generalSelectData();
                         break;
                      case 'page':
                         $page = new ByAccountPage($first_value, $ad_account_id,0);
-                        $page_array = $page->account_info_array;
+                        $page_array = $page->db_account_info_array;
 
                         $database->connectDatabase();
-                        $database->action();
+                        $database->generalSelectData();
                         break;    
+                    case 'account':
+                        $account = new AccountsPageData();
+                        $account_array = $account->db_page_data;
 
+                        $database->connectDatabase();
+                        $database->generalSelectData($db_table_name, $account_array);
                     default:
                         echo "The model case does not exist";
                         break;
@@ -128,14 +145,17 @@
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign($ad_account_id);
-                        $campaign_array = $campaign->campaign_statistics; 
+                        $campaign_array = $campaign->db_campaign_statistics; 
 
                         $database->connectDatabase();
                         $database->specificSelectData($db_table_name, $campaign_array, $db_field, $db_field_value);
                         break;
                      case 'page':
+                        $page = new ByAccountPage($first_value,$ad_account_id, 0);
+                        $page_array = $page->db_account_info_array; 
+
                         $database->connectDatabase();
-                        $database->action();
+                        $database->specificSelectData($db_table_name, $page_array, $db_field, $db_field_value);
                         break;    
 
                     default:

@@ -47,7 +47,7 @@ session_start();
             $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBACwjzQxafgV1PkPZBt8AeHmMvk81Nnb4mNb3f4Q9bfEvHqFGaZA4sukSgq5gHc6B5vQ8E8TaQPfMmJCbUHlOa4ZCezyXQEUIPK1t4WVS9bgmCEsIhKzvQVzlEWZAKosVXPm0ErOB47VAp4GNZB0iCWn6C4w3ZCg5bZAc6MrhO2DSpCpZAsVgWbJPGpO0yTy7lI88YK8Fpu4y73vvZAl3D1Vtf0ysmCRYlewZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBAAuPeaOz4Y4HSJ24CYng4fOICq1fZAz8CnD716tPbwhW1ZCNebVni2DsMLxzpv9AOwGIENt3Evies3NMvuPwLlPk7EOJhRahcZCMZCUFd5j4emjMS00peJ0fI5UWWqGnDSgsDh9CT2D1FZBcRt9ZAPgrr9K6Mq00dC5rdpf2ZCOsE2IoNilKl0X3lrPZBF7Mte7CE2S1ZCnznc0dRssodfsnqmCmtGNt8fwZDZD';
 
             /**
              * Invoque the callMethods function 

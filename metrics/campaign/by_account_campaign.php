@@ -39,7 +39,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBACwjzQxafgV1PkPZBt8AeHmMvk81Nnb4mNb3f4Q9bfEvHqFGaZA4sukSgq5gHc6B5vQ8E8TaQPfMmJCbUHlOa4ZCezyXQEUIPK1t4WVS9bgmCEsIhKzvQVzlEWZAKosVXPm0ErOB47VAp4GNZB0iCWn6C4w3ZCg5bZAc6MrhO2DSpCpZAsVgWbJPGpO0yTy7lI88YK8Fpu4y73vvZAl3D1Vtf0ysmCRYlewZDZD';
+      $this->access_token ='EAAhZAgMuzLKgBAAuPeaOz4Y4HSJ24CYng4fOICq1fZAz8CnD716tPbwhW1ZCNebVni2DsMLxzpv9AOwGIENt3Evies3NMvuPwLlPk7EOJhRahcZCMZCUFd5j4emjMS00peJ0fI5UWWqGnDSgsDh9CT2D1FZBcRt9ZAPgrr9K6Mq00dC5rdpf2ZCOsE2IoNilKl0X3lrPZBF7Mte7CE2S1ZCnznc0dRssodfsnqmCmtGNt8fwZDZD';
       $this->ad_account_id = $ad_account_id;
 
       /**
@@ -128,6 +128,19 @@
         'action_value' => $this->action_value,
         'ad_account_id' => $this->ad_account_id,
         'ad_account_name' => $this->ad_account_name,
+      ];
+      $this->db_campaign_statistics = [
+        'campaign_id' => $this->campaign_id,
+        'campaign_name' => $this->campaign_name,
+        'c_status' => $this->status,
+        'clicks' => $this->clicks,
+        'impressions' => $this->impressions,
+        'spend' => $this->spend,
+        'reach' => $this->reach,
+        'objective' => $this->objective,
+        'cost_per_lead' => $this->cost_per_lead,
+        'cost_per_result' => $this->cost_per_result,
+        'ad_account_id' => $this->ad_account_id,
       ];
     }
     public function getCampaignStatisticsArray(){
