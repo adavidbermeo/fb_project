@@ -71,74 +71,48 @@ class DbStatistics{
                 break;
         }
     }
-    public function selectData($action, $table, $array){
-       
+    public function specificSelectData($table, $array, $field, $value){
+        $keys = array_keys($array);
+        $this->sql = "SELECT * FROM $table WHERE $field = $value";
+        // Answer
+        $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica');
+        if (mysqli_num_rows($this->result) > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_assoc($this->result)) {
+                foreach ($keys as $key) {
+                    echo $key .": ". $row[$key] . "<br>";
+                }
+            }
+        }else{
+            echo "0 results";
+        }
+    }
+    public function generalSelectData($table, $value){
+        $this->sql = "SELECT * FROM $table WHERE 'ad_account_id' = $value";
+        // Answer
+        $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general');
+        if (mysqli_num_rows($this->result) > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_assoc($this->result)) {
+                $keys = array_keys($row);
+                foreach ($keys as $key) {
+                    echo $key .": ". $row[$key] . "<br>";
+                }
+            }
+        }else{
+            echo "0 results";
+        }
     }
     public function action($action,$table,$array,$fields = 0,$values = 0){
         /**
-         * $crud = 'insert', 'select', 'update' or 'delete'
+         * DELETE
          */
-        switch ($action) {
-            case 'insert':
-                for ($iterador=0; $iterador <25 ; $i++) { 
-                    for ($i=0; $i <count($values[$fields]); $i++) { 
-                        
-                        $this->sql = "INSERT INTO '$table' VALUES (null , ".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].",".$values[$field][$i][$i].")";
-                        // Answer
-                        $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
-                    }
-                }
-                // if ($this->result) {
-                //     echo "Se han insertado correctamente los datos";
-                // }
-                    break;
-
-            case 'specificselect':
-                $keys = array_keys($array);
-                $this->sql = "SELECT * FROM $table WHERE $fields = $values";
-                // Answer
-                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica');
-                if (mysqli_num_rows($this->result) > 0) {
-                    // output data of each row
-                    while($row = mysqli_fetch_assoc($this->result)) {
-                        foreach ($keys as $key) {
-                            echo $key .": ". $row[$key] . "<br>";
-                        }
-                       
-                    }
-                }else{
-                    echo "0 results";
-                }
-                break;
-            case 'generalselect':
-                $this->sql = "SELECT * FROM $table";
-                // Answer
-                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general');
-                if (mysqli_num_rows($this->result) > 0) {
-                    // output data of each row
-                    while($row = mysqli_fetch_assoc($this->result)) {
-                        $keys = array_keys($row);
-                        foreach ($keys as $key) {
-                            echo $key .": ". $row[$key] . "<br>";
-                        }
-                        
-                    }
-                }else{
-                    echo "0 results";
-                }
-                break;
-            case 'delete':
-                $this->sql = "DELETE FROM '$table' WHERE '$fields' = '$values'";
-                // Answer
-                $this->result = mysqli_query($this->con, $this->sql) or die('No se elimino ningun registro');
-                if ($this->result) {
-                    echo "Se han eliminado correctamente los datos";
-                }
-                break;        
-            default:
-                echo "There is no server answer";
-                break;
-        }
+        $this->sql = "DELETE FROM '$table' WHERE '$fields' = '$values'";
+        // Answer
+        $this->result = mysqli_query($this->con, $this->sql) or die('No se elimino ningun registro');
+        if ($this->result) {
+            echo "Se han eliminado correctamente los datos";
+        }      
     } 
 }
 

@@ -134,8 +134,9 @@ Class ByAccountPage{
       'people_paid_like' => $this->people_paid_like,  
       'people_unpaid_like' => $this->people_unpaid_like,  
       'fans_age_gender' => $this->fans_age_gender,  
-      'fans_city' => $this->fans_city,  
-      'page_post_engagements' => $this->page_post_engagements,  
+      'fans_city' => $this->fans_city,
+      'ad_account_id' => $this->ad_account_id,    
+      'page_post_engagements' => $this->page_post_engagements
     ];
   }
   public function getArrayAccountInfo(){

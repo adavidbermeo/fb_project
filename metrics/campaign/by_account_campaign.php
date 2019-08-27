@@ -16,7 +16,7 @@
     public $campaign_statistics = [];
     
 
-    public $id_adAccount;
+    public $ad_account_id;
     public $ad_account_name;
     public $campaign_name = [];
     public $campaign_id = [];
@@ -33,14 +33,14 @@
 
 
     // Methods 
-    public function __construct($id_adAccount){
+    public function __construct($ad_account_id){
       $this->fb = new FB([
         'app_id' => '2350209521888424',
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
       $this->access_token ='EAAhZAgMuzLKgBAN4NuetbZC5eBdJxHZClTNKqkhTEhE2koVniCFnIn7zUMvysf7ZBsoVYKt7ZBoWGpDs8G5cGwRKlAuhek67laYZAe4qozWfp8xZCQieehseLVopPW8ETyKXbyj7PYzTLSYES8dtnlA3vJHSweA2VTn5pyA1qHsNIuwZChbrToXFbJ8v2Doj60XCnU66LH87u6lGtl3LsB70pOxG7FvXKgQq7UoQyPh6dwZDZD';
-      $this->id_adAccount = $id_adAccount;
+      $this->ad_account_id = $ad_account_id;
 
       /**
        * Invoque the CallMethods function
@@ -63,7 +63,7 @@
     public function setRequest(){
       try {
         // Returns a `FacebookFacebookResponse` object
-        $this->request = $this->fb->get( $this->id_adAccount .'?fields=name,id,campaigns{name,status,objective,insights{clicks,impressions,spend,reach,objective,cost_per_unique_click,cost_per_conversion,cost_per_action_type}}&limit=100',$this->access_token);
+        $this->request = $this->fb->get( $this->ad_account_id .'?fields=name,id,campaigns{name,status,objective,insights{clicks,impressions,spend,reach,objective,cost_per_unique_click,cost_per_conversion,cost_per_action_type}}&limit=100',$this->access_token);
       } catch(FacebookExceptionsFacebookResponseException $e) {
         echo 'Graph returned an error: ' . $e->getMessage();
         exit;
@@ -126,7 +126,7 @@
         'cost_per_result' => $this->cost_per_result,
         'action_type' => $this->action_type,
         'action_value' => $this->action_value,
-        'id_adAccount' => $this->id_adAccount,
+        'ad_account_id' => $this->ad_account_id,
         'ad_account_name' => $this->ad_account_name,
       ];
     }
@@ -183,7 +183,7 @@
     public function callReporting(){
         echo "
           <div id='callReporting'>
-            <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->id_adAccount ."&tablename=". $this->db_table_name ."' id='reporting-campaign'>Campaign Reporting</a>
+            <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting-campaign'>Campaign Reporting</a>
           </div>
           <script type='text/javascript' src='js/option_report.js'></script>";
     } 
