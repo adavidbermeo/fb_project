@@ -129,21 +129,6 @@
         'id_adAccount' => $this->id_adAccount,
         'ad_account_name' => $this->ad_account_name,
       ];
-      $this->database_campaign_statistics = [
-        'campaign_id' => $this->campaign_id,
-        'campaign_name' => $this->campaign_name,
-        'status' => $this->status,
-        'clicks' => $this->clicks,
-        'impressions' => $this->impressions,
-        'spend' => $this->spend,
-        'reach' => $this->reach,
-        'objective' => $this->objective,
-        'cost_per_lead' => $this->cost_per_lead,
-        'action_type' => $this->action_type,
-        'action_value' => $this->action_value,
-        'id_adAccount' => $this->id_adAccount,
-      ];
-      
     }
     public function getCampaignStatisticsArray(){
       // echo "<pre>";

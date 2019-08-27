@@ -137,14 +137,6 @@ Class ByAccountPage{
       'fans_city' => $this->fans_city,  
       'page_post_engagements' => $this->page_post_engagements,  
     ];
-     $this->database_account_info_array = [
-      'id_page'=>$this->id_page,
-      'end_time' => $this->end_time,
-      'total_new_likes' => $this->total_new_likes,  
-      'people_paid_like' => $this->people_paid_like,  
-      'people_unpaid_like' => $this->people_unpaid_like,  
-      'page_post_engagements' => $this->page_post_engagements,  
-    ];
   }
   public function getArrayAccountInfo(){
     print_r($this->account_info_array);

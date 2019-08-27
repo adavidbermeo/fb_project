@@ -72,12 +72,10 @@
                         
                         $ad = new ByAccountAd($first_value,$ad_account_id);
                         $array = $ad->adPerformance;
-                        // $fields = array_keys($ad->adPerformance);
-                        // print_r($fields);
 
                         $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
-                        $database->insertAd($db_table_name, $array);
+                        $database->insert($db_table_name, $array);
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign('');

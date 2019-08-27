@@ -21,22 +21,48 @@ class DbStatistics{
     }
     public function connectDatabase(){
         $this->con = mysqli_connect($this->host,$this->username,$this->password, $this->database) or die('Error Connection Database');
+        $this->con->set_charset('utf8');
         // echo "Se ha conectado correctamente";
     }
-    public function insertAd($table, $array){
-        $field = array_keys($array);
+    public function insert($table, $array){
+        // $field = array_keys($array);
+        switch ($table) {
+            case 'ad':
+                for ($i=0; $i <count($array['ad_ids']) ; $i++) { 
+                    // Answer
+                    error_reporting(0);
+                    $this->sql = "INSERT INTO $table VALUES (null ,'". $array['ad_ids'][$i] ."','". $array['ad_name'][$i] ."','". $array['ad_effective_status'][$i] ."','". $array['post_page_id'][$i] ."','". $array['post_ids'][$i] ."','". $array['interactions'][$i] ."','". $array['ad_account_id'] ."','". $array['likes'][$i] ."','". $array['love'][$i] ."','". $array['wow'][$i] ."','". $array['haha'][$i] ."','". $array['sorry'][$i] ."','". $array['anger'][$i] ."','". $array['total_reactions'][$i] ."','". $array['impressions_paid'][$i] ."','". $array['impressions_organic'][$i] ."','". $array['total_impressions'][$i] ."','". $array['post_clicks'][$i] ."')";   
+                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
+                }
+                if(mysqli_affected_rows($this->con)>0){
+                    echo "Sus datos fueron insertados correctamente";
+                }else{
+                "Hubo un error en la insercion. Intentelo de nuevo";
+                }
+                break;
+            case 'campaign':
+                for ($i=0; $i <count($array['campaign_id']) ; $i++) { 
+                    // Answer
+                    error_reporting(0);
+                    $this->sql = "INSERT INTO $table VALUES (null ,'". $array['ad_ids'][$i] ."','". $array['ad_name'][$i] ."','". $array['ad_effective_status'][$i] ."','". $array['post_page_id'][$i] ."','". $array['post_ids'][$i] ."','". $array['interactions'][$i] ."','". $array['ad_account_id'] ."','". $array['likes'][$i] ."','". $array['love'][$i] ."','". $array['wow'][$i] ."','". $array['haha'][$i] ."','". $array['sorry'][$i] ."','". $array['anger'][$i] ."','". $array['total_reactions'][$i] ."','". $array['impressions_paid'][$i] ."','". $array['impressions_organic'][$i] ."','". $array['total_impressions'][$i] ."','". $array['post_clicks'][$i] ."')";   
+                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
+                }
+                if(mysqli_affected_rows($this->con)>0){
+                    echo "Sus datos fueron insertados correctamente";
+                }else{
+                "Hubo un error en la insercion. Intentelo de nuevo";
+                }
+                break;
+            case 'page':
+                # code...
+                break;
+            default:
+                # code...
+                break;
+        }
+        
 
-        for ($i=0; $i <25 ; $i++) { 
-            // Answer
-            error_reporting(0);
-            $this->sql = "INSERT INTO $table VALUES (null ,'". $array['ad_ids'][$i] ."','". $array['ad_name'] ."','". $array['ad_effective_status'][$i] ."','". $array['post_page_id'][$i] ."','". $array['post_ids'][$i] ."','". $array['interactions'][$i] ."','". $array['ad_account_id'] ."','". $array['likes'][$i] ."','". $array['love'][$i] ."','". $array['wow'][$i] ."','". $array['haha'][$i] ."','". $array['sorry'][$i] ."','". $array['anger'][$i] ."','". $array['total_reactions'][$i] ."','". $array['impressions_paid'][$i] ."','". $array['impressions_organic'][$i] ."','". $array['total_impressions'][$i] ."','". $array['post_clicks'][$i] ."')";   
-            $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
-        }
-        if(mysqli_affected_rows($this->con)>0){
-            echo "Sus datos fueron insertados correctamente";
-        }else{
-            "Hubo un error en la insercion. Intentelo de nuevo";
-        }
+       
 
         // switch ($table) {
         //     case 'ad':
