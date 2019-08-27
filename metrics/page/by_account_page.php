@@ -10,34 +10,36 @@ Class ByAccountPage{
   // Attributes
   public $db_table_name = "page";
 
-  protected $fb;
-  protected $app_access_token;
-  protected $page_access_token;
-  protected $id_page;
-  protected $response;
-  protected $page_name;
+  public $more_interaction;
+  public $fb;
+  public $app_access_token;
+  public $page_access_token;
+  public $id_page;
+  public $response;
+  public $page_name;
 
-  protected $end_time= [];
-  protected $total_new_likes= [];
-  protected $people_paid_like= [];
-  protected $people_unpaid_like= [];
-  protected $fans_age_gender= [];
-  protected $fans_city= [];
-  protected $page_post_engagements= [];
+  public $end_time= [];
+  public $total_new_likes= [];
+  public $people_paid_like= [];
+  public $people_unpaid_like= [];
+  public $fans_age_gender= [];
+  public $fans_city= [];
+  public $page_post_engagements= [];
 
-  protected $account_info_array= [];
+  public $account_info_array= [];
   
 
   // Methods
-  public function __construct($id_page, $ad_account_id){
+  public function __construct($id_page, $ad_account_id, $more_interaction = 0){
     $this->fb = new FB([
       'app_id' => '2350209521888424',
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
       'default_graph_version' => 'v3.3',
     ]);
-    $this->app_access_token ='EAAhZAgMuzLKgBAN4NuetbZC5eBdJxHZClTNKqkhTEhE2koVniCFnIn7zUMvysf7ZBsoVYKt7ZBoWGpDs8G5cGwRKlAuhek67laYZAe4qozWfp8xZCQieehseLVopPW8ETyKXbyj7PYzTLSYES8dtnlA3vJHSweA2VTn5pyA1qHsNIuwZChbrToXFbJ8v2Doj60XCnU66LH87u6lGtl3LsB70pOxG7FvXKgQq7UoQyPh6dwZDZD';
+    $this->app_access_token ='EAAhZAgMuzLKgBADHwm5HS6gZCZCV18SwyVJZCKhg7hvuI958yd1HuZAIJhRdhiKWSmjPuhu9UoaU2MnCZCmh4LAsNxMXNKg2V2NfjVwaXtaJZBe8eDZCP8ZCvGQB0XjSahtQIQlN1mjn3ZCKQuupBVVCnAq8VKzIXwKZAuPpgVzTW1APpvZC7edOSMb3ZABnRZAEXVqrVsTGlUBZBrvvb06G5u4xiAGpZBXldIJF8o29JOrHBWmyXQZDZD';
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
+    $this->more_interaction = $more_interaction;
 
     /**
      * Pre-load methods 
@@ -58,9 +60,10 @@ Class ByAccountPage{
     // $this->getAgeGenderTable();
     // $this->getfansCityTable();
     // $this->callReporting();
-    
-    $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id);
-    $most_interactionsPost->moreInteraction();
+    if($this->more_interaction == TRUE){
+      $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id);
+      $most_interactionsPost->moreInteraction();
+    }
   }
    public function setAccessToken(){
     $request = $this->fb->get($this->id_page. '?fields=access_token,name',$this->app_access_token); 

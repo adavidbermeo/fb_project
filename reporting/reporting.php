@@ -15,15 +15,6 @@
         $db_field = $_POST['db_field'];
         $db_field_value = $_POST['field_value'];
 
-        // list($action_selected, $values) = explode('%', $click);
-
-        // list($index1,$index2,$index3) = explode('&',$values);
-
-        // $indexs = [$index1, $index2, $index3];
-        // foreach ($indexs as $index) {
-        //     list($entrada[], $index_value[]) = explode('=',$index);
-        // }
-
         //Execute function
         reportingInfo($click, $db_field, $db_field_value);
 
@@ -68,38 +59,35 @@
         echo "<h3>Reporting System &copy;</h3>";
         // echo $parameters;
 
+        /***
+         * Database Object
+         */
         $database = new DbStatistics('localhost','root','','fb_project');
 
         switch ($action_selected){
             case 'insert':  
                 switch ($db_table_name) {
                     case 'ad':
-                        
                         $ad = new ByAccountAd($first_value,$ad_account_id);
-                        $array = $ad->adPerformance;
+                        $ad_array = $ad->adPerformance;
 
-                        
                         $database->connectDatabase();
-                        $database->insertData($db_table_name, $array);
+                        $database->insertData($db_table_name, $ad_array);
                         break;
                      case 'campaign':
-                        
                         $campaign = new ByAccountCampaign($ad_account_id);
-                        $array = $campaign->campaign_statistics;
+                        $campaign_array = $campaign->campaign_statistics; 
 
                         $database->connectDatabase();
-
-                        $database->insertData($db_table_name, $array);
+                        $database->insertData($db_table_name, $campaign_array);
                         break;
                      case 'page':
-                        $page = new ByAccountPage($first_value, $ad_account_id);
-                        $array = $page->account_info_array;
-                       
+                        $page = new ByAccountPage($first_value, $ad_account_id,0);
+                        $page_array = $page->account_info_array;
+
                         $database->connectDatabase();
-
-                        $database->insertData($db_table_name, $array);
+                        $database->insertData($db_table_name, $page_array);
                         break;    
-
                     default:
                         echo "The model case does not exist";
                         break;
@@ -108,84 +96,70 @@
             case 'generalselect':
                switch ($db_table_name) {
                     case 'ad':
-                        $ad = new ByAccountAd($first_value,$ad_account_id);
+                     
                         $database->connectDatabase();
-
                         $database->action();
                         break;
                      case 'campaign':
-                        $campaign = new ByAccountCampaign('');
                         $database->connectDatabase();
-
                         $database->action();
                         break;
                      case 'page':
-                        $page = new ByAccountPage('');
-                        $database->connectDatabase();
+                        $page = new ByAccountPage($first_value, $ad_account_id,0);
+                        $page_array = $page->account_info_array;
 
+                        $database->connectDatabase();
                         $database->action();
                         break;    
 
                     default:
-                        # code...
+                        echo "The model case does not exist";
                         break;
                 }
-
                 break;
             case 'specificselect':
                switch ($db_table_name) {
                     case 'ad':
-                        $ad = new ByAccountAd($first_value, $ad_account_id);
-                        $array = $ad->adPerformance;
+                        $ad = new ByAccountAd($first_value,$ad_account_id);
+                        $ad_array = $ad->adPerformance;
 
                         $database->connectDatabase();
-
-                        $database->action($action_selected, $db_table_name, $array, $db_field, $db_field_value);
+                        $database->specificSelectData($db_table_name, $ad_array, $db_field, $db_field_value);
                         break;
                      case 'campaign':
                         $campaign = new ByAccountCampaign($ad_account_id);
-                        $database->connectDatabase();
+                        $campaign_array = $campaign->campaign_statistics; 
 
-                        $database->action();
+                        $database->connectDatabase();
+                        $database->specificSelectData($db_table_name, $campaign_array, $db_field, $db_field_value);
                         break;
                      case 'page':
-                        $page = new ByAccountPage('');
                         $database->connectDatabase();
-
                         $database->action();
                         break;    
 
                     default:
-                        # code...
+                        echo "The model case does not exist";
                         break;
                 }
                 break;
             case 'delete':
                 switch ($db_table_name) {
                     case 'ad':
-                        $ad = new ByAccountAd('');
-                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
-
                         $database->action();
                         break;
                      case 'campaign':
-                        $campaign = new ByAccountCampaign('');
-                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
-
                         $database->action();
                         break;
                      case 'page':
-                        $page = new ByAccountPage('');
-                        $database = new DbStatistics('localhost','root','','fb_project');
                         $database->connectDatabase();
-
                         $database->action();
                         break;    
 
                     default:
-                        # code...
+                       echo "The model case does not exist";
                         break;
                 }
                 break;

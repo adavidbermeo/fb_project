@@ -80,7 +80,9 @@ class DbStatistics{
             // output data of each row
             while($row = mysqli_fetch_assoc($this->result)) {
                 foreach ($keys as $key) {
-                    echo $key .": ". $row[$key] . "<br>";
+                    if($row[$key]){
+                        echo $key .": ". $row[$key] . "<br>";
+                    }
                 }
             }
         }else{
@@ -96,24 +98,23 @@ class DbStatistics{
             while($row = mysqli_fetch_assoc($this->result)) {
                 $keys = array_keys($row);
                 foreach ($keys as $key) {
-                    echo $key .": ". $row[$key] . "<br>";
+                    if($row[$key]){
+                        echo $key .": ". $row[$key] . "<br>";
+                    }
                 }
             }
         }else{
             echo "0 results";
         }
     }
-    public function action($action,$table,$array,$fields = 0,$values = 0){
-        /**
-         * DELETE
-         */
-        $this->sql = "DELETE FROM '$table' WHERE '$fields' = '$values'";
+    public function deleteData($table, $value){
+         $this->sql = "DELETE FROM '$table' WHERE '$fields' = '$values'";
         // Answer
         $this->result = mysqli_query($this->con, $this->sql) or die('No se elimino ningun registro');
         if ($this->result) {
             echo "Se han eliminado correctamente los datos";
         }      
-    } 
+    }
 }
 
 // $con = mysqli_connect('127.0.0.1','root','','fb_project') or die('Connection Error');
