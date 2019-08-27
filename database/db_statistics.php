@@ -24,7 +24,7 @@ class DbStatistics{
         $this->con->set_charset('utf8');
         // echo "Se ha conectado correctamente";
     }
-    public function insert($table, $array){
+    public function insertData($table, $array){
         // $field = array_keys($array);
         switch ($table) {
             case 'ad':
@@ -44,7 +44,7 @@ class DbStatistics{
                 for ($i=0; $i <count($array['campaign_id']) ; $i++) { 
                     // Answer
                     error_reporting(0);
-                    $this->sql = "INSERT INTO $table VALUES (null ,'". $array['ad_ids'][$i] ."','". $array['ad_name'][$i] ."','". $array['ad_effective_status'][$i] ."','". $array['post_page_id'][$i] ."','". $array['post_ids'][$i] ."','". $array['interactions'][$i] ."','". $array['ad_account_id'] ."','". $array['likes'][$i] ."','". $array['love'][$i] ."','". $array['wow'][$i] ."','". $array['haha'][$i] ."','". $array['sorry'][$i] ."','". $array['anger'][$i] ."','". $array['total_reactions'][$i] ."','". $array['impressions_paid'][$i] ."','". $array['impressions_organic'][$i] ."','". $array['total_impressions'][$i] ."','". $array['post_clicks'][$i] ."')";   
+                    $this->sql = "INSERT INTO $table VALUES ('". $array['campaign_id'][$i] ."','". $array['campaign_name'][$i] ."','". $array['c_status'][$i] ."','". $array['clicks'][$i] ."','". $array['impressions'][$i] ."','". $array['spend'][$i] ."','". $array['reach'][$i] ."','". $array['objective'][$i] ."','". $array['cost_per_lead'][$i] ."','". $array['action_type'][$i]."  => ".$array['action_value'][$i]."','". $array['id_adAccount'] ."')";   
                     $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
                 }
                 if(mysqli_affected_rows($this->con)>0){
@@ -54,43 +54,25 @@ class DbStatistics{
                 }
                 break;
             case 'page':
-                # code...
+                for ($i=0; $i <count($array['id_page']) ; $i++) { 
+                    // Answer
+                    error_reporting(0);
+                    $this->sql = "INSERT INTO $table VALUES ('". $array['id_page'][$i] ."','". $array['end_time'][$i] ."','". $array['total_new_likes'][$i] ."','". $array['people_paid_like'][$i] ."','". $array['people_unpaid_like'][$i] ."','". $array['page_post_engagement'][$i] ."')";   
+                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
+                }
+                if(mysqli_affected_rows($this->con)>0){
+                    echo "Sus datos fueron insertados correctamente";
+                }else{
+                "Hubo un error en la insercion. Intentelo de nuevo";
+                }
                 break;
             default:
-                # code...
+                echo "Check the argument values and try again";
                 break;
         }
-        
-
+    }
+    public function selectData($action, $table, $array){
        
-
-        // switch ($table) {
-        //     case 'ad':
-        //     //    for ($iterador=0; $iterador <25 ; $i++) { 
-        //             // for ($i=0; $i <count($array[$field]); $i++) { 
-                        
-        //             //     $this->sql = "INSERT INTO '$table' VALUES (null , ".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].",".$array[$field][$i][$i].")";
-        //             //     // Answer
-        //             //     $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
-        //             // }
-        //         // }
-        //         // if(mysqli_affected_rows($con)>0){
-        //         //     echo "Sus datos fueron insertados correctamente";
-        //         // }else{
-        //         //     "Hubo un error en la insercion. Intentelo de nuevo";
-        //         // }
-
-        //         break;
-        //     case 'campaign':
-        //         # code...
-        //         break;
-        //     case 'page':
-        //         # code...
-        //         break;    
-        //     default:
-        //         echo "Error";
-        //         break;
-        // }
     }
     public function action($action,$table,$array,$fields = 0,$values = 0){
         /**

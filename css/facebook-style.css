@@ -189,3 +189,6 @@ table{
     display: inline-block;
     border-left: 0.8px solid #9b0021;
 }
+.repeat a:hover{
+    text-decoration: none;
+}

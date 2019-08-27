@@ -39,7 +39,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBAGZAiZC3GoY4ONFfejymY1ez6ibebLZBc3d8yWUhZAxm68GHJUSquTMZAgAycpwPjZA9jXqxZANtS8qlcd7qA1ZB8ZAgp17GN2WYDV8mcGYyfj7wXaork5FCt8BLzmdBh2Cl9E3E3ZA9K4XArd4zK1ZBEABL5qqrN154kqbZA7ZChVGaSGFb4GxqmSMOg5S7aZCR53ugZDZD';
+      $this->access_token ='EAAhZAgMuzLKgBAN4NuetbZC5eBdJxHZClTNKqkhTEhE2koVniCFnIn7zUMvysf7ZBsoVYKt7ZBoWGpDs8G5cGwRKlAuhek67laYZAe4qozWfp8xZCQieehseLVopPW8ETyKXbyj7PYzTLSYES8dtnlA3vJHSweA2VTn5pyA1qHsNIuwZChbrToXFbJ8v2Doj60XCnU66LH87u6lGtl3LsB70pOxG7FvXKgQq7UoQyPh6dwZDZD';
       $this->id_adAccount = $id_adAccount;
 
       /**
@@ -58,7 +58,7 @@
       //$this->getCampaignStatisticsArray();
 
       // $this->getCampaignStatisticsTable();
-      $this->callReporting();
+      // $this->callReporting();
     }
     public function setRequest(){
       try {
@@ -116,7 +116,7 @@
       $this->campaign_statistics = [
         'campaign_id' => $this->campaign_id,
         'campaign_name' => $this->campaign_name,
-        'status' => $this->status,
+        'c_status' => $this->status,
         'clicks' => $this->clicks,
         'impressions' => $this->impressions,
         'spend' => $this->spend,
@@ -159,7 +159,7 @@
             echo '
             <tbody>
               <tr>';
-                $metrics = ['campaign_id','campaign_name','status', 'clicks','impressions','spend','reach','objective','cost_per_lead'];
+                $metrics = ['campaign_id','campaign_name','c_status', 'clicks','impressions','spend','reach','objective','cost_per_lead'];
                 foreach ($metrics as $key){
                   if(@$this->campaign_statistics[$key][$i]){
                     echo '<td>' . $this->campaign_statistics[$key][$i] . '</td>';
