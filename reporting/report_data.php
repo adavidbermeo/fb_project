@@ -3,7 +3,7 @@
     use metrics\ads\ByAccountAd;
     if(isset($_GET['selected'])){
         
-        echo $selected = $_GET['selected'];
+        $selected = $_GET['selected'];
         list($url, $click) = explode('?click=', $selected);
         // echo $click . "<br>";
         list($action_selected, $values) = explode('%', $click);
@@ -26,7 +26,7 @@
     //    print_r($index_value);
     }
     function generateResponse($index_value,$action_selected,$click){
-        echo $action_selected;
+        
         $first_value = $index_value[0];
         $ad_account_id = $index_value[1];
         $db_table_name = $index_value[2]; 

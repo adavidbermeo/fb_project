@@ -185,7 +185,7 @@
                         break;    
 
                     default:
-                        echo ""
+                        # code...
                         break;
                 }
                 break;
