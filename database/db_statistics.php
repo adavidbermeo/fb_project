@@ -54,12 +54,11 @@ class DbStatistics{
                 }
                 break;
             case 'page':
-                for ($i=0; $i <count($array['id_page']) ; $i++) { 
-                    // Answer
-                    error_reporting(0);
-                    $this->sql = "INSERT INTO $table VALUES ('". $array['id_page'][$i] ."','". $array['end_time'][$i] ."','". $array['total_new_likes'][$i] ."','". $array['people_paid_like'][$i] ."','". $array['people_unpaid_like'][$i] ."','". $array['page_post_engagement'][$i] ."')";   
-                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
-                }
+                // Answer
+                error_reporting(0);
+                $this->sql = "INSERT INTO $table VALUES ('". $array['id_page'] ."','". $array['end_time'] ."','". $array['total_new_likes'] ."','". $array['people_paid_like'] ."','". $array['people_unpaid_like'] ."','". $array['ad_account_id'] ."','". $array['page_post_engagement'] ."')";   
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
+
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";
                 }else{

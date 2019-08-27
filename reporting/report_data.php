@@ -11,7 +11,7 @@
         list($action_selected, $values) = explode('%', $click);
         list($index1,$index2,$index3) = explode('&',$values);
         $indexs =[$index1,$index2,$index3];
-        foreach ($indexs as $index) {
+        foreach ($indexs as $index){
             list($entrada[],$index_value[]) = explode('=',$index);
         }
         generateResponse($index_value,$action_selected,$click);
