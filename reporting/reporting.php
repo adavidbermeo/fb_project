@@ -3,6 +3,7 @@
     use metrics\ads\ByAccountAd;
     use metrics\campaign\ByAccountCampaign;
     use metrics\page\ByAccountPage;
+    use functions\AccountsPageData;
     use Database\DbStatistics;
 
     if(isset($_GET['selected'])){
@@ -143,21 +144,26 @@
                         $database->connectDatabase();
                         $database->specificSelectData($db_table_name, $ad_array, $db_field, $db_field_value);
                         break;
-                     case 'campaign':
+                    case 'campaign':
                         $campaign = new ByAccountCampaign($ad_account_id);
                         $campaign_array = $campaign->db_campaign_statistics; 
 
                         $database->connectDatabase();
                         $database->specificSelectData($db_table_name, $campaign_array, $db_field, $db_field_value);
                         break;
-                     case 'page':
+                    case 'page':
                         $page = new ByAccountPage($first_value,$ad_account_id, 0);
                         $page_array = $page->db_account_info_array; 
 
                         $database->connectDatabase();
                         $database->specificSelectData($db_table_name, $page_array, $db_field, $db_field_value);
                         break;    
+                    case 'account':
+                        $account = new AccountsPageData();
+                        $account_array = $account->db_page_data;
 
+                        $database->connectDatabase();
+                        $database->specificSelectData($db_table_name, $account_array, $db_field, $db_field_value);
                     default:
                         echo "The model case does not exist";
                         break;

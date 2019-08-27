@@ -42,7 +42,7 @@ Class AccountsPageData{
         $this->setAccountsPageData();
         $this->callFunction();
         $this->setArray();
-        // $this->callReporting();
+        $this->callReporting();
     }
     public function setDataArray(){
         $GraphRequest = $this->request->getGraphEdge();
@@ -152,11 +152,12 @@ Class AccountsPageData{
         print_r($this->page_data);      
     }
     public function callReporting(){
-      echo "
-      <div id='callReporting'>
-        <a href='index.php?pagename=" . $this->page_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting-account'>Click Here</a>
-      </div>
-      <script type='text/javascript' src='js/option_report.js'></script>";
+        error_reporting(0);
+        echo "
+        <div id='callReporting'>
+            <a href='index.php?pagename=" . $this->page_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting-account'>Acccount Reporting</a>
+        </div>
+        <script type='text/javascript' src='js/option_report.js'></script>";
     }
     public function getCountPageData(){
         return count($this->page_name);

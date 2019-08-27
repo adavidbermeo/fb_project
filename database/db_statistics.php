@@ -37,7 +37,7 @@ class DbStatistics{
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";
                 }else{
-                "Hubo un error en la insercion. Intentelo de nuevo";
+                    echo "Hubo un error en la insercion. Intentelo de nuevo";
                 }
                 break;
             case 'campaign':
@@ -50,7 +50,7 @@ class DbStatistics{
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";
                 }else{
-                "Hubo un error en la insercion. Intentelo de nuevo";
+                    echo "Hubo un error en la insercion. Intentelo de nuevo";
                 }
                 break;
             case 'page':
@@ -59,6 +59,20 @@ class DbStatistics{
                 $this->sql = "INSERT INTO $table VALUES ('". $array['id_page'] ."','". $array['end_time'] ."','". $array['total_new_likes'] ."','". $array['people_paid_like'] ."','". $array['people_unpaid_like'] ."','". $array['ad_account_id'] ."','". $array['page_post_engagement'] ."')";   
                 $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
 
+                if(mysqli_affected_rows($this->con)>0){
+                    echo "Sus datos fueron insertados correctamente";
+                }else{
+                    echo "Hubo un error en la insercion. Intentelo de nuevo";
+                }
+                break;
+             case 'account':
+                // Answer
+                for ($i=0; $i <count($array['ad_acount_id']) ; $i++) { 
+                    // Answer
+                    // error_reporting(0);
+                    $this->sql = "INSERT INTO $table VALUES ('". $array['ad_account_id'][$i] ."','". $array['page_name'][$i] ."')";   
+                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
+                }
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";
                 }else{
@@ -107,7 +121,7 @@ class DbStatistics{
         }
     }
     public function deleteData($table, $value){
-         $this->sql = "DELETE FROM '$table' WHERE '$fields' = '$values'";
+        $this->sql = "DELETE FROM '$table' WHERE '$fields' = '$values'";
         // Answer
         $this->result = mysqli_query($this->con, $this->sql) or die('No se elimino ningun registro');
         if ($this->result) {

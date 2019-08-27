@@ -3,6 +3,7 @@
     use metrics\ads\ByAccountAd;
     use metrics\campaign\ByAccountCampaign;
     use metrics\page\ByAccountPage;
+    use functions\AccountsPageData;
 
     if(isset($_GET['selected'])){
         
