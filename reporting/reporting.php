@@ -23,6 +23,12 @@
         echo "There is no data";
     }
     function reportingInfo($selected, $db_field = 0, $db_field_value = 0){
+
+        echo "select: ". $selected . "<br>";
+        echo "db_field: ". $db_field . "<br>";
+        echo "db_field_value  " . $db_field_value . "<br>";
+
+
         if($db_field and $db_field_value){
             $click = $selected;
             list($action_selected, $values) = explode('%', $click);
@@ -102,73 +108,17 @@
                 }
                 break;
             case 'generalselect':
-               switch ($db_table_name) {
-                    case 'ad':
-                        $ad = new ByAccountAd($first_value,$ad_account_id);
-                        $ad_array = $ad->adPerformance;
 
-                        $database->connectDatabase();
-                        $database->action();
-                        break;
-                     case 'campaign':
-                        $campaign = new ByAccountCampaign($ad_account_id);
-                        $campaign_array = $campaign->db_campaign_statistics; 
+                $database->connectDatabase();
+                $database->generalSelectData($db_table_name, $ad_account_id);
+                break;        
 
-                        $database->connectDatabase();
-                        $database->generalSelectData();
-                        break;
-                     case 'page':
-                        $page = new ByAccountPage($first_value, $ad_account_id,0);
-                        $page_array = $page->db_account_info_array;
-
-                        $database->connectDatabase();
-                        $database->generalSelectData();
-                        break;    
-                    case 'account':
-                        $account = new AccountsPageData();
-                        $account_array = $account->db_page_data;
-
-                        $database->connectDatabase();
-                        $database->generalSelectData($db_table_name, $account_array);
-                    default:
-                        echo "The model case does not exist";
-                        break;
-                }
-                break;
             case 'specificselect':
-               switch ($db_table_name) {
-                    case 'ad':
-                        $ad = new ByAccountAd($first_value,$ad_account_id);
-                        $ad_array = $ad->adPerformance;
 
-                        $database->connectDatabase();
-                        $database->specificSelectData($db_table_name, $ad_array, $db_field, $db_field_value);
-                        break;
-                    case 'campaign':
-                        $campaign = new ByAccountCampaign($ad_account_id);
-                        $campaign_array = $campaign->db_campaign_statistics; 
-
-                        $database->connectDatabase();
-                        $database->specificSelectData($db_table_name, $campaign_array, $db_field, $db_field_value);
-                        break;
-                    case 'page':
-                        $page = new ByAccountPage($first_value,$ad_account_id, 0);
-                        $page_array = $page->db_account_info_array; 
-
-                        $database->connectDatabase();
-                        $database->specificSelectData($db_table_name, $page_array, $db_field, $db_field_value);
-                        break;    
-                    case 'account':
-                        $account = new AccountsPageData();
-                        $account_array = $account->db_page_data;
-
-                        $database->connectDatabase();
-                        $database->specificSelectData($db_table_name, $account_array, $db_field, $db_field_value);
-                    default:
-                        echo "The model case does not exist";
-                        break;
-                }
+                $database->connectDatabase();
+                $database->specificSelectData($db_table_name, $ad_account_id, $db_field, $db_field_value);
                 break;
+
             case 'delete':
                 switch ($db_table_name) {
                     case 'ad':

@@ -47,7 +47,7 @@ session_start();
             $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAAuPeaOz4Y4HSJ24CYng4fOICq1fZAz8CnD716tPbwhW1ZCNebVni2DsMLxzpv9AOwGIENt3Evies3NMvuPwLlPk7EOJhRahcZCMZCUFd5j4emjMS00peJ0fI5UWWqGnDSgsDh9CT2D1FZBcRt9ZAPgrr9K6Mq00dC5rdpf2ZCOsE2IoNilKl0X3lrPZBF7Mte7CE2S1ZCnznc0dRssodfsnqmCmtGNt8fwZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBABq3mriY2b1pq3zQ3gYR3f1UK2qsUABTvRMIV2ZBOsPZCXgKBmXMxgRW6WgBW1GovvAsInRNbf9qS5xZAHiYOLGzualY20zB403WZAXK4GTFT88KWdZAipQa6xVEp4N7ogpKt23IjZAkYoKSaosZBtk2yFueiIgZB4eSLVYNXMvFXVZCFPc7xvH5uKpQ8Vn7kTZCJq80dA6C8JiOZBrdy6sIDfYEJL2h9ClngZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -241,10 +241,10 @@ session_start();
                             <th class="face"><i class="far fa-laugh-squint fa-2x"></i></th>
                             <th class="face"><i class="fas fa-sad-tear fa-2x"></i></th>
                             <th class="face"><i class="far fa-angry fa-2x"></i></th>
-                            <th class="face">Reacciones Totales</th>
-                            <th class="face">Impresiones <i class="fas fa-coins fa-2x"></i></th>
-                            <th class="face">Impresiones Organicas</th>
-                            <th class="face">Total Impresiones</th>
+                            <th>Reacciones Totales</th>
+                            <th>Impresiones <i class="fas fa-coins fa-2x"></i></th>
+                            <th>Impresiones Organicas</th>
+                            <th>Total Impresiones</th>
                             <th class="face"><i class="fas fa-mouse-pointer fa-2x"></i></th>
                         </tr>
                     </thead>';

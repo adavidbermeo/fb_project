@@ -38,7 +38,6 @@
             //For Ad Info
                 $id_page = $AccountsPageData->page_data['page_id'][$selected_register_id];
                 $ad_account_id = $AccountsPageData->page_data['ad_account_id'][$selected_register_id];
-                // $ad_ids_object = new AdIds($ad_account_id); 
                 echo "<h1>Ad Statistics</h1>";
                 $by_account_ad = new ByAccountAd($id_page, $ad_account_id);
                 $by_account_ad->getAdPerformanceTable();
@@ -57,7 +56,7 @@
                 $by_account_page->callReporting();
                 break;
             default:
-                
+                echo "The model case does not exist";
                 break;
         }
     }

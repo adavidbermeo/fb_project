@@ -166,7 +166,7 @@
                     break;
                     case 'account':
                         $account = new AccountsPageData();
-                        $keys = array_keys($acount->db_page_data);
+                        $keys = array_keys($account->db_page_data);
                         echo "
                         <datalist id='db_fields'>";
                         foreach ($keys as $key) {
@@ -214,25 +214,67 @@
                       ";
                     break;
                     case 'campaign':
+                       $campaign = new ByAccountCampaign($ad_account_id);
+                        $keys = array_keys($campaign->db_campaign_statistics);
                         echo "
-                            <form>
-                                <input type='text'>
+                        <datalist id='db_fields'>";
+                        foreach ($keys as $key) {
+                            echo '<option id="option" value="'.$key .'"' .
+                            ' label="options">' . '</option>';
+                        }
+                        echo   
+                        "</datalist>"; 
+                        
+                            echo "
+                            <form id='db-query'>
+                                <input list='db_fields' name='db_field' placeholder='Select a field' id='db_field'>
+                                <input list='db_values' name='db_field_value' placeholder='Field value' id='db_values'>
+                                <input type='hidden' name='parameters' id='parameters' value='". $click ."'>
+                                <input type='submit' value='SEND DATA'>
                             </form>
                         ";
                     break;
                     case 'page':
+                        $page = new ByAccountPage($first_value,$ad_account_id);
+                        $keys = array_keys($page->db_account_info_array);
                         echo "
-                        <form>
-                            <input type='text'>
-                        </form>
+                        <datalist id='db_fields'>";
+                        foreach ($keys as $key) {
+                            echo '<option id="option" value="'.$key .'"' .
+                            ' label="options">' . '</option>';
+                        }
+                        echo   
+                        "</datalist>"; 
+                        
+                            echo "
+                            <form id='db-query'>
+                                <input list='db_fields' name='db_field' placeholder='Select a field' id='db_field'>
+                                <input list='db_values' name='db_field_value' placeholder='Field value' id='db_values'>
+                                <input type='hidden' name='parameters' id='parameters' value='". $click ."'>
+                                <input type='submit' value='SEND DATA'>
+                            </form>
                         ";
                     break;
                     case 'account':
-                        echo "Se insertara la actual consulta de Pagina. ¿Desea continuar?";
-                        echo '<div class="call">';
-                        echo "<a href='index.php?click=$click'>Si</a>";
-                        echo "</div>";
-                        echo "<a href='index.php'>No</a>";
+                        $account = new AccountsPageData();
+                        $keys = array_keys($account->db_page_data);
+                        echo "
+                        <datalist id='db_fields'>";
+                        foreach ($keys as $key) {
+                            echo '<option id="option" value="'.$key .'"' .
+                            ' label="options">' . '</option>';
+                        }
+                        echo   
+                        "</datalist>"; 
+                        
+                            echo "
+                            <form id='db-query'>
+                                <input list='db_fields' name='db_field' placeholder='Select a field' id='db_field'>
+                                <input list='db_values' name='db_field_value' placeholder='Field value' id='db_values'>
+                                <input type='hidden' name='parameters' id='parameters' value='". $click ."'>
+                                <input type='submit' value='SEND DATA'>
+                            </form>
+                        ";
                     break;            
                     default:
                         echo "There is no data";

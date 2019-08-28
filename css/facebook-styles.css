@@ -38,7 +38,7 @@
     left: -7%;
 }
 .business-manager-info{
-    margin-top: -3%;
+    margin-top: -5%;
     border: 1px solid lightslategray;
     padding: 25px;
 }
@@ -116,6 +116,9 @@ footer{
 .business-manager-info h1,h2,h3{
     text-align: center;
 }
+h1{
+    margin-top: 2%;
+}
 table tr,th,td{
     border: 1.2px solid lightgrey;
     padding: 5px;
@@ -180,8 +183,19 @@ table{
     cursor: pointer;
 }
 #callReporting{
+    margin-top: -4%;
     position: relative;
-    margin-top:0;
+    /* background: yellow; */
+    text-align: center;
+    height: 20px;
+}
+#callReporting a{
+    position: absolute;
+    top:2px;
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+    box-sizing: border-box;
 }
 .repeat a{
     padding: 10px;
@@ -191,4 +205,7 @@ table{
 }
 .repeat a:hover{
     text-decoration: none;
+}
+.welcome{
+    margin-top: -4%;
 }

@@ -44,7 +44,7 @@ class DbStatistics{
                 for ($i=0; $i <count($array['campaign_id']) ; $i++) { 
                     // Answer
                     error_reporting(0);
-                    $this->sql = "INSERT INTO $table VALUES ('". $array['campaign_id'][$i] ."','". $array['campaign_name'][$i] ."','". $array['c_status'][$i] ."','". $array['clicks'][$i] ."','". $array['impressions'][$i] ."','". $array['spend'][$i] ."','". $array['reach'][$i] ."','". $array['objective'][$i] ."','". $array['cost_per_lead'][$i] ."','". $array['action_type'][$i]."  => ".$array['action_value'][$i]."','". $array['id_adAccount'] ."')";   
+                    $this->sql = "INSERT INTO $table VALUES ('". $array['campaign_id'][$i] ."','". $array['campaign_name'][$i] ."','". $array['c_status'][$i] ."','". $array['clicks'][$i] ."','". $array['impressions'][$i] ."','". $array['spend'][$i] ."','". $array['reach'][$i] ."','". $array['objective'][$i] ."','". $array['cost_per_lead'][$i] ."','". $array['action_type'][$i]."  => ".$array['action_value'][$i]."','". $array['ad_account_id'] ."')";   
                     $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
                 }
                 if(mysqli_affected_rows($this->con)>0){
@@ -67,16 +67,16 @@ class DbStatistics{
                 break;
              case 'account':
                 // Answer
-                for ($i=0; $i <count($array['ad_acount_id']) ; $i++) { 
+                 for ($i=0; $i <count($array['ad_account_id']) ; $i++) { 
                     // Answer
-                    // error_reporting(0);
+                    error_reporting(0);
                     $this->sql = "INSERT INTO $table VALUES ('". $array['ad_account_id'][$i] ."','". $array['page_name'][$i] ."')";   
                     $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción');
                 }
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";
                 }else{
-                "Hubo un error en la insercion. Intentelo de nuevo";
+                    echo "Hubo un error en la insercion. Intentelo de nuevo";
                 }
                 break;
             default:
@@ -84,28 +84,11 @@ class DbStatistics{
                 break;
         }
     }
-    public function specificSelectData($table, $array, $field, $value){
-        $keys = array_keys($array);
-        $this->sql = "SELECT * FROM $table WHERE $field = $value";
+    public function specificSelectData($table, $ad_account_id, $field, $value){
+
+        $this->sql = "SELECT * FROM $table WHERE $field = '$value' AND `ad_account_id` = '$ad_account_id'";
         // Answer
         $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica');
-        if (mysqli_num_rows($this->result) > 0) {
-            // output data of each row
-            while($row = mysqli_fetch_assoc($this->result)) {
-                foreach ($keys as $key) {
-                    if($row[$key]){
-                        echo $key .": ". $row[$key] . "<br>";
-                    }
-                }
-            }
-        }else{
-            echo "0 results";
-        }
-    }
-    public function generalSelectData($table, $value){
-        $this->sql = "SELECT * FROM $table WHERE 'ad_account_id' = $value";
-        // Answer
-        $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general');
         if (mysqli_num_rows($this->result) > 0) {
             // output data of each row
             while($row = mysqli_fetch_assoc($this->result)) {
@@ -120,8 +103,28 @@ class DbStatistics{
             echo "0 results";
         }
     }
-    public function deleteData($table, $value){
-        $this->sql = "DELETE FROM '$table' WHERE '$fields' = '$values'";
+    public function generalSelectData($table, $ad_account_id){
+        // echo $ad_account_id;
+        $this->sql = "SELECT * FROM $table WHERE `ad_account_id` = '$ad_account_id'";
+        // Answer
+        $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general');
+        if (mysqli_num_rows($this->result) > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_assoc($this->result)) {
+                $keys = array_keys($row);
+                foreach ($keys as $key) {
+                    if($row[$key]){
+                        echo $key .": ". $row[$key] . "<br>";
+                    }
+                }
+                echo "<br><br>";
+            }
+        }else{
+            echo "0 results";
+        }
+    }
+    public function deleteData($table, $field, $value, $ad_account_id){
+        $this->sql = "DELETE FROM $table WHERE $field = '$value' AND `ad_account_id` = '$ad_account_id'";
         // Answer
         $this->result = mysqli_query($this->con, $this->sql) or die('No se elimino ningun registro');
         if ($this->result) {

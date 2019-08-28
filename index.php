@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Facebook App</title>
-    <link rel="stylesheet" href="css/facebook-style.css">
+    <link rel="stylesheet" href="css/facebook-styles.css">
     <script src="js/jquery/jquery.js" text="text/javascript"></script>
     <script src="js/submit.js" text="text/javascript"></script>
 
@@ -36,6 +36,7 @@
     require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/accounts_data.php');
     use functions\AccountsPageData;
     $AccountsPageData = new AccountsPageData();
+    
     $iterador = $AccountsPageData->getCountPageData();
 
 ?>
@@ -44,6 +45,7 @@
     
     <!-- <video src="videos/video-background.mp4" autoplay loop muted id="index"></video> -->
     <div class="custom-container">
+       
         <datalist id="options">    
         <?php 
             for ($i=0; $i<= $iterador; $i++) { 
@@ -64,7 +66,8 @@
 
         </div> -->
         <div class="business-manager-info">
-            <h3>Welcome to Facebook Api Project</h3>
+             <?php $AccountsPageData->callReporting(); ?> 
+            <h3 class="welcome">Welcome to Facebook Api Project</h3>
             <img src="img/paxzu.png" alt="Index Background" id="index-back">
         </div>
 
