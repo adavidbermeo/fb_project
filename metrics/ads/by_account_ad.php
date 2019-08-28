@@ -268,21 +268,23 @@ session_start();
                         </tbody>';  
                         }
                     echo '
-                    </table>';   
+                    </table>
+                    <section id="callReporting">
+                
+                    <a href="index.php?idpage='. $this->id_page .'&accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'">Ad Reporting</a>
+
+                    </section>
+                <script type="text/javascript" src="js/option_report.js"></script>';
+                       
                 }else{
                     echo "There is no available campaigns";
                 }
             }  
-            public function callReporting(){
-                echo "
-                <div id='callReporting'>
+            // public function callReporting(){
+            //     echo "
                 
-               <a href='index.php?idpage=". $this->id_page ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."'>Ad Reporting</a>
-
-                </div>
-                <script type='text/javascript' src='js/option_report.js'></script>
-                ";
-            }
+            //     ";
+            // }
         }
         // For Sessions arrays
         // $_SESSION['adPerformance']['data'] = $adPerformance;

@@ -32,7 +32,7 @@
                 echo "<h1>Campaign Statistics</h1>";
                 $by_account_campaign = new ByAccountCampaign($ad_account_id); 
                 $by_account_campaign->getCampaignStatisticsTable(); 
-                $by_account_campaign->callReporting(); 
+                // $by_account_campaign->callReporting(); 
                 break;
             case 'yesAd':
             //For Ad Info
@@ -41,7 +41,7 @@
                 echo "<h1>Ad Statistics</h1>";
                 $by_account_ad = new ByAccountAd($id_page, $ad_account_id);
                 $by_account_ad->getAdPerformanceTable();
-                $by_account_ad->callReporting();
+                // $by_account_ad->callReporting();
                 break;
             case 'yesPage' :
             //For Page Info
@@ -53,7 +53,7 @@
                 $by_account_page->getAdPerformanceGeneralTable();
                 $by_account_page->getAgeGenderTable();
                 $by_account_page->getfansCityTable();
-                $by_account_page->callReporting();
+                // $by_account_page->callReporting();
                 break;
             default:
                 echo "The model case does not exist";
