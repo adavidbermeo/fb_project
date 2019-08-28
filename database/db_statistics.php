@@ -25,7 +25,6 @@ class DbStatistics{
         // echo "Se ha conectado correctamente";
     }
     public function insertData($table, $array){
-        // $field = array_keys($array);
         switch ($table) {
             case 'ad':
                 for ($i=0; $i <count($array['ad_ids']) ; $i++) { 
@@ -85,51 +84,128 @@ class DbStatistics{
         }
     }
     public function specificSelectData($table, $ad_account_id, $field, $value){
-
-        $this->sql = "SELECT * FROM $table WHERE $field = '$value' AND `ad_account_id` = '$ad_account_id'";
-        // Answer
-        $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica');
-        if (mysqli_num_rows($this->result) > 0) {
-            // output data of each row
-            while($row = mysqli_fetch_assoc($this->result)) {
-                $keys = array_keys($row);
-                foreach ($keys as $key) {
-                    if($row[$key]){
-                        echo $key .": ". $row[$key] . "<br>";
+        switch ($table) {
+            case 'ad':
+            case 'campaign':
+            case 'page':
+                $this->sql = "SELECT * FROM $table WHERE $field = '$value' AND `ad_account_id` = '$ad_account_id'";
+                // Answer
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica');
+                if (mysqli_num_rows($this->result) > 0) {
+                    // output data of each row
+                    while($row = mysqli_fetch_assoc($this->result)) {
+                        $keys = array_keys($row);
+                        foreach ($keys as $key) {
+                            if($row[$key]){
+                            echo $key .": ". $row[$key] . "<br>";
+                            }
+                        }
+                        echo "<br><br>";
                     }
+                }else{
+                    echo "0 results";
                 }
-            }
-        }else{
-            echo "0 results";
+                break;
+            case 'account':
+                $this->sql = "SELECT * FROM $table WHERE $field = '$value'";
+                // Answer
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica');
+                if (mysqli_num_rows($this->result) > 0) {
+                    // output data of each row
+                    while($row = mysqli_fetch_assoc($this->result)) {
+                        $keys = array_keys($row);
+                        foreach ($keys as $key) {
+                            if($row[$key]){
+                            echo $key .": ". $row[$key] . "<br>";
+                            }
+                        }
+                        echo "<br><br>";
+                    }
+                }else{
+                    echo "0 results";
+                }
+            break;
+            default:
+                echo "The model case does not exist";
+                break;
         }
+        
     }
     public function generalSelectData($table, $ad_account_id){
-        // echo $ad_account_id;
-        $this->sql = "SELECT * FROM $table WHERE `ad_account_id` = '$ad_account_id'";
-        // Answer
-        $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general');
-        if (mysqli_num_rows($this->result) > 0) {
-            // output data of each row
-            while($row = mysqli_fetch_assoc($this->result)) {
-                $keys = array_keys($row);
-                foreach ($keys as $key) {
-                    if($row[$key]){
-                        echo $key .": ". $row[$key] . "<br>";
+        switch ($table) {
+            case 'ad':
+            case 'campaign':
+            case 'page':
+                $this->sql = "SELECT * FROM $table WHERE `ad_account_id` = '$ad_account_id'";
+                // Answer
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general');
+                if (mysqli_num_rows($this->result) > 0) {
+                    // output data of each row
+                    while($row = mysqli_fetch_assoc($this->result)) {
+                        $keys = array_keys($row);
+                        foreach ($keys as $key) {
+                            if($row[$key]){
+                                echo $key .": ". $row[$key] . "<br>";
+                            }
+                        }
+                        echo "<br><br>";
                     }
+                }else{
+                    echo "0 results";
                 }
-                echo "<br><br>";
-            }
-        }else{
-            echo "0 results";
-        }
+                break;
+            case 'account':
+                $this->sql = "SELECT * FROM $table";
+                // Answer
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general');
+                if (mysqli_num_rows($this->result) > 0) {
+                    // output data of each row
+                    while($row = mysqli_fetch_assoc($this->result)) {
+                        $keys = array_keys($row);
+                        foreach ($keys as $key) {
+                            if($row[$key]){
+                                echo $key .": ". $row[$key] . "<br>";
+                            }
+                        }
+                        echo "<br><br>";
+                    }
+                }else{
+                    echo "0 results";
+                }
+            break;
+            default:
+                echo "The model case does not exist";
+                break;
+        }     
     }
     public function deleteData($table, $field, $value, $ad_account_id){
-        $this->sql = "DELETE FROM $table WHERE $field = '$value' AND `ad_account_id` = '$ad_account_id'";
-        // Answer
-        $this->result = mysqli_query($this->con, $this->sql) or die('No se elimino ningun registro');
-        if ($this->result) {
-            echo "Se han eliminado correctamente los datos";
-        }      
+        switch ($table) {
+            case 'ad':
+            case 'campaign':
+            case 'page':
+                $this->sql = "DELETE FROM $table WHERE $field = '$value' AND `ad_account_id` = '$ad_account_id'";
+                // Answer
+                $this->result = mysqli_query($this->con, $this->sql) or die('No se elimino ningun registro');
+                if(mysqli_affected_rows($this->con)>0){
+                    echo "Se han eliminado correctamente los datos";
+                }else{
+                    echo "Hubo un error en la eliminación. Intentelo de nuevo";
+                } 
+                break;
+            case 'account':
+                $this->sql = "DELETE FROM $table WHERE $field = '$value'";
+                // Answer
+                $this->result = mysqli_query($this->con, $this->sql) or die('No se elimino ningun registro');
+                if(mysqli_affected_rows($this->con)>0){
+                    echo "Se han eliminado correctamente los datos";
+                }else{
+                    echo "Hubo un error en la eliminación. Intentelo de nuevo";
+                }    
+            break;
+            default:
+                echo "The model case does not exist";
+                break;
+        }
     }
 }
 

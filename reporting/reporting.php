@@ -12,6 +12,7 @@
         reportingInfo($selected);
 
     }elseif(isset($_POST['db_field'],$_POST['field_value'],$_POST['parameter'])){
+        
         $click = $_POST['parameter'];
         $db_field = $_POST['db_field'];
         $db_field_value = $_POST['field_value'];
@@ -23,11 +24,6 @@
         echo "There is no data";
     }
     function reportingInfo($selected, $db_field = 0, $db_field_value = 0){
-
-        echo "select: ". $selected . "<br>";
-        echo "db_field: ". $db_field . "<br>";
-        echo "db_field_value  " . $db_field_value . "<br>";
-
 
         if($db_field and $db_field_value){
             $click = $selected;
@@ -120,24 +116,8 @@
                 break;
 
             case 'delete':
-                switch ($db_table_name) {
-                    case 'ad':
-                        $database->connectDatabase();
-                        $database->action();
-                        break;
-                     case 'campaign':
-                        $database->connectDatabase();
-                        $database->action();
-                        break;
-                     case 'page':
-                        $database->connectDatabase();
-                        $database->action();
-                        break;    
-
-                    default:
-                       echo "The model case does not exist";
-                        break;
-                }
+                $database->connectDatabase();
+                $database->deleteData($db_table_name,$db_field, $db_field_value,$ad_account_id);   
                 break;
             }
         }

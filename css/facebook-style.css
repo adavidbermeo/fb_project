@@ -6,7 +6,7 @@
     background:#fff;
 }
 .custom-container{
-    width: 86%;
+    width: 92%;
     margin: 0 auto;
 }
 .centrado-porcentual{
@@ -116,9 +116,6 @@ footer{
 .business-manager-info h1,h2,h3{
     text-align: center;
 }
-h1{
-    margin-top: 2%;
-}
 table tr,th,td{
     border: 1.2px solid lightgrey;
     padding: 5px;
@@ -184,6 +181,7 @@ table{
 }
 #callReporting{
     margin-top: -4%;
+    margin-left: 3.5%;
     position: relative;
     /* background: yellow; */
     text-align: center;

@@ -36,7 +36,7 @@ Class ByAccountPage{
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
       'default_graph_version' => 'v3.3',
     ]);
-    $this->app_access_token ='EAAhZAgMuzLKgBABq3mriY2b1pq3zQ3gYR3f1UK2qsUABTvRMIV2ZBOsPZCXgKBmXMxgRW6WgBW1GovvAsInRNbf9qS5xZAHiYOLGzualY20zB403WZAXK4GTFT88KWdZAipQa6xVEp4N7ogpKt23IjZAkYoKSaosZBtk2yFueiIgZB4eSLVYNXMvFXVZCFPc7xvH5uKpQ8Vn7kTZCJq80dA6C8JiOZBrdy6sIDfYEJL2h9ClngZDZD';
+    $this->app_access_token ='EAAhZAgMuzLKgBALw6wMVa3m6UpWPiF130yStQMKB3rLvwI9cQ4UAiCzQ1AWcVm2JeJ7Mh9J0spVSgiW84bs9HmGW79hrbzvCf4DblwAfo207nvza4hGFKA0ZBXCDf9B964HUoqgvkJ3Vf678Gu2bf9WiLoZAozlFswRsLctXvQYEYjAHjsSDlkVZBI3c4ynXh9Ycc3spy8p03WdMZASVycAwIpDkuclvyVZCtWENcyIgZDZD';
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
     $this->more_interaction = $more_interaction;
