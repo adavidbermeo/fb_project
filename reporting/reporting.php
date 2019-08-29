@@ -9,7 +9,7 @@
 
     if(isset($_GET['selected'])){
 
-        echo $selected = $_GET['selected'];
+        $selected = $_GET['selected'];
         reportingInfo($selected);
 
     }elseif(isset($_POST['db_field'],$_POST['field_value'],$_POST['parameter'])){
@@ -18,11 +18,11 @@
         $db_field = $_POST['db_field'];
         $db_field_value = $_POST['field_value'];
 
-        var_dump($click);
-        var_dump($db_field);
+        var_dump($click); 
+        var_dump($db_field); 
         var_dump($db_field_value);
         //Execute function
-        // reportingInfo($click, $db_field, $db_field_value);
+        reportingInfo($click, $db_field, $db_field_value);
 
     }else{
         echo "There is no data";

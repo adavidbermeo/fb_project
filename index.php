@@ -29,17 +29,17 @@
                 $('#overlay').fadeOut('fast');
             });
         }
-        //Hide the option input value
-        var des = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
-        Object.defineProperty(HTMLInputElement.prototype, 'value', { get: function() {
-        if(this.type === 'text' && this.list) {
-            var value = des.get.call(this);
-            var opt = [].find.call(this.list.options, function(option) {
-                return option.value === value;
-            });
-            return opt ? opt.dataset.value : value;
-            }
-        }});
+        // //Hide the option input value
+        // var des = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+        // Object.defineProperty(HTMLInputElement.prototype, 'value', { get: function() {
+        // if(this.type === 'text' && this.list) {
+        //     var value = des.get.call(this);
+        //     var opt = [].find.call(this.list.options, function(option) {
+        //         return option.value === value;
+        //     });
+        //     return opt ? opt.dataset.value : value;
+        //     }
+        // }});
 
     </script>
 </head>
@@ -57,7 +57,7 @@
         <datalist id="options">    
         <?php 
             for ($i=0; $i<= $iterador; $i++) { 
-                echo '<option data-value="'. $AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'"' .
+                echo '<option value="'. $AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'"' .
                 '>'.$AccountsPageData->page_data['page_name'][$i] .'</option>';
             }
         ?>
