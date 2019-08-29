@@ -36,7 +36,7 @@ Class ByAccountPage{
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
       'default_graph_version' => 'v3.3',
     ]);
-    $this->app_access_token ='EAAhZAgMuzLKgBAEUJRZBIYOpNZCVsMLl2DQ4O6UQBJfsiTvGpIouytaClXxCU6gowKk7e4Ayr9YCaoN968tesJlrxJzPQSbtFiAaG0tZBlaEiJZBtCqWTw0knK2NZAbjdwRFOpuQZABnMklPRiyzB58r1kXvTeXpkrx18gVJoiZAaQr0qR5SgdKECYgsURoEv4QMwGNHUCHigUElSlZCML3xdOhyhMhh4dvOR9L0oKmDHagZDZD';
+    $this->app_access_token ='EAAhZAgMuzLKgBACfHbuPlZBiZCE1MZAxCfkk4dknXqsj7h2dDCDZCRpZC3pHi1VNCwZACe3t2grmBcPxbQ34fG8injVZBTiLWYSXf9McnWO5MQpTN8410NiRYHDLm5RbQqZCRhVkCo94a8dTMyhOozmIKVAUG8kgEFj7JzlmsCgxq5gG3I8rv47mmpK2ZABHotSuuwA0K71EJVOES73NIlhlhqHPeH8nRCXGnj1m3ZAgxHFtwZDZD';
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
     $this->more_interaction = $more_interaction;
@@ -54,12 +54,7 @@ Class ByAccountPage{
     $this->setResponse();
     $this->setAccountInfo();
     $this->setArrayAccountInfo();
-    // $this->getArrayAccountInfo();
 
-    // $this->getAdPerformanceGeneralTable();
-    // $this->getAgeGenderTable();
-    // $this->getfansCityTable();
-    // $this->callReporting();
     if($this->more_interaction == TRUE){
       $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id);
       $most_interactionsPost->moreInteraction();
@@ -91,7 +86,7 @@ Class ByAccountPage{
     }
   }
   public function setAccountInfo(){
-    echo '<pre>'.'<br>';
+    
     $graphNode = $this->response->getGraphEdge();
     $data = $graphNode->asArray();
 
@@ -157,6 +152,7 @@ Class ByAccountPage{
   }
   public function getAdPerformanceGeneralTable(){
       echo '
+      <pre>
         <table>
           <thead>
             <tr>

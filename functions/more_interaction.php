@@ -16,9 +16,8 @@ class Interactions{
         $info->setAdStatistics();
         $info->totalReactions();
         $info->setInteractions();
-        // $info->setAdPerformance();
+
         $array = $info->interactions;
-        // print_r($array);
 
         for ($i=0; $i <5 ; $i++){ 
             $maxs = array_keys($array, max($array));
@@ -33,23 +32,14 @@ class Interactions{
             unset($array[$key]);
             
         }
-        // print_r($max);
         echo "<h3>Top More Interacting Publications</h3>";
-        // print_r($value);
+        
         for ($i=0; $i <5 ; $i++) { 
             $item = $i+1;
             echo '#' . $item . '<br>';
             echo 'ID POST: ' . $max[$i]['id_post'] .'<br>';
             echo 'INTERACTIONS : ' . $max[$i]['value'] .'<br><br>';
         }
-        
-        // for ($i=0; $i <5 ; $i++) { 
-        //    print_r($arr[] = max($info->interactions));
-        //     unset($info->interactions[$i]);
-        // }
-        // print_r($arr);
-        // $performance = new AdPerformance($info->id_pagePost,$info->interactions,$info->post_ids,$info->account_id,$info->likes,$info->love,$info->wow,$info->haha,$info->sorry,$info->anger,$info->total_reactions,$info->impressions_paid,$info->impressions_organic,$info->total_impressions,$info->post_clicks);
-        // $performance->showAdPerformance();
     }
 }
 

@@ -29,6 +29,18 @@
                 $('#overlay').fadeOut('fast');
             });
         }
+        //Hide the option input value
+        var des = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+        Object.defineProperty(HTMLInputElement.prototype, 'value', { get: function() {
+        if(this.type === 'text' && this.list) {
+            var value = des.get.call(this);
+            var opt = [].find.call(this.list.options, function(option) {
+                return option.value === value;
+            });
+            return opt ? opt.dataset.value : value;
+            }
+        }});
+
     </script>
 </head>
 <body class="index-background">
@@ -39,22 +51,17 @@
     
     $iterador = $AccountsPageData->getCountPageData();
 
-?>
+    ?>
     <a href="index.php"><div class="app"><!--  --></div></a>
-        
-    
-    <!-- <video src="videos/video-background.mp4" autoplay loop muted id="index"></video> -->
-    <div class="custom-container">
-       
+    <div class="custom-container"> 
         <datalist id="options">    
         <?php 
             for ($i=0; $i<= $iterador; $i++) { 
-                echo '<option id="option" value="' .$AccountsPageData->page_data['page_name'][$i] .' -  '.  $i . ' '. $AccountsPageData->page_data['page_id'][$i].' '. $AccountsPageData->page_data['ad_account_id'][$i].'"' .
-                ' label="'.$AccountsPageData->page_data['page_id'][$i] .'" name = "'. $AccountsPageData->page_data['ad_account_id'][$i] .'">' .'</option>';
+                echo '<option data-value="'. $AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'"' .
+                '>'.$AccountsPageData->page_data['page_name'][$i] .'</option>';
             }
         ?>
         </datalist>
-        <!-- <marquee scrolldelay="1" behavior="scroll"><h1 class="backg">Statistics Panel FB</h1></marquee> -->
         <form method="POST" class="centrado-porcentual">
             <input list="options" type="text" placeholder=" Search Account" name="search" id="search" required>
             <button type="submit" id="paxzu">
@@ -71,7 +78,6 @@
             <img src="img/paxzu.png" alt="Index Background" id="index-back">
             <?php $AccountsPageData->callReporting(); ?> 
         </div>
-
     </div>
     <footer>Copyright Paxzu Colombia &copy; - 2019</footer>
      <!-- Optional JavaScript -->

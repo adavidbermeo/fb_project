@@ -39,7 +39,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBAEUJRZBIYOpNZCVsMLl2DQ4O6UQBJfsiTvGpIouytaClXxCU6gowKk7e4Ayr9YCaoN968tesJlrxJzPQSbtFiAaG0tZBlaEiJZBtCqWTw0knK2NZAbjdwRFOpuQZABnMklPRiyzB58r1kXvTeXpkrx18gVJoiZAaQr0qR5SgdKECYgsURoEv4QMwGNHUCHigUElSlZCML3xdOhyhMhh4dvOR9L0oKmDHagZDZD';
+      $this->access_token ='EAAhZAgMuzLKgBACfHbuPlZBiZCE1MZAxCfkk4dknXqsj7h2dDCDZCRpZC3pHi1VNCwZACe3t2grmBcPxbQ34fG8injVZBTiLWYSXf9McnWO5MQpTN8410NiRYHDLm5RbQqZCRhVkCo94a8dTMyhOozmIKVAUG8kgEFj7JzlmsCgxq5gG3I8rv47mmpK2ZABHotSuuwA0K71EJVOES73NIlhlhqHPeH8nRCXGnj1m3ZAgxHFtwZDZD';
       $this->ad_account_id = $ad_account_id;
 
       /**
@@ -139,6 +139,7 @@
     }
     public function getCampaignStatisticsTable(){
       echo '
+      <pre>
         <table>
           <thead>
             <tr>
@@ -184,9 +185,9 @@
     }
     public function callReporting(){
         echo "
-            <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Campaign Reporting</a>
+          <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Campaign Reporting</a>
 
-            <script type='text/javascript' src='js/option_reporting.js'></script>";
+          <script type='text/javascript' src='js/option_reporting.js'></script>";
     } 
   }
 

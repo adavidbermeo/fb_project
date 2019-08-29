@@ -47,7 +47,7 @@ session_start();
             $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAEUJRZBIYOpNZCVsMLl2DQ4O6UQBJfsiTvGpIouytaClXxCU6gowKk7e4Ayr9YCaoN968tesJlrxJzPQSbtFiAaG0tZBlaEiJZBtCqWTw0knK2NZAbjdwRFOpuQZABnMklPRiyzB58r1kXvTeXpkrx18gVJoiZAaQr0qR5SgdKECYgsURoEv4QMwGNHUCHigUElSlZCML3xdOhyhMhh4dvOR9L0oKmDHagZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBACfHbuPlZBiZCE1MZAxCfkk4dknXqsj7h2dDCDZCRpZC3pHi1VNCwZACe3t2grmBcPxbQ34fG8injVZBTiLWYSXf9McnWO5MQpTN8410NiRYHDLm5RbQqZCRhVkCo94a8dTMyhOozmIKVAUG8kgEFj7JzlmsCgxq5gG3I8rv47mmpK2ZABHotSuuwA0K71EJVOES73NIlhlhqHPeH8nRCXGnj1m3ZAgxHFtwZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -60,7 +60,6 @@ session_start();
         /**
          * Call all methods in the class 
          */ 
-            
             $this->setAdIdRequest();
             $this->getDataRequest();
             $this->setAccessToken();
@@ -68,9 +67,7 @@ session_start();
             $this->totalReactions();
             $this->setInteractions();
             $this->setAdPerformance();
-            // $this->getAdPerformance();
-            // $this->getAdPerformanceTable();
-            // $this->callReporting();
+
         }
         public function setAdIdRequest(){
             $request = $this->fb->get($this->ad_account_id . '?fields=ads{id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
@@ -93,8 +90,6 @@ session_start();
             foreach ($this->page_post as $item) {
                 list($this->post_page_id[], $this->post_ids[]) = explode('_', $item);
             } 
-            // echo "<pre>";
-            // print_r($this->post_ids); 
         }
         public function setAccessToken(){
             $request = $this->fb->get($this->id_page. '?fields=access_token,name',$this->app_access_token); 
@@ -140,7 +135,6 @@ session_start();
                             $this->post_clicks[] = $item['value'];
                             
                         }
-                    
                 }
             }   
         }
@@ -224,6 +218,7 @@ session_start();
         public function getAdPerformanceTable(){
             if($this->ad_account_id){
                  echo '
+                 <pre>
                     <table>
                     <thead>
                         <tr>
