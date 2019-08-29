@@ -47,7 +47,7 @@ session_start();
             $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBALw6wMVa3m6UpWPiF130yStQMKB3rLvwI9cQ4UAiCzQ1AWcVm2JeJ7Mh9J0spVSgiW84bs9HmGW79hrbzvCf4DblwAfo207nvza4hGFKA0ZBXCDf9B964HUoqgvkJ3Vf678Gu2bf9WiLoZAozlFswRsLctXvQYEYjAHjsSDlkVZBI3c4ynXh9Ycc3spy8p03WdMZASVycAwIpDkuclvyVZCtWENcyIgZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBAEUJRZBIYOpNZCVsMLl2DQ4O6UQBJfsiTvGpIouytaClXxCU6gowKk7e4Ayr9YCaoN968tesJlrxJzPQSbtFiAaG0tZBlaEiJZBtCqWTw0knK2NZAbjdwRFOpuQZABnMklPRiyzB58r1kXvTeXpkrx18gVJoiZAaQr0qR5SgdKECYgsURoEv4QMwGNHUCHigUElSlZCML3xdOhyhMhh4dvOR9L0oKmDHagZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -268,23 +268,19 @@ session_start();
                         </tbody>';  
                         }
                     echo '
-                    </table>
-                    <section id="callReporting">
-                
-                    <a href="index.php?idpage='. $this->id_page .'&accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'">Ad Reporting</a>
-
-                    </section>
-                <script type="text/javascript" src="js/option_report.js"></script>';
+                    </table>';
                        
                 }else{
                     echo "There is no available campaigns";
                 }
             }  
-            // public function callReporting(){
-            //     echo "
-                
-            //     ";
-            // }
+            public function callReporting(){
+                echo '
+                    <a href="index.php?idpage='. $this->id_page .'&accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" id="reporting">Ad Reporting</a>
+
+                    <script type="text/javascript" src="js/option_reporting.js"></script>
+                ';
+            }
         }
         // For Sessions arrays
         // $_SESSION['adPerformance']['data'] = $adPerformance;

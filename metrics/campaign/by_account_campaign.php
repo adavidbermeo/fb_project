@@ -39,7 +39,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBALw6wMVa3m6UpWPiF130yStQMKB3rLvwI9cQ4UAiCzQ1AWcVm2JeJ7Mh9J0spVSgiW84bs9HmGW79hrbzvCf4DblwAfo207nvza4hGFKA0ZBXCDf9B964HUoqgvkJ3Vf678Gu2bf9WiLoZAozlFswRsLctXvQYEYjAHjsSDlkVZBI3c4ynXh9Ycc3spy8p03WdMZASVycAwIpDkuclvyVZCtWENcyIgZDZD';
+      $this->access_token ='EAAhZAgMuzLKgBAEUJRZBIYOpNZCVsMLl2DQ4O6UQBJfsiTvGpIouytaClXxCU6gowKk7e4Ayr9YCaoN968tesJlrxJzPQSbtFiAaG0tZBlaEiJZBtCqWTw0knK2NZAbjdwRFOpuQZABnMklPRiyzB58r1kXvTeXpkrx18gVJoiZAaQr0qR5SgdKECYgsURoEv4QMwGNHUCHigUElSlZCML3xdOhyhMhh4dvOR9L0oKmDHagZDZD';
       $this->ad_account_id = $ad_account_id;
 
       /**
@@ -55,10 +55,7 @@
       $this->setDataArray();
       $this->setCampaignStatistics();
       $this->setCampaignStatisticsArray();
-      //$this->getCampaignStatisticsArray();
-
-      // $this->getCampaignStatisticsTable();
-      // $this->callReporting();
+  
     }
     public function setRequest(){
       try {
@@ -78,9 +75,7 @@
      
     }
     public function getDataArray(){
-      // echo "<pre>";
       print_r($this->campaign_info);
-      // echo "</pre>";
     }
     public function setCampaignStatistics(){
       $this->ad_account_name = $this->campaign_info['name'];
@@ -89,27 +84,20 @@
           $this->campaign_name[] =  $n['name'];
           $this->campaign_id[] = $n['id']; 
           $this->status[] = $n['status']; 
-          // foreach ($n as $i =>$value) {
-            // print_r($value);
-            // if(is_array($value)){
-              // foreach ($value as $key) {
-                  $this->clicks[] = @$n['insights'][0]['clicks'];
-                  $this->impressions[] = @$n['insights'][0]['impressions'];
-                  $this->spend[] = @$n['insights'][0]['spend'];
-                  $this->reach[] = @$n['insights'][0]['reach'];
-                  $this->objective[] = @$n['insights'][0]['objective'];
-                  $this->cost_per_lead[] = @$n['insights'][0]['cost_per_unique_click'];
-                  if(@$n['insights'][0]['cost_per_action_type']){
-                    foreach (@$n['insights'][0]['cost_per_action_type'] as $severals =>$i) {
-                      $this->cost_per_result[] = $i;
-                      $this->action_type[] = $i['action_type'];
-                      $this->action_value[] = $i['value'];
-                    }
-                  }
-              // }
-            // }
-          // } 
-        // }   
+       
+          $this->clicks[] = @$n['insights'][0]['clicks'];
+          $this->impressions[] = @$n['insights'][0]['impressions'];
+          $this->spend[] = @$n['insights'][0]['spend'];
+          $this->reach[] = @$n['insights'][0]['reach'];
+          $this->objective[] = @$n['insights'][0]['objective'];
+          $this->cost_per_lead[] = @$n['insights'][0]['cost_per_unique_click'];
+          if(@$n['insights'][0]['cost_per_action_type']){
+            foreach (@$n['insights'][0]['cost_per_action_type'] as $severals =>$i) {
+              $this->cost_per_result[] = $i;
+              $this->action_type[] = $i['action_type'];
+              $this->action_value[] = $i['value'];
+            }
+          }
       }
     }
     public function setCampaignStatisticsArray(){
@@ -145,9 +133,9 @@
       ];
     }
     public function getCampaignStatisticsArray(){
-      // echo "<pre>";
+
       print_r($this->campaign_statistics);
-      // echo "</pre>";
+
     }
     public function getCampaignStatisticsTable(){
       echo '
@@ -196,10 +184,9 @@
     }
     public function callReporting(){
         echo "
-          <div id='callReporting'>
-            <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting-campaign'>Campaign Reporting</a>
-          </div>
-          <script type='text/javascript' src='js/option_report.js'></script>";
+            <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Campaign Reporting</a>
+
+            <script type='text/javascript' src='js/option_reporting.js'></script>";
     } 
   }
 

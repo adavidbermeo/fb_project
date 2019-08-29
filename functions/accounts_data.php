@@ -26,7 +26,7 @@ Class AccountsPageData{
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
             'default_graph_version'=>'v3.3',
         ]);
-        $this->access_token = 'EAAhZAgMuzLKgBALw6wMVa3m6UpWPiF130yStQMKB3rLvwI9cQ4UAiCzQ1AWcVm2JeJ7Mh9J0spVSgiW84bs9HmGW79hrbzvCf4DblwAfo207nvza4hGFKA0ZBXCDf9B964HUoqgvkJ3Vf678Gu2bf9WiLoZAozlFswRsLctXvQYEYjAHjsSDlkVZBI3c4ynXh9Ycc3spy8p03WdMZASVycAwIpDkuclvyVZCtWENcyIgZDZD';
+        $this->access_token = 'EAAhZAgMuzLKgBAEUJRZBIYOpNZCVsMLl2DQ4O6UQBJfsiTvGpIouytaClXxCU6gowKk7e4Ayr9YCaoN968tesJlrxJzPQSbtFiAaG0tZBlaEiJZBtCqWTw0knK2NZAbjdwRFOpuQZABnMklPRiyzB58r1kXvTeXpkrx18gVJoiZAaQr0qR5SgdKECYgsURoEv4QMwGNHUCHigUElSlZCML3xdOhyhMhh4dvOR9L0oKmDHagZDZD';
         $this->request = $this->fb->get('me/adaccounts?fields=id,name,adcreatives.limit(10){object_story_id}&limit=100',$this->access_token);
 
         /**
@@ -154,10 +154,9 @@ Class AccountsPageData{
     public function callReporting(){
         error_reporting(0);
         echo "
-        <div id='callReporting'>
-            <a href='index.php?pagename=" . $this->page_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting-account'>| Acccount Reporting |</a>
-        </div>
-        <script type='text/javascript' src='js/option_report.js'></script>";
+            <a href='index.php?pagename=" . $this->page_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>| Acccount Reporting |</a>
+
+            <script type='text/javascript' src='js/option_reporting.js'></script>";
     }
     public function getCountPageData(){
         return count($this->page_name);

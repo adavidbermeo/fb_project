@@ -49,14 +49,14 @@
         <datalist id="options">    
         <?php 
             for ($i=0; $i<= $iterador; $i++) { 
-                echo '<option id="option" value="' .$AccountsPageData->page_data['page_name'][$i] .' -  '.  $i .'"' .
-                ' label="'.$AccountsPageData->page_data['page_id'][$i] .'" name = "'. $AccountsPageData->page_data['page_id'][$i] .'">' .'</option>';
+                echo '<option id="option" value="' .$AccountsPageData->page_data['page_name'][$i] .' -  '.  $i . ' '. $AccountsPageData->page_data['page_id'][$i].' '. $AccountsPageData->page_data['ad_account_id'][$i].'"' .
+                ' label="'.$AccountsPageData->page_data['page_id'][$i] .'" name = "'. $AccountsPageData->page_data['ad_account_id'][$i] .'">' .'</option>';
             }
         ?>
         </datalist>
         <!-- <marquee scrolldelay="1" behavior="scroll"><h1 class="backg">Statistics Panel FB</h1></marquee> -->
         <form method="POST" class="centrado-porcentual">
-            <input list="options" type="text" placeholder=" Search Account" name="search" id="search" required >
+            <input list="options" type="text" placeholder=" Search Account" name="search" id="search" required>
             <button type="submit" id="paxzu">
                 <i class="fas fa-search fa-2x" style="color: #fff;"></i> 
             </button>
