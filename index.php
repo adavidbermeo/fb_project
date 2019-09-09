@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Facebook App</title>
-    <link rel="stylesheet" href="css/facebook-styles.css">
+    <link rel="stylesheet" href="css/facebook-style.css">
     <script src="js/jquery/jquery.js" text="text/javascript"></script>
+    
     <script src="js/submit.js" text="text/javascript"></script>
 
     <!-- Font Awesome -->
@@ -16,7 +20,7 @@
 
     <!-- Text JavaScript -->
     <script type="text/javascript">
-        function openDialog() {
+        function openDialog(){
                 $('#overlay').show(3000);
                 $('#popup').css('display','block');
                 $('#popup').animate({'left':'30%'},300);
@@ -29,6 +33,7 @@
                 $('#overlay').fadeOut('fast');
             });
         }
+      
         // //Hide the option input value
         // var des = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
         // Object.defineProperty(HTMLInputElement.prototype, 'value', { get: function() {
@@ -40,7 +45,6 @@
         //     return opt ? opt.dataset.value : value;
         //     }
         // }});
-
     </script>
 </head>
 <body class="index-background">
@@ -56,6 +60,7 @@
     <div class="custom-container"> 
         <datalist id="options">    
         <?php 
+        
             for ($i=0; $i<= $iterador; $i++) { 
                 echo '<option value="'. $AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'"' .
                 '>'.$AccountsPageData->page_data['page_name'][$i] .'</option>';
@@ -69,9 +74,13 @@
             </button>
         </form>
         <!-- <a onclick="openDialog();" class="open">Mostrar Popup</a> -->
-        <!-- <div class="account-picture">
-
-        </div> -->
+       <div id="popup" class="popup" style="display:none;">
+            <a onclick="closeDialog('popup');" class="close"><i class="fas fa-window-close fa-4x"></i></a>
+        </div>
+        <div class="ad-preview" id="ad-preview">
+			
+		</div>
+    
         <div class="business-manager-info">
              
             <h3 class="welcome">Welcome to Facebook Api Project</h3>

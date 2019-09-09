@@ -18,9 +18,6 @@
         $db_field = $_POST['db_field'];
         $db_field_value = $_POST['field_value'];
 
-        var_dump($click); 
-        var_dump($db_field); 
-        var_dump($db_field_value);
         //Execute function
         reportingInfo($click, $db_field, $db_field_value);
 

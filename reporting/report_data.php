@@ -1,4 +1,5 @@
 <?php 
+
     require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/include/include_click.php');
     use metrics\ads\ByAccountAd;
     use metrics\campaign\ByAccountCampaign;
@@ -50,7 +51,7 @@
             case 'delete':
                 switch ($db_table_name) {
                     case 'ad':
-                    echo $click;
+                    // echo $click;
                         $ad = new ByAccountAd($first_value, $ad_account_id);
                         $keys = array_keys($ad->adPerformance);
                         echo "
@@ -73,7 +74,7 @@
                         ";
                     break;
                     case 'campaign':
-                    echo $click;
+                    // echo $click;
                        $campaign = new ByAccountCampaign($ad_account_id);
                         $keys = array_keys($campaign->db_campaign_statistics);
                         echo "

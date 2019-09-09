@@ -143,13 +143,47 @@ class DbStatistics{
                     // output data of each row
                     while($row = mysqli_fetch_assoc($this->result)) {
                         $keys = array_keys($row);
-                        foreach ($keys as $key) {
-                            if($row[$key]){
-                                echo $key .": ". $row[$key] . "<br>";
+                        ?>
+                         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+                         <?php
+                         for ($i=0; $i <count($keys) ; $i++) { 
+                        
+                        // foreach ($keys as $key) {
+                            ?>
+                            <canvas id="myChart" style=></canvas>
+                            <script>
+                                var ctx = document.getElementById('myChart').getContext('2d');
+                                var chart = new Chart(ctx, {
+                                    // The type of chart we want to create
+                                    type: 'line',
+
+                                    // The data for our dataset
+                                    data: {
+                                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                        datasets: [{
+                                            label: 'My First dataset',
+                                            backgroundColor: 'rgb(255, 99, 132)',
+                                            borderColor: 'rgb(255, 99, 132)',
+                                            data: [0, 0, 1,5, 45, 43, 87]
+                                        }]
+                                    },
+
+                                // Configuration options go here
+                                options: {}
+                                });
+                            
+                            
+                            // if($row[$key]){
+                            //     echo $key .": ". $row[$key] . "<br>";
+                            // }
+                            </script>
+                            <?php
+                        // } 
                             }
-                        }
-                        echo "<br><br>";
+                        // echo "<br><br>";
                     }
+                    
+                    
                 }else{
                     echo "0 results";
                 }

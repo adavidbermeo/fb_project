@@ -1,8 +1,9 @@
 <?php
 namespace metrics\ads;
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
-require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php'); 
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
 use Facebook\Facebook as FB;
+
 session_start();
 
     class ByAccountAd{
@@ -47,7 +48,7 @@ session_start();
             $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAPLwXlySMOVpSWGZBCZAthy7lkb0ZC6Dm0Bbey5EsjIBL9Ml99y6VPoH0GRNgXYann5YRLZAYAMTRPxaI4C79P6pwfikEPlkigqzTOFIRmSpRoROI0YWFjkmBXg62C6wtO3xI7daMOWkxbQjtp4wCOCKzb8yjmZArdIrWwvcZAm2YHNfZAaZCYgP8ZCPOESD9NHvVoz8PEkMvyAj9DzvSPxl4GXvhQcwwgQZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBAKlw99pRzobWtWXZBzEttgmBfr05o3dEeqggu9zVwnic8gMH8lRec7zMLcBZCoeder4nd9YAJVua0SIvy5fEqvIB4MzSGVnpvIb3MV7EuH8bIv9OZAoFouL65e7UxMRjKmEKPos2kdwaYZBZB3uEHalfD9IuWVRLYI1o4r4Qcl1lXIGim2bALvIhbeBgegt8EHaShZBJztcyihOkRLZBFcZAoI4S0xfrdgZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -244,7 +245,7 @@ session_start();
                         </tr>
                     </thead>';
                     for ($i=0; $i <count($this->adPerformance['post_ids']) ; $i++) { 
-                        $metrics = ['ad_ids','<a href="#">Ad Preview</a>','ad_effective_status','interactions','likes','love','wow','haha','sorry','anger','total_reactions','impressions_paid','impressions_organic','total_impressions','post_clicks'];
+                        $metrics = ['ad_ids','ads_preview','ad_effective_status','interactions','likes','love','wow','haha','sorry','anger','total_reactions','impressions_paid','impressions_organic','total_impressions','post_clicks'];
                         echo '
                         <tbody>
                         <tr>
@@ -252,8 +253,9 @@ session_start();
                         foreach ($metrics as $key) {
                             if(@$this->adPerformance[$key][$i]){
                                 echo '<td>' . $this->adPerformance[$key][$i] . '</td>';
-                            }elseif($key == '<a href="#">Ad Preview</a>'){
-                                echo '<td>' . $key . '</td>';
+                            }elseif($key == 'ads_preview'){
+                                echo '<script type="text/javascript" src="js/display_ad.js"></script>';
+                                echo '<td><a id="btn-abrir-popup" class="btn-abrir-popup" href="index.php?par='.$this->adPerformance['ad_ids'][$i].'">Ad Preview</button></td>';
                             }else{
                                 echo '<td>x</td>';
                             }  
