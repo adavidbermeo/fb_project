@@ -42,8 +42,7 @@ if(isset($_POST['btnId'])){
         public function getAdPreview(){
             
         echo '<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>';
-         return $this->ad_preview[0]['body'];
-            
+         print_r($this->ad_preview[0]['body']);
             
         }
     }
