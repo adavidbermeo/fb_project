@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Facebook App</title>
-    <link rel="stylesheet" href="css/facebook-style.css">
+    <link rel="stylesheet" href="css/facebook-styles.css">
     <script src="js/jquery/jquery.js" text="text/javascript"></script>
     
     <script src="js/submit.js" text="text/javascript"></script>
@@ -74,19 +74,16 @@
             </button>
         </form>
         <!-- <a onclick="openDialog();" class="open">Mostrar Popup</a> -->
-       <div id="popup" class="popup" style="display:none;">
+       <!-- <div id="popup" class="popup" style="display:none;">
             <a onclick="closeDialog('popup');" class="close"><i class="fas fa-window-close fa-4x"></i></a>
-        </div>
-        <div class="ad-preview" id="ad-preview">
-			
-		</div>
-    
+        </div> -->
         <div class="business-manager-info">
              
             <h3 class="welcome">Welcome to Facebook Api Project</h3>
             <img src="img/paxzu.png" alt="Index Background" id="index-back">
             <?php $AccountsPageData->callReporting(); ?> 
         </div>
+        
     </div>
     <footer>Copyright Paxzu Colombia &copy; - 2019</footer>
      <!-- Optional JavaScript -->

@@ -2,7 +2,10 @@
 namespace preview;
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 use Facebook\Facebook as FB;
-
+if(isset($_POST['btnId'])){
+   $ad_id = $_POST['btnId'];
+    $ad_preview = new AdsPreview($ad_id);
+}
     class AdsPreview{
         
         public $ad_id;
@@ -11,12 +14,13 @@ use Facebook\Facebook as FB;
         public $ad_preview;
 
         public function __construct($ad_id){
+            echo '<script type="text/javascript" src="js/popup.js"></script>';
             $this->fb = new FB([
                 'app_id' => '2350209521888424',
                 'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
                 'default_graph_version' => 'v3.3',
             ]);
-            $this->access_token ='EAAhZAgMuzLKgBAKlw99pRzobWtWXZBzEttgmBfr05o3dEeqggu9zVwnic8gMH8lRec7zMLcBZCoeder4nd9YAJVua0SIvy5fEqvIB4MzSGVnpvIb3MV7EuH8bIv9OZAoFouL65e7UxMRjKmEKPos2kdwaYZBZB3uEHalfD9IuWVRLYI1o4r4Qcl1lXIGim2bALvIhbeBgegt8EHaShZBJztcyihOkRLZBFcZAoI4S0xfrdgZDZD';
+            $this->access_token ='EAAhZAgMuzLKgBADqEUJaHG8ANHAwL6q5i5S7CvZCb9NxusgZBgCOWQGMGz2kp95LhfLTido24nBfSbcetK3zILRe410wbXwlKqCizSMMrslDWj86vbKqBXSAE1zDPiZBBbCbd1quEpw9kmfmkx4giSJZCad7p969jdMJjdjdYrZBZCtmlOPExJNAeqfujzk7YE5F1bjZBuCbZBE0CQ6FaBxSZByI2X1YOcXkpe0kQuj76FEFS53ZBvEedU0';
             $this->ad_id = $ad_id;
             
             /**
@@ -36,6 +40,10 @@ use Facebook\Facebook as FB;
             // print_r($this->ad_preview);
         }
         public function getAdPreview(){
-            print_r($this->ad_preview[0]['body']);
+            
+        echo '<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>';
+         return $this->ad_preview[0]['body'];
+            
+            
         }
     }

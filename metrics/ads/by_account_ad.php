@@ -2,7 +2,10 @@
 namespace metrics\ads;
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/preview/preview.php');
+
 use Facebook\Facebook as FB;
+use preview\AdsPreview;
 
 session_start();
 
@@ -48,7 +51,7 @@ session_start();
             $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAKlw99pRzobWtWXZBzEttgmBfr05o3dEeqggu9zVwnic8gMH8lRec7zMLcBZCoeder4nd9YAJVua0SIvy5fEqvIB4MzSGVnpvIb3MV7EuH8bIv9OZAoFouL65e7UxMRjKmEKPos2kdwaYZBZB3uEHalfD9IuWVRLYI1o4r4Qcl1lXIGim2bALvIhbeBgegt8EHaShZBJztcyihOkRLZBFcZAoI4S0xfrdgZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBADqEUJaHG8ANHAwL6q5i5S7CvZCb9NxusgZBgCOWQGMGz2kp95LhfLTido24nBfSbcetK3zILRe410wbXwlKqCizSMMrslDWj86vbKqBXSAE1zDPiZBBbCbd1quEpw9kmfmkx4giSJZCad7p969jdMJjdjdYrZBZCtmlOPExJNAeqfujzk7YE5F1bjZBuCbZBE0CQ6FaBxSZByI2X1YOcXkpe0kQuj76FEFS53ZBvEedU0';
 
             /**
              * Invoque the callMethods function 
@@ -218,6 +221,8 @@ session_start();
         }
         public function getAdPerformanceTable(){
             if($this->ad_account_id){
+                 echo '<script type="text/javascript" src="js/popup.js"></script>';
+                 echo '<script type="text/javascript" src="js/send_btnvalue.js"></script>';
                  echo '
                  <pre>
                     <table>
@@ -254,18 +259,26 @@ session_start();
                             if(@$this->adPerformance[$key][$i]){
                                 echo '<td>' . $this->adPerformance[$key][$i] . '</td>';
                             }elseif($key == 'ads_preview'){
-                                echo '<script type="text/javascript" src="js/display_ad.js"></script>';
-                                echo '<td><a id="btn-abrir-popup" class="btn-abrir-popup" href="index.php?par='.$this->adPerformance['ad_ids'][$i].'">Ad Preview</button></td>';
+                                
+                                echo '<td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
+                                echo '<div class="overlay" id="overlay">
+                                    <div class="popup" id="popup">
+                                    
+                                
+                                  </div>
+                             </div>';
                             }else{
                                 echo '<td>x</td>';
                             }  
                         }
                         echo '
                         </tr>
-                        </tbody>';  
+                        </tbody>
+                    ';  
                         }
                     echo '
-                    </table>';
+                    </table>
+                    ';
                        
                 }else{
                     echo "There is no available campaigns";
@@ -277,6 +290,9 @@ session_start();
 
                     <script type="text/javascript" src="js/option_reporting.js"></script>
                 ';
+            }
+            public function adPreview($ad_id){
+                $ad_preview = new AdsPreview($ad_id);
             }
         }
         // For Sessions arrays

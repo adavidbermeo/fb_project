@@ -60,7 +60,7 @@
         echo "<a href='index.php?click=delete%". $values ."'>Delete</a>";
         echo "</div>";
 
-        echo "<h3>Reporting System &copy;</h3>";
+        echo "<h3> $db_table_name Reporting System &copy;</h3>";
         // echo $parameters;
 
         /***

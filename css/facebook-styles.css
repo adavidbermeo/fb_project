@@ -10,7 +10,8 @@
     margin: 0 auto;
 }
 #popup{
-    background:red;
+    background:#fff;
+    color: lightgray;
 }
 .centrado-porcentual{
     position:absolute;
@@ -216,6 +217,7 @@ table{
 a:hover{
     text-decoration: none;
 }
+
 body {
 	background: #fff;
 	font-family: 'Open Sans', sans-serif;
@@ -264,7 +266,7 @@ body {
 /* POPUP */
 /* ------------------------- */
 
-.overlay .ad-preview {
+.overlay {
 	background: rgba(0,0,0,.3);
 	position: fixed;
 	top: 0;
@@ -278,7 +280,7 @@ body {
 }
 
 .overlay.active {
-	visibility: visible;
+    visibility: visible;
 }
 
 .popup {
@@ -390,3 +392,9 @@ body {
 	from { opacity: 0; }
 	to { opacity: 1; }
 }
+/* #fb-ad-preview{
+    width: 70%;
+    padding: 25px;
+    box-sizing: border-box;
+    background: #fff;
+} */
