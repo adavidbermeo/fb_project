@@ -2,7 +2,7 @@ $(document).ready(function(){
     $("button[type='submit']").click(function(event){
         event.preventDefault();
 
-        var search = $("#search").val();
+        var search = $("#options :selected").val();
         // var datavalue = $("#search").attr('data-value');
 
         $.post("functions/submit.php",{

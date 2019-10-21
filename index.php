@@ -33,7 +33,6 @@
                 $('#overlay').fadeOut('fast');
             });
         }
-      
         // //Hide the option input value
         // var des = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
         // Object.defineProperty(HTMLInputElement.prototype, 'value', { get: function() {
@@ -56,19 +55,19 @@
     $iterador = $AccountsPageData->getCountPageData();
 
     ?>
-    <a href="index.php"><div class="app"><!--  --></div></a>
+    <!-- <a href="index.php"><div class="app"></div></a> -->
     <div class="custom-container"> 
-        <datalist id="options">    
-        <?php 
         
+        <form method="POST" class="centrado-porcentual">
+            <select id="options">    
+        <?php 
             for ($i=0; $i<= $iterador; $i++) { 
-                echo '<option value="'. $AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'"' .
-                '>'.$AccountsPageData->page_data['page_name'][$i] .'</option>';
+               
+                echo '<option value= '.$AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'>'.$AccountsPageData->page_data['page_name'][$i] .'</option>';
             }
         ?>
-        </datalist>
-        <form method="POST" class="centrado-porcentual">
-            <input list="options" type="text" placeholder=" Search Account" name="search" id="search" required>
+        </select>
+            <!-- <input list="options" type="text" placeholder=" Search Account" name="search" id="search" required> -->
             <button type="submit" id="paxzu">
                 <i class="fas fa-search fa-2x" style="color: #fff;"></i> 
             </button>

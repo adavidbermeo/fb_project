@@ -2,6 +2,20 @@
     padding: 0px;
     margin:0%;
 }
+#options{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+#reporting{
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    background-color: #3578E5;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 35px 7px;
+}
 .index-background{
     background:#fff;
 }
@@ -29,6 +43,8 @@
     padding: 3px;
 }
 #paxzu{
+    position: relative;
+    top: -22px;
     border:none;
     background: #9b0021;
     color:#fff;
@@ -69,6 +85,7 @@ footer{
     margin-top: 2.5%;
     width: 70%;
     display: block;
+    border-radius:37px 5px;
     /* position: absolute;
     top: 27.1%; */
 }
@@ -85,11 +102,12 @@ footer{
     font-weight: bold;
     text-decoration: none;
     width: 10%;
-    border-left: 2px solid #cf0a2c;
+    border-radius: 37px 5px;
+    border: 1px solid #9b0021;
 }
 .buttons a:hover{
-    padding: 25px;
-    transition: 0.5s;
+    background: #9b0021;
+    color: #fff;
 }
 .menu a{
     text-align: center;
@@ -398,3 +416,4 @@ body {
     box-sizing: border-box;
     background: #fff;
 } */
+   

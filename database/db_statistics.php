@@ -52,7 +52,7 @@ class DbStatistics{
             case 'page':
                 // Answer
                 error_reporting(0);
-                $this->sql = "INSERT INTO $table VALUES ('". $array['id_page'] ."','". $array['end_time'] ."','". $array['total_new_likes'] ."','". $array['people_paid_like'] ."','". $array['people_unpaid_like'] ."','". $array['ad_account_id'] ."','". $array['page_post_engagement'] ."',null)";   
+                $this->sql = "INSERT INTO $table VALUES ('". $array['id_page'] ."','". $array['page_name'] ."','". $array['end_time'] ."','". $array['total_new_likes'] ."','". $array['people_paid_like'] ."','". $array['people_unpaid_like'] ."','". $array['ad_account_id'] ."','". $array['page_post_engagement'] ."',null)";   
                 $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción' . mysqli_error($this->con));
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";

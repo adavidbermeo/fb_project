@@ -5,7 +5,7 @@
     use metrics\ads\ByAccountAd;
     use metrics\page\ByAccountPage;
     use metrics\ads\AdIds;
-
+    
     if (isset($_GET['selected'])) {
         $selected = $_GET['selected'];
         list($url, $click) = explode('=', $selected);
