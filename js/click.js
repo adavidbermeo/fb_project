@@ -1,4 +1,11 @@
 $(document).ready(function () {
+    $('.search-option').click(
+        function () {
+            $('.con-loader').css(
+                "display", "block"
+            );
+        }
+    );
     $(".menu a").click(function (event) {
         event.preventDefault();
 
@@ -14,6 +21,9 @@ $(document).ready(function () {
             },
             success: function (response) {
                 $(".business-manager-info").html(response);
+                $('.con-loader').css(
+                    "display", "none"
+                );
             },
             error: function (xhr) {
                 return false;

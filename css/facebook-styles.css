@@ -2,19 +2,94 @@
     padding: 0px;
     margin:0%;
 }
+#chart-container{
+    display: none;
+}
 #options{
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+    color: darkgray;
+    font-size: 17px;
 }
+.con-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: none;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border-top: 2px solid #2ea3f2;
+    border-right: 2px solid #2ea3f2;
+    animation: loader_cir 1s infinite linear;
+    transition: all .3s;
+    position: absolute;
+    top: -112px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 20;
+}
+.texto-loading{
+     width: 60px;
+     height: 60px;
+     position: absolute;
+     top: 27px;
+     left: -591px;
+     right: 0;
+     bottom: 0;
+     margin: auto;
+     z-index: 30;
+     color: #000;
+     font-size: 20px;
+}
+@keyframes loader_cir {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+ select:required:invalid {
+     color: #666;
+ }
+
+ option[value=""][disabled] {
+     display: none;
+ }
+
+ option {
+     color: #000;
+ }
 #reporting{
+    display: inline-block;
     color: #fff;
     text-decoration: none;
     border: none;
     background-color: #3578E5;
-    padding: 15px;
+    padding: 15px 30px;
+    /* margin-left: 8px; */
     box-sizing: border-box;
     border-radius: 35px 7px;
+}
+.more-margin{
+    margin-left: 6px;
+}
+#reporting:hover{
+    background: #fff;
+    color:#3578E5;
+    border: 3px solid #3578E5;
+    box-sizing: border-box;
 }
 .index-background{
     background:#fff;
@@ -82,7 +157,7 @@ footer{
     
 }
 .buttons{
-    margin-top: 2.5%;
+    margin-top: 1.5%;
     width: 70%;
     display: block;
     border-radius:37px 5px;
@@ -161,7 +236,7 @@ table th{
     border-color: #fff;
 }
 table{
-    margin: 0 auto 3%;
+    margin: 0 auto 2%;
 }
 .align{
     display: inline-block;

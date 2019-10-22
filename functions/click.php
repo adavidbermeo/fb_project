@@ -18,9 +18,9 @@
         list($id_page, $ad_account_id) = explode('%', $data); 
         
         echo '<div class="buttons">';
-        echo "<a href='index.php?click=yesCampaign*$data'>Campaign</a>";
-        echo "<a href='index.php?click=yesAd*$data'>Ad</a>";
-        echo "<a href='index.php?click=yesPage*$data'>Page</a>";
+        echo "<a href='index.php?click=yesCampaign*$data' class='search-option'>Campaign</a>";
+        echo "<a href='index.php?click=yesAd*$data' class='search-option'>Ad</a>";
+        echo "<a href='index.php?click=yesPage*$data' class='search-option'>Page</a>";
         echo "</div>";
         
         switch ($click_value) {
@@ -54,5 +54,5 @@
         }
     }
 ?>
-<script src="js/account_click.js">
+<script src="js/accounts_click.js">
     

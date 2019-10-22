@@ -12,39 +12,13 @@
     <title>Facebook App</title>
     <link rel="stylesheet" href="css/facebook-styles.css">
     <script src="js/jquery/jquery.js" text="text/javascript"></script>
-    
     <script src="js/submit.js" text="text/javascript"></script>
-
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/834edd277c.js"></script>
-
     <!-- Text JavaScript -->
-    <script type="text/javascript">
-        function openDialog(){
-                $('#overlay').show(3000);
-                $('#popup').css('display','block');
-                $('#popup').animate({'left':'30%'},300);
-        }
-        function closeDialog(id) {
-            $('#'+ id). css('position','absolute');
-            $('#'+ id).animate({'left':'-100%'}, 500, function() {
-                $('#'+ id). css('position','fixed');
-                $('#'+ id). css('left','100%');
-                $('#overlay').fadeOut('fast');
-            });
-        }
-        // //Hide the option input value
-        // var des = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
-        // Object.defineProperty(HTMLInputElement.prototype, 'value', { get: function() {
-        // if(this.type === 'text' && this.list) {
-        //     var value = des.get.call(this);
-        //     var opt = [].find.call(this.list.options, function(option) {
-        //         return option.value === value;
-        //     });
-        //     return opt ? opt.dataset.value : value;
-        //     }
-        // }});
-    </script>
+    <script src="js/functions.js" type="text/javascript"></script>
+    <script src="js/graphics.js" type="text/javascript"></script>
+        
 </head>
 <body class="index-background">
      <?php
@@ -55,15 +29,18 @@
     $iterador = $AccountsPageData->getCountPageData();
 
     ?>
-    <!-- <a href="index.php"><div class="app"></div></a> -->
+    <a href="index.php"><div class="app"></div></a>
     <div class="custom-container"> 
         
         <form method="POST" class="centrado-porcentual">
             <select id="options">    
-        <?php 
+        
+            <option value="" disabled selected>Select your business account</option>
+
+            <?php 
             for ($i=0; $i<= $iterador; $i++) { 
                
-                echo '<option value= '.$AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'>'.$AccountsPageData->page_data['page_name'][$i] .'</option>';
+                echo '<option required value= '.$AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'>'.$AccountsPageData->page_data['page_name'][$i] .'</option>';
             }
         ?>
         </select>
@@ -80,7 +57,20 @@
              
             <h3 class="welcome">Welcome to Facebook Api Project</h3>
             <img src="img/paxzu.png" alt="Index Background" id="index-back">
-            <?php $AccountsPageData->callReporting(); ?> 
+            <?php $AccountsPageData->callReporting(); ?>
+
+            <div id="chart-container">
+			    <canvas id="mycanvas"></canvas>
+		    </div> 
+        </div>
+        <div class="con-loader">
+
+	        <div class="loader">
+                
+            </div>
+            <div class="texto-loading">
+                Loading data..... Please wait
+            </div>
         </div>
         
     </div>

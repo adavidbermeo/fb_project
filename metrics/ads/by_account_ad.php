@@ -51,7 +51,7 @@ session_start();
             $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAAsyq0KyfYToRgrPr4XIl5foFMDSzIqL5ZB7hXm3jKweZCQZAWkIlT7bdgga4y6zK0KpxUihfOJPMlNd5gZAtZCxftjJgYptkgT5Hch38jdcWGO3yfp9ZAmjcbmbC9Hkj44HMg8tdvqGQ4nTt5B4wXb5OLwoyNgDj00FFTSOvAOLbE7WgxwFSW63r37O4ktDH52UcZABivTZAlZBQNcfpHkZCSQtDc5wb3TwZDZD';
+            $this->app_access_token = 'EAAhZAgMuzLKgBALYAMq6vZCS3UlfSC5Sjk9iq0F5fBR27qGm8YOOZCh1DnX0Dbl6lleOoZCo5mJyR4EZCDJ0HtcCXBFLBP9YktkXZB7NdTFflMQcsx3xZA2kHFizNWxTWTMMAegjegsYdw678dzEWNTzjCJrtz9SuyFyYMZCRdZCbSLVVuwCfDtfUV8bFeY8awXHNXPNFhEOym0nVAdSxnxh3pmOmazKjg9JzkF7N3LjZA0QZDZD';
 
             /**
              * Invoque the callMethods function 
@@ -71,7 +71,6 @@ session_start();
             $this->totalReactions();
             $this->setInteractions();
             $this->setAdPerformance();
-
         }
         public function setAdIdRequest(){
             $request = $this->fb->get($this->ad_account_id . '?fields=ads{id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
@@ -286,8 +285,7 @@ session_start();
             }  
             public function callReporting(){
                 echo '
-                    <a href="index.php?idpage='. $this->id_page .'&accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" id="reporting">Ad Reporting</a>
-
+                    <a href="index.php?idpage='. $this->id_page .'&accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" id="reporting">Ad Reporting</a><a href="index.php?accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" class="more-margin" id="reporting"> Graphic System </a> 
                     <script type="text/javascript" src="js/option_reporting.js"></script>
                 ';
             }
