@@ -1,6 +1,7 @@
 <?php
 namespace preview;
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
 use Facebook\Facebook as FB;
 if(isset($_POST['btnId'])){
     $ad_id = $_POST['btnId'];
@@ -20,7 +21,7 @@ if(isset($_POST['btnId'])){
                 'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
                 'default_graph_version' => 'v3.3',
             ]);
-            $this->access_token ='EAAhZAgMuzLKgBAGiNrDfQ6havqCxAWONVBFwJ6d3euJbnRslFZBu7S2vATJqU3lax6BF1wgJYSzygB0LDKUzpWaZBthnvf1rafqnQVeOiuCfiTLLg4hVJmQTcmlmyo6puHuttdDx0BZApEZBEEVjaDoelYBaHxlZBx52PYkLZChiKzdCbsz4BYyZBMi20gIev3L0anrZCuGTWrNCiGutV5g6yDhOXznHX5lQ80jMqPqZAvMQZDZD';
+            $this->access_token = ACCESS_TOKEN;
             $this->ad_id = $ad_id;
             
             /**

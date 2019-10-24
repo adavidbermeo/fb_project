@@ -16,8 +16,24 @@ function getData($ad_account_id, $db_table_name){
 	$db = new database();
 	$conn = $db->conn();
 
-	$sql = $conn->prepare("SELECT * FROM $db_table_name WHERE ad_account_id='$ad_account_id'");
-	$sql->execute();
+	switch ($db_table_name){
+		case 'ad':
+			$sql = $conn->prepare("SELECT * FROM $db_table_name WHERE ad_account_id='$ad_account_id' ORDER BY interactions DESC ");
+			$sql->execute();
+			break;
+		case 'campaign':
+			$sql = $conn->prepare("SELECT * FROM $db_table_name WHERE ad_account_id='$ad_account_id' ORDER BY impressions DESC ");
+			$sql->execute();
+			break;
+		case 'page':
+			$sql = $conn->prepare("SELECT * FROM $db_table_name WHERE ad_account_id='$ad_account_id' ORDER BY total_new_likes DESC ");
+			$sql->execute();
+			break;
+		default:
+			echo 'An unexpected error has ocurred';
+			break;
+	}
+	// die(var_dump($sql));
 
 	$result = $sql->fetchAll();
 

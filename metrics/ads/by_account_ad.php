@@ -3,6 +3,7 @@ namespace metrics\ads;
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/preview/preview.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
 
 use Facebook\Facebook as FB;
 use preview\AdsPreview;
@@ -51,7 +52,7 @@ session_start();
             $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
             
-            $this->app_access_token = 'EAAhZAgMuzLKgBAGiNrDfQ6havqCxAWONVBFwJ6d3euJbnRslFZBu7S2vATJqU3lax6BF1wgJYSzygB0LDKUzpWaZBthnvf1rafqnQVeOiuCfiTLLg4hVJmQTcmlmyo6puHuttdDx0BZApEZBEEVjaDoelYBaHxlZBx52PYkLZChiKzdCbsz4BYyZBMi20gIev3L0anrZCuGTWrNCiGutV5g6yDhOXznHX5lQ80jMqPqZAvMQZDZD';
+            $this->app_access_token = ACCESS_TOKEN;
 
             /**
              * Invoque the callMethods function 
@@ -267,7 +268,7 @@ session_start();
                                   </div>
                              </div>';
                             }else{
-                                echo '<td>x</td>';
+                                echo '<td> </td>';
                             }  
                         }
                         echo '

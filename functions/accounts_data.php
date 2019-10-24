@@ -2,6 +2,7 @@
 namespace functions;
 
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
 use Facebook\Facebook as FB;
 
 Class AccountsPageData{
@@ -26,7 +27,7 @@ Class AccountsPageData{
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
             'default_graph_version'=>'v3.3',
         ]);
-        $this->access_token = 'EAAhZAgMuzLKgBAGiNrDfQ6havqCxAWONVBFwJ6d3euJbnRslFZBu7S2vATJqU3lax6BF1wgJYSzygB0LDKUzpWaZBthnvf1rafqnQVeOiuCfiTLLg4hVJmQTcmlmyo6puHuttdDx0BZApEZBEEVjaDoelYBaHxlZBx52PYkLZChiKzdCbsz4BYyZBMi20gIev3L0anrZCuGTWrNCiGutV5g6yDhOXznHX5lQ80jMqPqZAvMQZDZD';
+        $this->access_token = ACCESS_TOKEN;
         $this->request = $this->fb->get('me/adaccounts?fields=id,name,adcreatives.limit(10){object_story_id}&limit=100',$this->access_token);
 
         /**
@@ -103,8 +104,7 @@ Class AccountsPageData{
                             $this->ad_account_id[$i] = $this->data_array[$i]['id'];
                         }  
                     }
-                }
-                
+                }    
            }
         
         } 
@@ -155,7 +155,6 @@ Class AccountsPageData{
         error_reporting(0);
         echo "
             <a class='insert-account' href='index.php?pagename=" . $this->page_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Acccount Reporting</a>
-
             <script type='text/javascript' src='js/option_reporting.js'></script>";
     }
     public function getCountPageData(){

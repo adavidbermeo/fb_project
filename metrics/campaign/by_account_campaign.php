@@ -2,6 +2,7 @@
   namespace metrics\campaign; 
 
   require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
+  require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
   use Facebook\Facebook as FB;
 
   Class ByAccountCampaign{
@@ -39,7 +40,7 @@
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
         'default_graph_version' => 'v3.3',
       ]);
-      $this->access_token ='EAAhZAgMuzLKgBAGiNrDfQ6havqCxAWONVBFwJ6d3euJbnRslFZBu7S2vATJqU3lax6BF1wgJYSzygB0LDKUzpWaZBthnvf1rafqnQVeOiuCfiTLLg4hVJmQTcmlmyo6puHuttdDx0BZApEZBEEVjaDoelYBaHxlZBx52PYkLZChiKzdCbsz4BYyZBMi20gIev3L0anrZCuGTWrNCiGutV5g6yDhOXznHX5lQ80jMqPqZAvMQZDZD';
+      $this->access_token = ACCESS_TOKEN;
       $this->ad_account_id = $ad_account_id;
 
       /**
@@ -167,13 +168,13 @@
                   if(@$this->campaign_statistics[$key][$i]){
                     echo '<td>' . $this->campaign_statistics[$key][$i] . '</td>';
                   }else{
-                    echo '<td>x</td>';
+                    echo '<td> </td>';
                   }
                 }
                 if(@$this->campaign_statistics['cost_per_result'][$i]){
                   echo '<td>' . $this->campaign_statistics['action_type'][$i] . ' => ' . $this->campaign_statistics['action_value'][$i] . '</td>';
                 }else{
-                  echo '<td>x</td>';
+                  echo '<td> </td>';
                 }
                   
               echo '
@@ -185,7 +186,7 @@
     }
     public function callReporting(){
         echo "
-          <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Campaign Reporting</a><a href='index.php?accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .' class='more-margin' id='reporting'> Graphic System </a>
+          <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Campaign Reporting</a><a href='index.php?accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' class='graphicSystem' id='reporting'> Graphic System </a>
           <script type='text/javascript' src='js/option_reporting.js'></script>
           <script src='js/graficas.js' type='text/javascript'></script>
           ";

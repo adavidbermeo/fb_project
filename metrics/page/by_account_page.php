@@ -2,6 +2,7 @@
 namespace metrics\page; 
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/more_interaction.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
   
 use functions\Interactions;
 use Facebook\Facebook as FB;
@@ -36,7 +37,7 @@ Class ByAccountPage{
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
       'default_graph_version' => 'v3.3',
     ]);
-    $this->app_access_token ='EAAhZAgMuzLKgBAGiNrDfQ6havqCxAWONVBFwJ6d3euJbnRslFZBu7S2vATJqU3lax6BF1wgJYSzygB0LDKUzpWaZBthnvf1rafqnQVeOiuCfiTLLg4hVJmQTcmlmyo6puHuttdDx0BZApEZBEEVjaDoelYBaHxlZBx52PYkLZChiKzdCbsz4BYyZBMi20gIev3L0anrZCuGTWrNCiGutV5g6yDhOXznHX5lQ80jMqPqZAvMQZDZD';
+    $this->app_access_token = ACCESS_TOKEN;
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
     $this->more_interaction = $more_interaction;
@@ -178,7 +179,7 @@ Class ByAccountPage{
                       echo '<td>' . $this->account_info_array[$key] . '</td>';
                    
                   }else{
-                      echo '<td>x</td>';
+                      echo '<td>  </td>';
                   }
               }
               // echo '<td>F.13-17</td>';
@@ -239,7 +240,7 @@ Class ByAccountPage{
     }
     public function callReporting(){
       echo "
-        <a href='index.php?idpage=". $this->id_page ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Page Reporting</a><a href='index.php?accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .' class='more-margin' id='reporting'> Graphic System </a> 
+        <a href='index.php?idpage=". $this->id_page ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Page Reporting</a><a href='index.php?accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' class='graphicSystem' id='reporting'> Graphic System </a> 
         <script type='text/javascript' src='js/option_reporting.js'></script>
         <script src='js/graficas.js' type='text/javascript'></script>
         ";

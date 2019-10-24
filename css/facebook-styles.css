@@ -2,15 +2,14 @@
     padding: 0px;
     margin:0%;
 }
-/* #chart-container{
-    display: none;
-} */
 #options{
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
     color: darkgray;
     font-size: 17px;
+    font-family: 'Roboto Mono',
+    monospace;
 }
 .con-loader {
     position: absolute;
@@ -313,7 +312,7 @@ a:hover{
 
 body {
 	background: #fff;
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 .contenedor {
 	width: 90%;
