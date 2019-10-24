@@ -160,7 +160,7 @@ Class ByAccountPage{
               <th colspan="13" id="campaign-title"><h4>'. $this->page_name .'<br> General Performance</h4></th>
             <tr>
             <tr>
-                <th><i class="fas fa-barcode fa-2x"></i></th>
+                <th class="id-background"><i class="fas fa-barcode fa-2x"></i></th>
                 <th><i class="far fa-calendar-alt fa-2x"></i></th>
                 <th>Total: Nuevos <i class="far fa-thumbs-up fa-2x"></i></th>
                 <th>Like <i class="fas fa-money-check-alt fa-2x"></i></th>
@@ -177,7 +177,6 @@ Class ByAccountPage{
               foreach ($metrics as $key) {
                   if($this->account_info_array[$key]){
                       echo '<td>' . $this->account_info_array[$key] . '</td>';
-                   
                   }else{
                       echo '<td>  </td>';
                   }

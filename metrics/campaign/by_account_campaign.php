@@ -147,7 +147,7 @@
               <th colspan="12" id="campaign-title"><h4>'. $this->campaign_statistics['ad_account_name'] .'</h4></th>
             <tr>
             <tr>
-              <th><i class="fas fa-barcode fa-2x"></i></th>
+              <th class="id-background"><i class="fas fa-barcode fa-2x"></i></th>
               <th>Nombre</th>
               <th><i class="fas fa-toggle-on fa-2x"></i></th>
               <th><i class="fas fa-mouse-pointer fa-2x"></i></th>

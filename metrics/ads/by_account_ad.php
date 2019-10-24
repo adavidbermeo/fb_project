@@ -231,7 +231,7 @@ session_start();
                         <th colspan="16" id="campaign-title"><h4>'. $this->page_name .'</h4></th>
                         <tr>
                         <tr>
-                            <th class="face"><i class="fas fa-fingerprint fa-2x"></i></th>
+                            <th class="face id-background"><i class="fas fa-fingerprint fa-2x"></i></th>
                             <th class="face">Id Anuncio</th>
                             <th class="face"><i class="fas fa-search-plus fa-2x"></i></th>
                             <th class="face"><i class="fas fa-toggle-on fa-2x"></i></th>
