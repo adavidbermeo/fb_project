@@ -26,7 +26,7 @@ Class AccountsPageData{
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
             'default_graph_version'=>'v3.3',
         ]);
-        $this->access_token = 'EAAhZAgMuzLKgBALYAMq6vZCS3UlfSC5Sjk9iq0F5fBR27qGm8YOOZCh1DnX0Dbl6lleOoZCo5mJyR4EZCDJ0HtcCXBFLBP9YktkXZB7NdTFflMQcsx3xZA2kHFizNWxTWTMMAegjegsYdw678dzEWNTzjCJrtz9SuyFyYMZCRdZCbSLVVuwCfDtfUV8bFeY8awXHNXPNFhEOym0nVAdSxnxh3pmOmazKjg9JzkF7N3LjZA0QZDZD';
+        $this->access_token = 'EAAhZAgMuzLKgBAGiNrDfQ6havqCxAWONVBFwJ6d3euJbnRslFZBu7S2vATJqU3lax6BF1wgJYSzygB0LDKUzpWaZBthnvf1rafqnQVeOiuCfiTLLg4hVJmQTcmlmyo6puHuttdDx0BZApEZBEEVjaDoelYBaHxlZBx52PYkLZChiKzdCbsz4BYyZBMi20gIev3L0anrZCuGTWrNCiGutV5g6yDhOXznHX5lQ80jMqPqZAvMQZDZD';
         $this->request = $this->fb->get('me/adaccounts?fields=id,name,adcreatives.limit(10){object_story_id}&limit=100',$this->access_token);
 
         /**

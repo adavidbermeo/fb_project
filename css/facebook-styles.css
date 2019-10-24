@@ -2,9 +2,9 @@
     padding: 0px;
     margin:0%;
 }
-#chart-container{
+/* #chart-container{
     display: none;
-}
+} */
 #options{
     width: 100%;
     padding: 10px;
@@ -82,7 +82,7 @@
     box-sizing: border-box;
     border-radius: 35px 7px;
 }
-.more-margin{
+.graphicSystem {
     margin-left: 6px;
 }
 #reporting:hover{

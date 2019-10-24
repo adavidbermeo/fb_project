@@ -36,7 +36,7 @@ Class ByAccountPage{
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
       'default_graph_version' => 'v3.3',
     ]);
-    $this->app_access_token ='EAAhZAgMuzLKgBALYAMq6vZCS3UlfSC5Sjk9iq0F5fBR27qGm8YOOZCh1DnX0Dbl6lleOoZCo5mJyR4EZCDJ0HtcCXBFLBP9YktkXZB7NdTFflMQcsx3xZA2kHFizNWxTWTMMAegjegsYdw678dzEWNTzjCJrtz9SuyFyYMZCRdZCbSLVVuwCfDtfUV8bFeY8awXHNXPNFhEOym0nVAdSxnxh3pmOmazKjg9JzkF7N3LjZA0QZDZD';
+    $this->app_access_token ='EAAhZAgMuzLKgBAGiNrDfQ6havqCxAWONVBFwJ6d3euJbnRslFZBu7S2vATJqU3lax6BF1wgJYSzygB0LDKUzpWaZBthnvf1rafqnQVeOiuCfiTLLg4hVJmQTcmlmyo6puHuttdDx0BZApEZBEEVjaDoelYBaHxlZBx52PYkLZChiKzdCbsz4BYyZBMi20gIev3L0anrZCuGTWrNCiGutV5g6yDhOXznHX5lQ80jMqPqZAvMQZDZD';
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
     $this->more_interaction = $more_interaction;
@@ -240,7 +240,9 @@ Class ByAccountPage{
     public function callReporting(){
       echo "
         <a href='index.php?idpage=". $this->id_page ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Page Reporting</a><a href='index.php?accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .' class='more-margin' id='reporting'> Graphic System </a> 
-        <script type='text/javascript' src='js/option_reporting.js'></script>";
+        <script type='text/javascript' src='js/option_reporting.js'></script>
+        <script src='js/graficas.js' type='text/javascript'></script>
+        ";
     }
 }
 

@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="css/facebook-styles.css">
     <script src="js/jquery/jquery.js" text="text/javascript"></script>
     <script src="js/submit.js" text="text/javascript"></script>
+
+    <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+    <script type="text/javascript" src="js/Chart.min.js"></script>
+    <script type="text/javascript" src="js/graphics.js"></script>
+
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/834edd277c.js"></script>
     <!-- Text JavaScript -->
@@ -59,9 +64,7 @@
             <img src="img/paxzu.png" alt="Index Background" id="index-back">
             <?php $AccountsPageData->callReporting(); ?>
 
-            <div id="chart-container">
-			    <canvas id="mycanvas"></canvas>
-		    </div> 
+            <!-- <div id="chart-container"><canvas id="mycanvas"></canvas></div> -->
         </div>
         <div class="con-loader">
 
