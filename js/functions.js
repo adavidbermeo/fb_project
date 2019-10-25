@@ -18,3 +18,7 @@ function closeDialog(id) {
         $('#overlay').fadeOut('fast');
     });
 }
+
+// Custom Search
+        
+    

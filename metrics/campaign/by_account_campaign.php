@@ -141,8 +141,9 @@
     public function getCampaignStatisticsTable(){
       echo '
       <pre>
-        <table>
+        <table id="metrics-table">
           <thead>
+            <tr><th id="buscador" colspan="12"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="search" autofocus placeholder="Search"></th></tr>
             <tr>
               <th colspan="12" id="campaign-title"><h4>'. $this->campaign_statistics['ad_account_name'] .'</h4></th>
             <tr>
@@ -158,11 +159,11 @@
               <th>Costo por Lead</th>
               <th>Costo por Resultado</th>
             </tr>
-          </thead>';
+          </thead>
+          <tbody>';
           for ($i=0; $i <count($this->campaign_statistics['campaign_name']) ; $i++) { 
             echo '
-            <tbody>
-              <tr>';
+              <tr class="fila'. $i .'">';
                 $metrics = ['campaign_id','campaign_name','c_status', 'clicks','impressions','spend','reach','objective','cost_per_lead'];
                 foreach ($metrics as $key){
                   if(@$this->campaign_statistics[$key][$i]){
@@ -179,10 +180,28 @@
                   
               echo '
               </tr>
-              </tbody>';  
+              ';  
             }
             echo '
-              </table>';   
+              </tbody>
+              </table>
+               <script type="text/javascript">
+                var busqueda = document.getElementById("search");
+                    var table = document.getElementById("metrics-table").tBodies[0];
+
+                    buscaTabla = function () {
+                        texto = busqueda.value.toLowerCase();
+                        var r = 0;
+                        while (row = table.rows[r++]) {
+                            if (row.innerText.toLowerCase().indexOf(texto) !== -1)
+                                row.style.display = null;
+                            else
+                                row.style.display = "none";
+                        }
+                    }
+
+                    busqueda.addEventListener("keyup", buscaTabla);
+            </script>';   
     }
     public function callReporting(){
         echo "

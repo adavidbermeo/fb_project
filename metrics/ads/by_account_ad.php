@@ -225,8 +225,9 @@ session_start();
                  echo '<script type="text/javascript" src="js/send_btnvalue.js"></script>';
                  echo '
                  <pre>
-                    <table>
+                    <table id="metrics-table">
                     <thead>
+                        <tr><th id="buscador" colspan="16"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="search" autofocus placeholder="Search"></th></tr>
                         <tr>
                         <th colspan="16" id="campaign-title"><h4>'. $this->page_name .'</h4></th>
                         <tr>
@@ -248,12 +249,13 @@ session_start();
                             <th>Total Impresiones</th>
                             <th class="face"><i class="fas fa-mouse-pointer fa-2x"></i></th>
                         </tr>
-                    </thead>';
+                    </thead>
+                    <tbody>';
                     for ($i=0; $i <count($this->adPerformance['post_ids']) ; $i++) { 
                         $metrics = ['ad_ids','ads_preview','ad_effective_status','interactions','likes','love','wow','haha','sorry','anger','total_reactions','impressions_paid','impressions_organic','total_impressions','post_clicks'];
                         echo '
-                        <tbody>
-                        <tr>
+                        
+                        <tr class="fila'. $i .'">
                         <td>'.$i.'</td>';
                         foreach ($metrics as $key) {
                             if(@$this->adPerformance[$key][$i]){
@@ -273,11 +275,30 @@ session_start();
                         }
                         echo '
                         </tr>
-                        </tbody>
+                        
                     ';  
                         }
                     echo '
+                    </tbody>
                     </table>
+
+                    <script type="text/javascript">
+                        var busqueda = document.getElementById("search");
+                            var table = document.getElementById("metrics-table").tBodies[0];
+
+                            buscaTabla = function () {
+                                texto = busqueda.value.toLowerCase();
+                                var r = 0;
+                                while (row = table.rows[r++]) {
+                                    if (row.innerText.toLowerCase().indexOf(texto) !== -1)
+                                        row.style.display = null;
+                                    else
+                                        row.style.display = "none";
+                                }
+                            }
+
+                            busqueda.addEventListener("keyup", buscaTabla);
+                    </script>
                     ';
                        
                 }else{

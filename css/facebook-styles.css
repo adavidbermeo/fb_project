@@ -5,14 +5,35 @@
 .id-background{
     background: rgba(0,0,0,0.3);
 }
+.fila1,.fila3, .fila5, .fila7, .fila9, .fila11 , .fila13, .fila15, .fila17, .fila19, .fila21, .fila23, .fila25, .fila27,.fila29, .fila31, .fila33, .fila35, .fila37, .fila39, .fila41, .fila43, .fila45 , .fila47, .fila49 , .fila51{
+    background:#f4f4f4;
+}
+#buscador{
+    text-align: left;
+    background: white;
+    padding-bottom: 18px;
+}
 #options{
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-    color: darkgray;
+    color:#888;
     font-size: 17px;
     font-family: 'Roboto Mono',
     monospace;
+    border: 0.5px solid #ccc;
+}
+.table-search{
+    color: #ccc;
+    margin-right: 13px;
+    
+}
+#search, #fans-search{
+    width: 25%;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 0.1px solid #ccc;
+    box-shadow: 1px 1px 14px rgba(0, 74, 202, 0.5);
 }
 .con-loader {
     position: absolute;
@@ -135,8 +156,9 @@
     left: -7%;
 }
 .business-manager-info{
+    position: relative;
     margin-top: 0%;
-    border: 1px solid lightslategray;
+    border: 1px solid #ccc;
     padding: 25px;
 }
 
@@ -238,7 +260,7 @@ table th{
     border-color: #fff;
 }
 table{
-    margin: 0 auto 2%;
+    margin: -20px auto 0 auto;
 }
 .align{
     display: inline-block;
@@ -252,7 +274,9 @@ table{
     display: block;
     margin: 0 auto;
 }
-
+.pageStaTable{
+    width: 85% !important;
+}
 .app {
     background: #000;
     position: fixed;
@@ -262,7 +286,8 @@ table{
 	right: 4.5%;
 	margin: 0 0 0 0;
 	top: 19.5%;
-	width: 78px; 
+    width: 78px;
+    z-index: 1;
 }
  
 .app:after {

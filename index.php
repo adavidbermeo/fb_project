@@ -25,7 +25,6 @@
     <script src="https://kit.fontawesome.com/834edd277c.js"></script>
     <!-- Text JavaScript -->
     <script src="js/functions.js" type="text/javascript"></script>
-    <script src="js/graphics.js" type="text/javascript"></script>
         
 </head>
 <body class="index-background">

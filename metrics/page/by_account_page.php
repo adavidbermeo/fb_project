@@ -167,13 +167,14 @@ Class ByAccountPage{
                 <th>Like Organico</th>
                 <th>Interacciones Totales</th>
             </tr>
-          </thead>';
+          </thead>
+          <tbody>';
           for ($i=0; $i <1 ; $i++) { 
             $metrics = array_keys($this->account_info_array);
             unset($metrics[5]); unset($metrics[6]); unset($metrics[7]);
             echo '
-            <tbody>
-              <tr>';
+            
+              <tr class="fila'. $i .'">';
               foreach ($metrics as $key) {
                   if($this->account_info_array[$key]){
                       echo '<td>' . $this->account_info_array[$key] . '</td>';
@@ -184,58 +185,102 @@ Class ByAccountPage{
               // echo '<td>F.13-17</td>';
               echo '
               </tr>
-              </tbody>';  
+              ';  
             }
         echo '
-        </table>'; 
+        </tbody>
+        </table>
+        '; 
     }
     public function getAgeGenderTable(){
       echo '
-      <table>
+      <table id="metrics-table">
         <thead>
+          <tr><th id="buscador" colspan="2"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="search" autofocus placeholder="Search" class="pageStaTable"></th></tr>
           <tr>
             <th id="campaign-title"><h4>'. $this->page_name .'<br> Age Gender</h4></th>
             <th class="age-gender"><i class="fas fa-equals fa-2x"></i></th>
           </tr>
-        </thead>';
+        </thead>
+        <tbody>';
         $keys = array_keys($this->account_info_array['fans_age_gender']);
-        
+        $i = 0;
         foreach ($keys as $item) {
+          $i = $i+1;
            echo '
-          <tbody>
-            <tr rowspan="2">
+            <tr rowspan="2" class="fila'. $i .'">
             <th>'. $item .'</th>
             <td>'. $this->account_info_array['fans_age_gender'][$item] .'</td>  
-          </tbody>';   
+          ';   
         }
         echo '
+        </tbody>
         <tfoot>
         </tfoot>
       </table>';  
     }
     public function getfansCityTable(){
       echo '
-      <table>
+      <table id="fansCity-table">
         <thead>
+          <tr><th id="buscador" colspan="2"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="fans-search" autofocus placeholder="Search" class="pageStaTable"></th></tr>
           <tr>
             <th id="campaign-title"><h4>'. $this->page_name .'<br> Fans City</h4></th>
             <th class="age-gender"><i class="fas fa-equals fa-2x"></i></th>
           </tr>
-        </thead>';
+        </thead>
+        <tbody>';
         $keys = array_keys($this->account_info_array['fans_city']);
-            
+        $i = 0;
         foreach ($keys as $item) {
+          $i = $i+1;
            echo '
-          <tbody>
-            <tr rowspan="2">
+          
+            <tr rowspan="2" class="fila'. $i .'">
             <th>'. $item .'</th>
             <td>'. $this->account_info_array['fans_city'][$item] .'</td>  
-          </tbody>';
+          ';
         }
         echo '
+        </tbody>
         <tfoot>
         </tfoot>
-      </table>';  
+      </table>
+      <script type="text/javascript">
+        var busqueda = document.getElementById("search");
+            var table = document.getElementById("metrics-table").tBodies[0];
+
+            buscaTabla = function () {
+                texto = busqueda.value.toLowerCase();
+                var r = 0;
+                while (row = table.rows[r++]) {
+                    if (row.innerText.toLowerCase().indexOf(texto) !== -1)
+                        row.style.display = null;
+                    else
+                        row.style.display = "none";
+                }
+            }
+
+            busqueda.addEventListener("keyup", buscaTabla);
+
+            /*Second Table*/
+
+            var busqueda2 = document.getElementById("fans-search");
+            var table2 = document.getElementById("fansCity-table").tBodies[0];
+
+            buscaTabla2 = function () {
+                texto = busqueda2.value.toLowerCase();
+                var r = 0;
+                while (row = table2.rows[r++]) {
+                    if (row.innerText.toLowerCase().indexOf(texto) !== -1)
+                        row.style.display = null;
+                    else
+                        row.style.display = "none";
+                }
+            }
+
+            busqueda2.addEventListener("keyup", buscaTabla2);
+    </script>';  
     }
     public function callReporting(){
       echo "

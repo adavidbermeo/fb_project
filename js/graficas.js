@@ -86,7 +86,7 @@ $(document).ready(function () {
                                 hoverBorderColor: 'rgba(255, 99, 0, 0.7)',
                                 data: valores
                             }, {
-                                label: 'Reach',
+                                label: 'Alcance',
                                 backgroundColor: 'rgba(59, 57, 255, 0.3)',
                                 borderColor: 'rgba(59, 57, 255, 0.3)',
                                 hoverBackgroundColor: 'rgba(59, 57, 255, 0.6)',
