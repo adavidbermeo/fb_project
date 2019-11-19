@@ -1,7 +1,7 @@
 var data = '';
 $(document).ready(function () {
     $(".graphicSystem").click(function (event) {
-         event.preventDefault();
+        event.preventDefault();
 
         var selected = $(this).attr('href');
 
