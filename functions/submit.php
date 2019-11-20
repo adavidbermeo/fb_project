@@ -7,12 +7,15 @@ namespace functions\submit;
                 echo "<a href='index.php?click=yesCampaign*$data' id='campaign' class='search-option'><img src='img/campaign.png' alt='Index Background'></a>";
                 echo "<a href='index.php?click=yesAd*$data' id='ad' class='search-option'><img src='img/ads.png' alt='Index Background'></a>";
                 echo "<a href='index.php?click=yesPage*$data' id='page' class='search-option'><img src='img/page.png' alt='Index Background'></a><br>";
-                echo "<a href='index.php?click=dashboard*$data'><img src='img/dashboard.png' alt='Account Dashboard'></a>";
+                 echo "<a href='index.php?click=dashboard*$data' id='custom-dashboard'><img src='img/dashboard.png' alt='Account Dashboard'></a>";
                 echo "</div>";
-                
+           
         }
 ?>
-<script src="js/click.js">
+
+<script src="js/clic.js"></script>
+<script src="dashboard/js/gdashboard.js"></script>
+
         
         
 

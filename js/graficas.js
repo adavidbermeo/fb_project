@@ -25,7 +25,7 @@ $(document).ready(function () {
                 var tamano = data.length;
                 var color = data[(tamano-1)]['Bcolor'];
 
-                console.log(data);
+                console.log(data); 
                 for (var i = 0; i < (data.length-1); i++){
                     switch(data[tamano-1]['tabla']){
                         case 'ad':

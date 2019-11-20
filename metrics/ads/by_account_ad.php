@@ -74,7 +74,7 @@ session_start();
             $this->setAdPerformance();
         }
         public function setAdIdRequest(){
-            $request = $this->fb->get($this->ad_account_id . '?fields=ads{id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id . '?fields=ads.limit(50){id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
             $GraphRequest = $request->getGraphNode();
             // echo "<pre>";
             $this->data_array_post_ad = $GraphRequest->asArray();
@@ -84,16 +84,20 @@ session_start();
         
            foreach ($this->data_array_post_ad['ads'] as $key) {
                 //   print_r($key);
-                $this->ad_ids[] = $key['id'];
-                $this->ad_name[] = $key['name'];
-                $this->ad_effective_status[] = $key['effective_status'];
-                if(@$key['creative']['effective_object_story_id']){
-                    $this->page_post[] = $key['creative']['effective_object_story_id'];
-                }
+                
+                if($key['effective_status'] == 'ACTIVE'){
+                    $this->ad_ids[] = $key['id'];
+                    $this->ad_name[] = $key['name'];
+                    $this->ad_effective_status[] = $key['effective_status'];
+                    if(@$key['creative']['effective_object_story_id']){
+                        $this->page_post[] = $key['creative']['effective_object_story_id'];
+                    }
+                        
+                }   
             }
-            foreach ($this->page_post as $item) {
-                list($this->post_page_id[], $this->post_ids[]) = explode('_', $item);
-            } 
+             foreach ($this->page_post as $item) {
+                    list($this->post_page_id[], $this->post_ids[]) = explode('_', $item);
+                }   
         }
         public function setAccessToken(){
             $request = $this->fb->get($this->id_page. '?fields=access_token,name',$this->app_access_token); 
@@ -230,7 +234,7 @@ session_start();
                         <tr><th id="buscador" colspan="16"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="search" autofocus placeholder="Search"></th></tr>
                         <tr>
                         <th colspan="16" id="campaign-title"><h4>'. $this->page_name .'</h4></th>
-                        <tr>
+                        </tr>
                         <tr>
                             <th class="face id-background"><i class="fas fa-fingerprint fa-2x"></i></th>
                             <th class="face">Id Anuncio</th>
@@ -251,18 +255,19 @@ session_start();
                         </tr>
                     </thead>
                     <tbody>';
-                    for ($i=0; $i <count($this->adPerformance['post_ids']) ; $i++) { 
+                    for ($i=0; $i <count($this->adPerformance['ad_ids']) ; $i++) { 
                         $metrics = ['ad_ids','ads_preview','ad_effective_status','interactions','likes','love','wow','haha','sorry','anger','total_reactions','impressions_paid','impressions_organic','total_impressions','post_clicks'];
                         echo '
-                        
-                        <tr class="fila'. $i .'">
-                        <td>'.$i.'</td>';
+                            <tr class="fila'. $i .'">
+                            <td>'.$i.'</td>';
                         foreach ($metrics as $key) {
                             if(@$this->adPerformance[$key][$i]){
                                 echo '<td>' . $this->adPerformance[$key][$i] . '</td>';
                             }elseif($key == 'ads_preview'){
-                                
-                                echo '<td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
+                                if (@$this->adPerformance['ad_ids'][$i]) {
+                                    echo '
+                                     <td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
+                                }
                                 echo '<div class="overlay" id="overlay">
                                     <div class="popup" id="popup">
                                     

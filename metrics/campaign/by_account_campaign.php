@@ -61,7 +61,7 @@
     public function setRequest(){
       try {
         // Returns a `FacebookFacebookResponse` object
-        $this->request = $this->fb->get( $this->ad_account_id .'?fields=name,id,campaigns{name,status,objective,insights{clicks,impressions,spend,reach,objective,cost_per_unique_click,cost_per_conversion,cost_per_action_type}}&limit=100',$this->access_token);
+        $this->request = $this->fb->get( $this->ad_account_id .'?fields=name,id,campaigns.limit(50){name,status,objective,insights{clicks,impressions,spend,reach,objective,cost_per_unique_click,cost_per_conversion,cost_per_action_type}}',$this->access_token);
       } catch(FacebookExceptionsFacebookResponseException $e) {
         echo 'Graph returned an error: ' . $e->getMessage();
         exit;
@@ -82,10 +82,11 @@
       $this->ad_account_name = $this->campaign_info['name'];
       foreach ($this->campaign_info['campaigns'] as $n){
 
+        
+        if($n['status']=="ACTIVE"){
           $this->campaign_name[] =  $n['name'];
           $this->campaign_id[] = $n['id']; 
-          $this->status[] = $n['status']; 
-       
+          $this->status[] = $n['status'];
           $this->clicks[] = @$n['insights'][0]['clicks'];
           $this->impressions[] = @$n['insights'][0]['impressions'];
           $this->spend[] = @$n['insights'][0]['spend'];
@@ -99,6 +100,7 @@
               $this->action_value[] = $i['value'];
             }
           }
+        }
       }
     }
     public function setCampaignStatisticsArray(){
