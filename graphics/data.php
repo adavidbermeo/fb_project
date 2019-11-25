@@ -36,7 +36,6 @@ function getData($ad_account_id, $db_table_name){
 	// die(var_dump($sql));
 
 	$result = $sql->fetchAll();
-
 	$count = count($result);
 
 	$result[$count]['tabla'] = $db_table_name;
