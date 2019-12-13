@@ -60,13 +60,17 @@
             <a onclick="closeDialog('popup');" class="close"><i class="fas fa-window-close fa-4x"></i></a>
         </div> -->
         <div class="business-manager-info">
-             
+            
             <h3 class="welcome">Welcome to Facebook Api Project</h3>
             <img src="img/paxzu.png" alt="Index Background" id="index-back">
             <?php $AccountsPageData->callReporting(); ?>
 
             <!-- <div id="chart-container"><canvas id="mycanvas"></canvas></div> -->
         </div>
+        <div class="graphic-dashboard">
+        <!-- Graphic Dashboard System -->
+        </div>
+
         <div class="con-loader">
 
 	        <div class="loader">

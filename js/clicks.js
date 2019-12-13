@@ -6,6 +6,14 @@ $(document).ready(function () {
             );
         }
     );
+    $('#custom-dashboard').click(
+         function () {
+            $('.graphic-dashboard').css(
+                 "display", "block"
+            );
+        }
+    );
+    
     $(".menu .search-option").click(function (event) {
         event.preventDefault();
 
@@ -19,6 +27,7 @@ $(document).ready(function () {
             data: {
                 selected: selected,
             },
+            cache:false,
             success: function (response) {
                 $(".business-manager-info").html(response);
                 $('.con-loader').css(

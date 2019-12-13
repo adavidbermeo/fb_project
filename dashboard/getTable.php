@@ -1,6 +1,6 @@
 <?php
 // Db Connection 
-require_once('database/connectDb.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
 
     if(isset($_POST['selected'])){
         $selected = $_POST['selected'];

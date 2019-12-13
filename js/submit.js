@@ -9,7 +9,14 @@ $(document).ready(function(){
             search: search,
             // datavalue: datavalue
         }, function(respuesta){
-                $(".business-manager-info").html(respuesta);
+            $(".business-manager-info").css(
+                "display", "block"
+            );
+            $(".graphic-dashboard").css(
+                "display", "none"
+            )
+    
+            $(".business-manager-info").html(respuesta);
         });
     });
 });

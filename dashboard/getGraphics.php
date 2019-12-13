@@ -1,6 +1,6 @@
 <?php
 // Db Connection 
-require_once('database/connectDb.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
 
     if(isset($_POST['selected'])){
         $selected = $_POST['selected'];
@@ -12,7 +12,7 @@ require_once('database/connectDb.php');
     }
 
 function getData($ad_account_id){
-
+    
 	//setting header to json
 	$db = new database();
 	$conn = $db->conn();
@@ -29,7 +29,7 @@ function getData($ad_account_id){
     
     //$count = count($result);
     
-    $graphic_array = ['ad_graphic'=> $ad_graphic, 'campaign_graphic'=> $campaign_graphic];
+    $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic ];
     echo json_encode($graphic_array);
 	        
 }

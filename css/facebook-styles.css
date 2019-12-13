@@ -526,3 +526,13 @@ body {
     text-align: center;
     display: inline-block;
 }
+.graphics{
+    width:100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    padding:26px;
+    box-sizing: border-box;
+}
+.graphic-dashboard{
+   margin-top: -4%; 
+}

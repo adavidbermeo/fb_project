@@ -1,6 +1,6 @@
 <?php
 namespace metrics\ads;
-require_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/preview/preview.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
