@@ -24,6 +24,7 @@ $(document).ready(function () {
             cache: false,
             success: function (response){
                 result1 = response;
+                console.log(result1);
                 
                 selector.css(
                     "display","none"

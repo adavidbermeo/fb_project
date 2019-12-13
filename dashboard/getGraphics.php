@@ -1,18 +1,22 @@
 <?php
 // Db Connection 
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/page/by_account_page.php');
+
+use metrics\page\ByAccountPage;
     
     if(isset($_POST['selected'])){
         $selected = $_POST['selected'];
-        print_r($selected);
+        echo $selected; 
+        
         list($url, $click) = explode('=', $selected);
         list($click_value,$data) = explode('*', $click);
         list($id_page, $ad_account_id) = explode('%', $data); 
 
-        getData($ad_account_id);
+        // getData($ad_account_id);
     }
 
-function getData($ad_account_id){
+function getData($id_page,$ad_account_id){
     
 	//setting header to json
 	$db = new database();
@@ -29,7 +33,8 @@ function getData($ad_account_id){
     $ad_graphic = $sql->fetchAll();
     
     //$count = count($result);
-
+    $by_account_page = new ByAccountPage($id_page, $ad_account_id);
+    $by_account_page->
     //Sex Graphic 
     // $sql = $conn->prepare(""); 
     
