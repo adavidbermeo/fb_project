@@ -7,13 +7,13 @@ use metrics\page\ByAccountPage;
     
     if(isset($_POST['selected'])){
         $selected = $_POST['selected'];
-        echo $selected; 
+        // echo $selected; 
         
         list($url, $click) = explode('=', $selected);
         list($click_value,$data) = explode('*', $click);
         list($id_page, $ad_account_id) = explode('%', $data); 
 
-        // getData($ad_account_id);
+        getData($id_page,$ad_account_id);
     }
 
 function getData($id_page,$ad_account_id){
@@ -34,11 +34,12 @@ function getData($id_page,$ad_account_id){
     
     //$count = count($result);
     $by_account_page = new ByAccountPage($id_page, $ad_account_id);
-    $by_account_page->
+    $fans_city = $by_account_page->account_info_array['fans_city'];
+    print_r($fans_city);
     //Sex Graphic 
     // $sql = $conn->prepare(""); 
     
     $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic ];
-    echo json_encode($graphic_array);
+    // echo json_encode($graphic_array);
 	        
 }

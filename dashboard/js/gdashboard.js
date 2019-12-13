@@ -25,14 +25,14 @@ $(document).ready(function () {
             success: function (response){
                 result1 = response;
                 console.log(result1);
-                
+
                 selector.css(
                     "display","none"
                 );
 
-                $.each(canvas ,function (index, value) {
-                    dashboard.append('<div class="graphics"><canvas id="'+ value +'"</canvas></div>');
-                });
+                // $.each(canvas ,function (index, value) {
+                //     dashboard.append('<div class="graphics"><canvas id="'+ value +'"</canvas></div>');
+                // });
                 
                 data = JSON.parse(response);
                 
@@ -127,7 +127,7 @@ $(document).ready(function () {
              })
             ).then(function(){
 
-                dashboard.append(result2);
+                // dashboard.append(result2);
             });
         });
     });
