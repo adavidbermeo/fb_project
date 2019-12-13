@@ -49,7 +49,7 @@
 
         $first_value = $index_value[0];
         $ad_account_id = $index_value[1];
-        $db_table_name = $index_value[2]; 
+        $db_table_name = unserialize($index_value[2]); 
 
         //list($action_selected, $parameters) = explode('_', $click);
         
@@ -60,7 +60,7 @@
         echo "<a href='index.php?click=delete%". $values ."'>Delete</a>";
         echo "</div>";
 
-        echo "<h3> $db_table_name Reporting System &copy;</h3>";
+        echo "<h3>  Reporting System &copy;</h3>";
         // echo $parameters;
 
         /***
@@ -70,7 +70,8 @@
 
         switch ($action_selected){
             case 'insert':  
-                switch ($db_table_name) {
+                for ($i=0; $i <count($db_table_name) ; $i++) { 
+                    switch ($db_table_name[$i]){
                     case 'ad':
                         $ad = new ByAccountAd($first_value,$ad_account_id);
                         $ad_array = $ad->adPerformance;
@@ -87,10 +88,12 @@
                         break;
                      case 'page':
                         $page = new ByAccountPage($first_value, $ad_account_id,0);
+                        $page->getArrayAccountInfo();
                         $page_array = $page->db_account_info_array;
 
                         $database->connectDatabase();
                         $database->insertData($db_table_name, $page_array);
+                        
                         break;
                      case 'account':
                         $account = new AccountsPageData();
@@ -103,6 +106,8 @@
                         echo "The model case does not exist";
                         break;
                 }
+                }
+                
                 break;
             case 'generalselect':
 

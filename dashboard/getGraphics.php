@@ -1,9 +1,10 @@
 <?php
 // Db Connection 
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
-
+    
     if(isset($_POST['selected'])){
         $selected = $_POST['selected'];
+        print_r($selected);
         list($url, $click) = explode('=', $selected);
         list($click_value,$data) = explode('*', $click);
         list($id_page, $ad_account_id) = explode('%', $data); 
@@ -28,6 +29,9 @@ function getData($ad_account_id){
     $ad_graphic = $sql->fetchAll();
     
     //$count = count($result);
+
+    //Sex Graphic 
+    // $sql = $conn->prepare(""); 
     
     $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic ];
     echo json_encode($graphic_array);

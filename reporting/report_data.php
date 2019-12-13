@@ -23,7 +23,8 @@
         
         $first_value = $index_value[0];
         $ad_account_id = $index_value[1];
-        $db_table_name = $index_value[2]; 
+        $db_table_name = unserialize($index_value[2]);
+        
         // Load Script to action
         echo "<script src='js/get_reporting.js'></script>";
         echo "<script src='js/post_reporting.js'></script>";
