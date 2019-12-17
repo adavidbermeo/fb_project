@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <!-- Favicon -->
+    <link rel="icon" href="img/fbprojectlogo.png" type="img/png">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
@@ -16,7 +18,7 @@
     <link rel="stylesheet" href="css/facebook-styles.css">
     <script src="js/jquery/jquery.js" text="text/javascript"></script>
     <script src="js/submit.js" text="text/javascript"></script>
-
+    <script src="js/random_color/randomColor.js" type="text/javascript"></script>
     <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
     <script type="text/javascript" src="js/Chart.min.js"></script>
     <script type="text/javascript" src="js/graphics.js"></script>

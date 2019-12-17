@@ -6,6 +6,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/page/by_account_page
 use metrics\page\ByAccountPage;
     
     if(isset($_POST['selected'])){
+        //$selected = 'index.php?click=dashboard*303239893027115%act_131251207293544';
         $selected = $_POST['selected'];
         // echo $selected; 
         
@@ -32,14 +33,26 @@ function getData($id_page,$ad_account_id){
     $sql->execute(); 
     $ad_graphic = $sql->fetchAll();
     
-    //$count = count($result);
+    //Age - Gender
+
     $by_account_page = new ByAccountPage($id_page, $ad_account_id);
-    $fans_city = $by_account_page->account_info_array['fans_city'];
-    print_r($fans_city);
-    //Sex Graphic 
-    // $sql = $conn->prepare(""); 
+    $fans_age_gender = $by_account_page->account_info_array['fans_age_gender'];
     
-    $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic ];
-    // echo json_encode($graphic_array);
-	        
+    $age_gender_array = [];
+    foreach($fans_age_gender as $key => $value){
+        array_push($age_gender_array, array("key"=>$key,"value"=>$value));
+    }
+
+    $fans_city = $by_account_page->account_info_array['fans_city'];
+
+    $fans_city_array = [];
+    foreach($fans_city as $key => $value){
+        array_push($fans_city_array, ['key' => $key, 'value'=> $value]); 
+    }
+    //print_r($by_account_page->account_info_array['fans_age_gender']);
+    
+    $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic, 'fans_age_gender'=> $age_gender_array, 'fans_city' => $fans_city_array];
+    //print_r($graphic_array);
+    echo json_encode($graphic_array);
+       
 }
