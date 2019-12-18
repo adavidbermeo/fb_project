@@ -110,7 +110,7 @@ session_start();
         public function setAdStatistics(){
         for ($i=0; $i <count($this->page_post) ; $i++) { 
             $response = $this->fb->get(
-                    $this->post_page_id[$i] .'_'. $this->post_ids[$i] .'/insights?metric=post_reactions_by_type_total,post_impressions_paid_unique,post_impressions_organic_unique,post_impressions_unique,post_clicks_unique',
+                    $this->post_page_id[$i] .'_'. $this->post_ids[$i] .'/insights?metric=post_reactions_by_type_total,post_impressions_paid_unique,post_impressions_organic_unique,post_impressions_unique,post_clicks_unique,',
                     $this->page_access_token
             );
             $GraphEdge = $response->getGraphEdge();
@@ -120,6 +120,7 @@ session_start();
                
                 $name = $key['name'];
                 foreach ($key['values'] as $item) {
+                    print_r($data);
                     if(is_array($item)){
                         
                         if($name == 'post_reactions_by_type_total'){
@@ -201,7 +202,7 @@ session_start();
         }
         
         public function getAdPerformance(){
-            
+
             $keys = array_keys($this->adPerformance);
 
                 for ($i=0; $i <count($this->adPerformance['post_page_id']) ; $i++) { 
@@ -224,6 +225,8 @@ session_start();
             }
         }
         public function getAdPerformanceTable(){
+            print_r($this->adPerformance['post_page_id']);
+            print_r($this->adPerformance['post_ids']);
             if($this->ad_account_id){
                  echo '<script type="text/javascript" src="js/popup.js"></script>';
                  echo '<script type="text/javascript" src="js/send_btnvalue.js"></script>';
