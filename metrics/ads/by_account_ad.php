@@ -8,9 +8,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
 use Facebook\Facebook as FB;
 use preview\AdsPreview;
 
-session_start();
-
-    class ByAccountAd{
+ class ByAccountAd{
 
         public $db_table_name = "ad";
 
@@ -39,6 +37,8 @@ session_start();
         public $post_clicks = [];
         public $interactions = [];
         public $adPerformance;
+        public $comments_count = [];
+        public $shares_count = [];
 
         
         
@@ -67,8 +67,10 @@ session_start();
          */ 
             $this->setAdIdRequest();
             $this->getDataRequest();
+
             $this->setAccessToken();
             $this->setAdStatistics();
+
             $this->totalReactions();
             $this->setInteractions();
             $this->setAdPerformance();
@@ -83,7 +85,6 @@ session_start();
         public function getDataRequest(){
         
            foreach ($this->data_array_post_ad['ads'] as $key) {
-                //   print_r($key);
                 
                 if($key['effective_status'] == 'ACTIVE'){
                     $this->ad_ids[] = $key['id'];
@@ -108,48 +109,62 @@ session_start();
             $this->page_name = $data['name'];
         }
         public function setAdStatistics(){
-        for ($i=0; $i <count($this->page_post) ; $i++) { 
-            $response = $this->fb->get(
-                    $this->post_page_id[$i] .'_'. $this->post_ids[$i] .'/insights?metric=post_reactions_by_type_total,post_impressions_paid_unique,post_impressions_organic_unique,post_impressions_unique,post_clicks_unique,',
-                    $this->page_access_token
-            );
-            $GraphEdge = $response->getGraphEdge();
-            $data = $GraphEdge->asArray();
-            
-            foreach ($data as $key){
-               
-                $name = $key['name'];
-                foreach ($key['values'] as $item) {
-                    print_r($data);
-                    if(is_array($item)){
-                        
-                        if($name == 'post_reactions_by_type_total'){
+            for ($i=0; $i <count($this->page_post) ; $i++) { 
+                $response = $this->fb->get(
+                        $this->post_page_id[$i] .'_'. $this->post_ids[$i] .'/?fields=insights.metric(post_reactions_by_type_total,post_impressions_paid_unique,post_impressions_organic_unique,post_impressions_unique,post_clicks_unique),shares,comments.summary(true)',
+                        $this->page_access_token
+                );
+                $GraphEdge = $response->getGraphNode();
+                $data = $GraphEdge->asArray();
+                // echo "<pre>";
 
-                            $this->likes[] = @$item['value']['like'];
-                            $this->love[] = @$item['value']['love'];
-                            $this->wow[] = @$item['value']['wow'];
-                            $this->haha[] = @$item['value']['haha'];
-                            $this->sorry[] = @$item['value']['sorry']; 
-                            $this->anger[] = @$item['value']['anger'];
-
-                         }  
-
-                        if ($name == 'post_impressions_paid_unique') {
-                            $this->impressions_paid[] =  $item['value'];
-                        }if ($name == 'post_impressions_organic_unique') {
-                            $this->impressions_organic[] = $item['value'];
-                        }if ($name == 'post_impressions_unique') {
-                            $this->total_impressions[] = $item['value'];
-                        }if ($name == 'post_clicks_unique') {
-                            $this->post_clicks[] = $item['value'];
-                            
-                        }
+                // print_r($data);
+                /***
+                 * Set VARS
+                 */
+                foreach ($data['insights'] as $key => $value) {
+                    switch ($value['name']) {
+                        case 'post_reactions_by_type_total':
+                            foreach ($value['values'] as $element) {
+                                $this->likes[] =  @$element['value']['like'];
+                                $this->love[] = @$element['value']['love'];
+                                $this->wow[] =  @$element['value']['wow'];
+                                $this->haha[] =  @$element['value']['haha'];
+                                $this->sorry[] =  @$element['value']['sorry'];
+                                $this->anger[] =  @$element['value']['anger'];
+                            }
+                            break;
+                        case 'post_impressions_paid_unique':
+                            foreach ($value['values'] as $element) {
+                                $this->impressions_paid[] = $element['value']; 
+                            }
+                            break;
+                        case 'post_impressions_organic_unique': 
+                            foreach ($value['values'] as $element) {
+                                $this->impressions_organic[] =$element['value'];
+                            }
+                            break;
+                        case 'post_impressions_unique':
+                            foreach($value['values'] as $element){
+                                $this->total_impressions[] = $element['value'];
+                            }
+                            break;
+                        case 'post_clicks_unique':
+                            foreach($value['values'] as $element){
+                                $this->post_clicks[] = $element['value'];
+                            } 
+                            break;
+                        default:
+                            echo "An unexpected error has ocurred";
+                            break;
+                    }
                 }
-            }   
-        }
-    }
                 
-    }
+                $this->comments_count[] = count($data['comments']);
+                $this->shares_count[] = @$data['shares']['count'];
+                
+            }
+        }
     public function totalReactions(){
         $reactions = [];
         $reactions = [
@@ -197,7 +212,9 @@ session_start();
                 'impressions_paid' => $this->impressions_paid, 
                 'impressions_organic' => $this->impressions_organic, 
                 'total_impressions' => $this->total_impressions, 
-                'post_clicks' => $this->post_clicks, 
+                'post_clicks' => $this->post_clicks,
+                'comments' => $this->comments_count,
+                'shares' => $this->shares_count
             ];
         }
         
@@ -225,8 +242,7 @@ session_start();
             }
         }
         public function getAdPerformanceTable(){
-            print_r($this->adPerformance['post_page_id']);
-            print_r($this->adPerformance['post_ids']);
+     
             if($this->ad_account_id){
                  echo '<script type="text/javascript" src="js/popup.js"></script>';
                  echo '<script type="text/javascript" src="js/send_btnvalue.js"></script>';
@@ -236,30 +252,32 @@ session_start();
                     <thead>
                         <tr><th id="buscador" colspan="16"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="search" autofocus placeholder="Search"></th></tr>
                         <tr>
-                        <th colspan="16" id="campaign-title"><h4>'. $this->page_name .'</h4></th>
+                        <th colspan="18" id="campaign-title"><h4>'. $this->page_name .'</h4></th>
                         </tr>
                         <tr>
-                            <th class="face id-background"><i class="fas fa-fingerprint fa-2x"></i></th>
-                            <th class="face">Id Anuncio</th>
-                            <th class="face"><i class="fas fa-search-plus fa-2x"></i></th>
-                            <th class="face"><i class="fas fa-toggle-on fa-2x"></i></th>
-                            <th class="face">Interacciones</th>
-                            <th class="face"><i class="far fa-thumbs-up fa-2x"></i></th>
-                            <th class="face"><i class="fas fa-heart fa-2x"></i></th>
-                            <th class="face"><i class="far fa-surprise fa-2x"></i></th>
-                            <th class="face"><i class="far fa-laugh-squint fa-2x"></i></th>
-                            <th class="face"><i class="fas fa-sad-tear fa-2x"></i></th>
-                            <th class="face"><i class="far fa-angry fa-2x"></i></th>
+                            <th class="csize id-background"><i class="fas fa-fingerprint fa-2x"></i></th>
+                            <th class="csize">Id Anuncio</th>
+                            <th class="csize"><i class="fas fa-search-plus fa-2x"></i></th>
+                            <th class="csize"><i class="fas fa-toggle-on fa-2x"></i></th>
+                            <th class="csize">Interacciones</th>
+                            <th class="csize"><i class="far fa-thumbs-up fa-2x"></i></th>
+                            <th class="csize"><i class="fas fa-heart fa-2x"></i></th>
+                            <th class="csize"><i class="far fa-surprise fa-2x"></i></th>
+                            <th class="csize"><i class="far fa-laugh-squint fa-2x"></i></th>
+                            <th class="csize"><i class="fas fa-sad-tear fa-2x"></i></th>
+                            <th class="csize"><i class="far fa-angry fa-2x"></i></th>
                             <th>Reacciones Totales</th>
                             <th>Impresiones <i class="fas fa-coins fa-2x"></i></th>
                             <th>Impresiones Organicas</th>
                             <th>Total Impresiones</th>
-                            <th class="face"><i class="fas fa-mouse-pointer fa-2x"></i></th>
+                            <th class="csize"><i class="fas fa-mouse-pointer fa-2x"></i></th>
+                            <th class="csize">Comments <i class="fas fa-comments fa-2x"></i></th>
+                            <th class="csize">Shares <i class="fas fa-share fa-2x"></i></th>
                         </tr>
                     </thead>
                     <tbody>';
                     for ($i=0; $i <count($this->adPerformance['ad_ids']) ; $i++) { 
-                        $metrics = ['ad_ids','ads_preview','ad_effective_status','interactions','likes','love','wow','haha','sorry','anger','total_reactions','impressions_paid','impressions_organic','total_impressions','post_clicks'];
+                        $metrics = ['ad_ids','ads_preview','ad_effective_status','interactions','likes','love','wow','haha','sorry','anger','total_reactions','impressions_paid','impressions_organic','total_impressions','post_clicks','comments','shares'];
                         echo '
                             <tr class="fila'. $i .'">
                             <td>'.$i.'</td>';

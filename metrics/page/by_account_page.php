@@ -93,6 +93,7 @@ Class ByAccountPage{
 
     // echo '<h1>Page Fans</h1>';
     $item = -1;
+    
     foreach ($data as $i => $camp){
       $item++;
       $name = $camp['name'];
@@ -107,10 +108,10 @@ Class ByAccountPage{
               $this->people_unpaid_like =  $n[1]['value']['unpaid'];
               break;
             case 'page_fans_gender_age':
-              $this->fans_age_gender = $n[1]['value'];
+              $this->fans_age_gender = $n[0]['value'];
             break;
             case 'page_fans_city':
-              $this->fans_city =  $n[1]['value'];
+              $this->fans_city =  $n[0]['value'];
             break;
             case 'page_post_engagements':
               if ($this->period == 'days_28') {

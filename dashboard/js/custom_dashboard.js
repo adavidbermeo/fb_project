@@ -1,6 +1,6 @@
 var data = '';
 $(document).ready(function () {
-    // $("#graphics").remove();
+
     $(".menu #custom-dashboard").one('click',function (event) {
         event.preventDefault();
 
@@ -11,13 +11,6 @@ $(document).ready(function () {
         var canvas = ['campaignCanvas','adCanvas','ageGender','fansCity'];
         var selector = $(".business-manager-info");
         var dashboard = $(".graphic-dashboard");
-        
-        /**
-         * Change with main container value
-         */
-        // $(".custom-container").css(
-        //     "width", "95%"
-        // )
     
         // Campaign Graphics
     
@@ -58,17 +51,12 @@ $(document).ready(function () {
                 var fcity_value = [];
                 var fcity_label = [];
                 
-                //var bckColor = ['red','yellow','pink','blue','black','darkblue','gray','green','white','purple','lightgray'];
-                 // Post Reactions
-
-                // if (data['ad_ids']) {
-                    for (var i = 0; i < 5; i++) {
-                        if ((data['ad_graphic'][i])) {
-                            ad_value.push(data['ad_graphic'][i]['total_reactions']);
-                            ad_label.push(data['ad_graphic'][i]['ad_ids'] + " / " + data['ad_graphic'][i]['ad_name']);
-                        }
+                for (var i = 0; i < 5; i++) {
+                    if ((data['ad_graphic'][i])) {
+                        ad_value.push(data['ad_graphic'][i]['total_reactions']);
+                        ad_label.push(data['ad_graphic'][i]['ad_ids'] + " / " + data['ad_graphic'][i]['ad_name']);
                     }
-                // } 
+                }
                  
                 var ctx = $("#adCanvas");  
                 var ad_chart = {
@@ -95,14 +83,13 @@ $(document).ready(function () {
                  });
 
                 // Click per campaign
-                //  if (data['campaign_id']) {
+
                      for (var i = 0; i < 5; i++) {
                          if ((data['campaign_graphic'][i])) {
                              camp_value.push(data['campaign_graphic'][i]['clicks']);
                              camp_label.push(data['campaign_graphic'][i]['campaign_id'] + " / " + data['campaign_graphic'][i]['campaign_name']);
                          }
                      }
-                //  }
                 
                 var ctx2 = $('#campaignCanvas');
                 var campaign_chart = {
@@ -129,7 +116,7 @@ $(document).ready(function () {
                 });
 
                 //Age Gender 
-                // if (data['fans_age_gender'] == TRUE){
+
                     for (var i = 0; i < data['fans_age_gender'].length; i++) {
 
                         if ((data['fans_age_gender'][i])) {
@@ -137,7 +124,6 @@ $(document).ready(function () {
                             agender_label.push(data['fans_age_gender'][i].key);
                         }
                     }
-                // }
 
                 var ctx3 = $("#ageGender");
                 var agender_chart = {
@@ -168,14 +154,13 @@ $(document).ready(function () {
                  * Fans City or Location
                  *
                  */
-                // if (data['fans_city'] == TRUE) {
+                
                     for (var i = 0; i < data['fans_city'].length; i++) {
                         if ((data['fans_city'][i])) {
                             fcity_value.push(data['fans_city'][i].value);
                             fcity_label.push(data['fans_city'][i].key);
                         }
                     }
-                // }
 
                   var ctx4 = $("#fansCity");
                   randomColor();

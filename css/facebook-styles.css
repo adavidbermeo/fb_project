@@ -245,8 +245,8 @@ table tr,th,td{
     box-sizing:border-box;
     text-align: center;
 }
-.face{
-    padding: 18px;
+.csize{
+    width: 48px;
     box-sizing: border-box;
 }
 #campaign-title{

@@ -37,6 +37,8 @@ use preview\AdsPreview;
         public $post_clicks = [];
         public $interactions = [];
         public $adPerformance;
+        public $comments_count = [];
+        public $shares_count = [];
 
         
         
@@ -117,7 +119,7 @@ use preview\AdsPreview;
                 $data = $GraphEdge->asArray();
                 echo "<pre>";
 
-                print_r($data);
+                // print_r($data);
                 /***
                  * Set VARS
                  */
@@ -158,24 +160,12 @@ use preview\AdsPreview;
                             break;
                     }
                 }
-                // foreach ($data['comments'] as $key => $value) {
-                //     # code...
-                // }
-                // switch ($item['name']) {
-                //     case 'post_reactions_by_type_total':
-                //         # code...
-                //         break;
-                    
-                //     default:
-                //         # code...
-                //         break;
-                // }
-
-                // foreach ($data as $key => $value) {
-                //     # code...
-                // }
+                
+                $this->comments_count[] = count($data['comments']);
+                $this->shares_count[] = @$data['shares']['count'];
+                
             }
         }
  }
  
- $testing = new Testing('303239893027115','act_131251207293544',0);
+//  $testing = new Testing('303239893027115','act_131251207293544',0);

@@ -49,7 +49,7 @@
 
         $first_value = $index_value[0];
         $ad_account_id = $index_value[1];
-        $db_table_name = unserialize($index_value[2]); 
+        $db_table_name = $index_value[2]; 
 
         //list($action_selected, $parameters) = explode('_', $click);
         
@@ -70,8 +70,8 @@
 
         switch ($action_selected){
             case 'insert':  
-                for ($i=0; $i <count($db_table_name) ; $i++) { 
-                    switch ($db_table_name[$i]){
+                // for ($i=0; $i <count($db_table_name) ; $i++) { 
+                    switch ($db_table_name){
                     case 'ad':
                         $ad = new ByAccountAd($first_value,$ad_account_id);
                         $ad_array = $ad->adPerformance;
@@ -106,7 +106,7 @@
                         echo "The model case does not exist";
                         break;
                 }
-                }
+                // }
                 
                 break;
             case 'generalselect':

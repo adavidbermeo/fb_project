@@ -3,7 +3,7 @@
 
         if(isset($_GET['selected'])){
                 $option = $_GET['selected'];
-                print_r($option);
+                // print_r($option);
                 list($url, $values) = explode('?', $option);
 
                 echo "<div class='report-options'>

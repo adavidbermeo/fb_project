@@ -27,8 +27,8 @@ class DbStatistics{
                 for ($i=0; $i <count($array['ad_ids']) ; $i++) { 
                     // Answer
                     error_reporting(0);
-                    $this->sql = "INSERT INTO $table VALUES (null ,'". $array['ad_ids'][$i] ."','". $array['ad_name'][$i] ."','". $array['ad_effective_status'][$i] ."','". $array['post_page_id'][$i] ."','". $array['post_ids'][$i] ."','". $array['interactions'][$i] ."','". $array['ad_account_id'] ."','". $array['likes'][$i] ."','". $array['love'][$i] ."','". $array['wow'][$i] ."','". $array['haha'][$i] ."','". $array['sorry'][$i] ."','". $array['anger'][$i] ."','". $array['total_reactions'][$i] ."','". $array['impressions_paid'][$i] ."','". $array['impressions_organic'][$i] ."','". $array['total_impressions'][$i] ."','". $array['post_clicks'][$i] ."',null)";   
-                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción' . mysqli_error($this->con));
+                    $this->sql = "INSERT INTO $table VALUES (null ,'". $array['ad_ids'][$i] ."','". $array['ad_name'][$i] ."','". $array['ad_effective_status'][$i] ."','". $array['post_page_id'][$i] ."','". $array['post_ids'][$i] ."','". $array['interactions'][$i] ."','". $array['ad_account_id'] ."','". $array['likes'][$i] ."','". $array['love'][$i] ."','". $array['wow'][$i] ."','". $array['haha'][$i] ."','". $array['sorry'][$i] ."','". $array['anger'][$i] ."','". $array['total_reactions'][$i] ."','". $array['impressions_paid'][$i] ."','". $array['impressions_organic'][$i] ."','". $array['total_impressions'][$i] ."','". $array['post_clicks'][$i] ."','". $array['comments'][$i] ."','". $array['shares'][$i] ."',null)";   
+                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción <br>' . mysqli_error($this->con));
                 }
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";
@@ -41,7 +41,7 @@ class DbStatistics{
                     // Answer
                     error_reporting(0);
                     $this->sql = "INSERT INTO $table VALUES ('". $array['campaign_id'][$i] ."','". $array['campaign_name'][$i] ."','". $array['c_status'][$i] ."','". $array['clicks'][$i] ."','". $array['impressions'][$i] ."','". $array['spend'][$i] ."','". $array['reach'][$i] ."','". $array['objective'][$i] ."','". $array['cost_per_lead'][$i] ."','". $array['action_type'][$i]."  => ".$array['action_value'][$i]."','". $array['ad_account_id'] ."',null)";   
-                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción' . mysqli_error($this->con));
+                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción <br>' . mysqli_error($this->con));
                 }
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";
@@ -66,7 +66,7 @@ class DbStatistics{
                     // Answer
                     error_reporting(0);
                     $this->sql = "INSERT INTO $table VALUES ('". $array['ad_account_id'][$i] ."','". $array['page_name'][$i] ."',null)";   
-                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción' . mysqli_error($this->con));
+                    $this->result = mysqli_query($this->con, $this->sql) or die('No hubo inserción <br>' . mysqli_error($this->con));
                 }
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Sus datos fueron insertados correctamente";
@@ -86,7 +86,7 @@ class DbStatistics{
             case 'page':
                 $this->sql = "SELECT * FROM $table WHERE $field = '$value' AND `ad_account_id` = '$ad_account_id'";
                 // Answer
-                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica' . mysqli_error($this->con));
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica <br>' . mysqli_error($this->con));
                 if (mysqli_num_rows($this->result) > 0) {
                     // output data of each row
                     while($row = mysqli_fetch_assoc($this->result)) {
@@ -105,7 +105,7 @@ class DbStatistics{
             case 'account':
                 $this->sql = "SELECT * FROM $table WHERE $field = '$value'";
                 // Answer
-                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica' . mysqli_error($this->con));
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta especifica <br>' . mysqli_error($this->con));
                 if (mysqli_num_rows($this->result) > 0) {
                     // output data of each row
                     while($row = mysqli_fetch_assoc($this->result)) {
@@ -134,7 +134,7 @@ class DbStatistics{
             case 'page':
                 $this->sql = "SELECT * FROM $table WHERE `ad_account_id` = '$ad_account_id'";
                 // Answer
-                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general' . mysqli_error($this->con));
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general <br>' . mysqli_error($this->con));
                 if (mysqli_num_rows($this->result) > 0) {
                     // output data of each row
                     while($row = mysqli_fetch_assoc($this->result)) {
@@ -153,7 +153,7 @@ class DbStatistics{
             case 'account':
                 $this->sql = "SELECT * FROM $table";
                 // Answer
-                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general' . mysqli_error($this->con));
+                $this->result = mysqli_query($this->con, $this->sql) or die('No hubo consulta general <br>' . mysqli_error($this->con));
                 if (mysqli_num_rows($this->result) > 0) {
                     // output data of each row
                     while($row = mysqli_fetch_assoc($this->result)) {
@@ -195,7 +195,7 @@ class DbStatistics{
                 if(mysqli_affected_rows($this->con)>0){
                     echo "Se han eliminado correctamente los datos";
                 }else{
-                    echo "Hubo un error en la eliminación. Intentelo de nuevo" . mysqli_error($this->con);
+                    echo "Hubo un error en la eliminación. Intentelo de nuevo <br>" . mysqli_error($this->con);
                 }    
             break;
             default:
