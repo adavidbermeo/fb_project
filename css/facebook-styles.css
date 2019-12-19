@@ -273,6 +273,7 @@ table{
     width: 37%;
     display: block;
     margin: 0 auto;
+    border:1px solid blue;
 }
 .pageStaTable{
     width: 85% !important;

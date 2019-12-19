@@ -64,7 +64,7 @@
         <div class="business-manager-info">
             
             <h3 class="welcome">Welcome to Facebook Api Project</h3>
-            <img src="img/paxzu.png" alt="Index Background" id="index-back">
+            <img src="img/facebook_insights.png" alt="Index Background" id="index-back">
             <?php $AccountsPageData->callReporting(); ?>
 
             <!-- <div id="chart-container"><canvas id="mycanvas"></canvas></div> -->
