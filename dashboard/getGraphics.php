@@ -2,6 +2,7 @@
 // Db Connection 
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/page/by_account_page.php');
+// require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/ad/by_account_ad.php');
 
 use metrics\page\ByAccountPage;
     
@@ -50,7 +51,11 @@ function getData($id_page,$ad_account_id){
         array_push($fans_city_array, ['key' => $key, 'value'=> $value]); 
     }
     //print_r($by_account_page->account_info_array['fans_age_gender']);
-    
+
+    // Tabla de metricas general 
+    // $by_account_ad = new ByAccountAd();
+
+
     $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic, 'fans_age_gender'=> $age_gender_array, 'fans_city' => $fans_city_array];
     //print_r($graphic_array);
     echo json_encode($graphic_array);
