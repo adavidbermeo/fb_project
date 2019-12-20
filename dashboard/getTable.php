@@ -30,7 +30,7 @@ function getData($ad_account_id){
     $sql = $conn->prepare("SELECT * FROM `ad` WHERE `ad_account_id` = '$ad_account_id'");
     $sql->execute();
     $ad_result = $sql->fetchAll();
-    // print_r($result);
+
     if($ad_result == TRUE){
         for($i=0; $i<count($ad_result); $i++){
             $interactions_array[] = $ad_result[$i]['interactions'];
@@ -52,15 +52,49 @@ function getData($ad_account_id){
         echo '<div id="dash_section"><b>' . 'spend' . '</b><br>' . array_sum($spend). '</div>';
     }
 
-    // Main metrics by account for dashboard
-    echo "
-        <table>
-            <thead>
-                <th></th>
-                <th></th>
-            </thead>
-        </table>
+    /**
+     * Main metrics by account for dashboard
+     */
     
-    ";
+    echo "
+        <table id='general-report'>
+            <thead>
+                <tr>
+                    <th>Reach</th>
+                    <th>Likes</th>
+                    <th>Comments</th>
+                    <th>Shares</th>
+                    <th>Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>";
+            for($i=0; $i<count($ad_result); $i++){
+                    if(($ad_result[$i]['total_impressions'])>0){
+                        $total_impressions[] = $ad_result[$i]['total_impressions'];
+                        $likes[] = $ad_result[$i]['likes'];
+                        $comments[] = $ad_result[$i]['comments'];
+                        $shares[] = $ad_result[$i]['shares'];
+                        $post_clicks[] = $ad_result[$i]['post_clicks'];
+                    }
+            }
+
+            $count_timpressions = array_sum($total_impressions); 
+            $count_likes = array_sum($likes);
+            $count_comments = array_sum($comments);
+            $count_shares = array_sum($shares);
+            $count_pclicks = array_sum($post_clicks);
+
+            $fields = [$count_timpressions,$count_likes,$count_comments,$count_shares,$count_pclicks];
+ 
+            for ($i=0; $i <count($fields); $i++) { 
+                echo "
+                    <td>". $fields[$i] ."</td>";
+            }
+
+            echo "
+            </tr>
+            </tbody>
+            </table>";
 
 }

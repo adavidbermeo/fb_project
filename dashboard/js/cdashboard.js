@@ -1,4 +1,5 @@
 var data = '';
+
 $(document).ready(function () {
 
     $(".menu #custom-dashboard").one('click',function (event) {
@@ -8,7 +9,7 @@ $(document).ready(function () {
         
         var result1;
         var result2;
-        var canvas = ['campaignCanvas','adCanvas','ageGender','fansCity'];
+        var canvas = ['campaignCanvas','adCanvas','ageGender','fansCity','comments'];
         var selector = $(".business-manager-info");
         var dashboard = $(".graphic-dashboard");
     
@@ -50,12 +51,19 @@ $(document).ready(function () {
                 
                 var fcity_value = [];
                 var fcity_label = [];
+
+                var ad_comments = [];
+                var ad_shares = [];
                 
                 for (var i = 0; i < 5; i++) {
                     if ((data['ad_graphic'][i])) {
                         ad_value.push(data['ad_graphic'][i]['total_reactions']);
                         ad_label.push(data['ad_graphic'][i]['ad_ids'] + " / " + data['ad_graphic'][i]['ad_name']);
                     }
+                }
+                for(var i=0; i<data['ad_graphic'].length; i++){
+                    ad_comments.push(data['ad_graphic'][i]['comments']);
+                    ad_shares.push(data['ad_graphic'][i]['shares']);
                 }
                  
                 var ctx = $("#adCanvas");  
@@ -191,8 +199,17 @@ $(document).ready(function () {
                   });
 
                   /***
-                   * 
+                   * Comments and Shares Dashboard
                    */
+                  var ad_comment_count = 0;
+                  $.each(ad_comments, function(index,value){
+                      ad_comment_count = ad_comment_count + Number(value);
+                  });
+                  
+                  var ctx5 = $("#comments");
+                  var comments_chart = {
+                      labels: '',
+                  };
             },
             error: function (xhr) {
                     return false;

@@ -50,22 +50,10 @@ function getData($id_page,$ad_account_id){
     foreach($fans_city as $key => $value){
         array_push($fans_city_array, ['key' => $key, 'value'=> $value]); 
     }
-    //print_r($by_account_page->account_info_array['fans_age_gender']);
-
-    // Tabla de metricas general 
-    
-
     /**
-     * Resume Dashboard Table
-     */
+     * Comments and Shares graphics $ad_graphic
+    */
     
-    /* 
-    $by_account_ad = new ByAccountAd($id_page, $ad_account_id, 0);
-    $reach = $by_account_ad->adPerformance['total_impressions'];
-    $likes = $by_account_ad->adPerformance['likes'];
-    $comments = $by_account_ad->adPerformance['comments'];
-    $shares = $by_account_ad->adPerformance['shares'];
-    $clicks = $by_account_ad->adPerformance['post_clicks']; */
 
     // Send to cdashboard.js
     $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic, 'fans_age_gender'=> $age_gender_array, 'fans_city' => $fans_city_array];
