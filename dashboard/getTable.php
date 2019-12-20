@@ -27,15 +27,15 @@ function getData($ad_account_id){
         }
     }
 
-    $sql = $conn->prepare("SELECT `interactions` FROM `ad` WHERE `ad_account_id` = '$ad_account_id'");
+    $sql = $conn->prepare("SELECT * FROM `ad` WHERE `ad_account_id` = '$ad_account_id'");
     $sql->execute();
-    $result = $sql->fetchAll();
+    $ad_result = $sql->fetchAll();
     // print_r($result);
-    if($result == TRUE){
-        for($i=0; $i<count($result); $i++){
-            $interactions_array[] = $result[$i]['interactions'];
+    if($ad_result == TRUE){
+        for($i=0; $i<count($ad_result); $i++){
+            $interactions_array[] = $ad_result[$i]['interactions'];
         }
-        echo '<div id="dash_section"><b>' . 'Interactions' . '</b><br>' . $result[0]['interactions']. '</div>';
+        echo '<div id="dash_section"><b>' . 'Interactions' . '</b><br>' . $ad_result[0]['interactions']. '</div>';
     }
        
     $sql = $conn->prepare("SELECT `cost_per_lead`,`spend` FROM `campaign` WHERE `ad_account_id` = '$ad_account_id'");
@@ -52,6 +52,15 @@ function getData($ad_account_id){
         echo '<div id="dash_section"><b>' . 'spend' . '</b><br>' . array_sum($spend). '</div>';
     }
 
-    // Main metrics by account
+    // Main metrics by account for dashboard
+    echo "
+        <table>
+            <thead>
+                <th></th>
+                <th></th>
+            </thead>
+        </table>
+    
+    ";
 
 }

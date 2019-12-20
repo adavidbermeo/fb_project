@@ -2,7 +2,7 @@
 // Db Connection 
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/page/by_account_page.php');
-// require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/ad/by_account_ad.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/ads/by_account_ad.php');
 
 use metrics\page\ByAccountPage;
     
@@ -30,7 +30,7 @@ function getData($id_page,$ad_account_id){
     $campaign_graphic = $sql->fetchAll();
 
     // Ad Graphics
-    $sql = $conn->prepare("SELECT `ad_ids`,`ad_name`,`total_reactions` FROM `ad` WHERE `ad_account_id` ='$ad_account_id' ORDER BY `total_reactions` DESC");
+    $sql = $conn->prepare("SELECT * FROM `ad` WHERE `ad_account_id` ='$ad_account_id' ORDER BY `total_reactions` DESC");
     $sql->execute(); 
     $ad_graphic = $sql->fetchAll();
     
@@ -53,9 +53,21 @@ function getData($id_page,$ad_account_id){
     //print_r($by_account_page->account_info_array['fans_age_gender']);
 
     // Tabla de metricas general 
-    // $by_account_ad = new ByAccountAd();
+    
 
+    /**
+     * Resume Dashboard Table
+     */
+    
+    /* 
+    $by_account_ad = new ByAccountAd($id_page, $ad_account_id, 0);
+    $reach = $by_account_ad->adPerformance['total_impressions'];
+    $likes = $by_account_ad->adPerformance['likes'];
+    $comments = $by_account_ad->adPerformance['comments'];
+    $shares = $by_account_ad->adPerformance['shares'];
+    $clicks = $by_account_ad->adPerformance['post_clicks']; */
 
+    // Send to cdashboard.js
     $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic, 'fans_age_gender'=> $age_gender_array, 'fans_city' => $fans_city_array];
     //print_r($graphic_array);
     echo json_encode($graphic_array);
