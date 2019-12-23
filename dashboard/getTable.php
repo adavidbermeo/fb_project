@@ -97,4 +97,10 @@ function getData($ad_account_id){
             </tbody>
             </table>";
 
+        /***
+         * Ad Statistics Table with preview
+         */
+
+         
+
 }

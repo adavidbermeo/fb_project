@@ -1,5 +1,6 @@
 var data = '';
-
+var ad_shares = [];
+var ad_comments = [];
 $(document).ready(function () {
 
     $(".menu #custom-dashboard").one('click',function (event) {
@@ -9,7 +10,7 @@ $(document).ready(function () {
         
         var result1;
         var result2;
-        var canvas = ['campaignCanvas','adCanvas','ageGender','fansCity','comments'];
+        var canvas = ['campaignCanvas', 'adCanvas', 'ageGender', 'fansCity', 'comments','shares'];
         var selector = $(".business-manager-info");
         var dashboard = $(".graphic-dashboard");
     
@@ -38,7 +39,7 @@ $(document).ready(function () {
                 
                 data = JSON.parse(response);
                 
-                console.log(data);
+                // console.log(data);
                 
                 var camp_value = [];
                 var camp_label = [];
@@ -52,8 +53,10 @@ $(document).ready(function () {
                 var fcity_value = [];
                 var fcity_label = [];
 
-                var ad_comments = [];
-                var ad_shares = [];
+                // var ad_comments = [];
+                // var ad_shares = [];
+                var ad_comment_count = 0;
+                var ad_shares_count = 0;
                 
                 for (var i = 0; i < 5; i++) {
                     if ((data['ad_graphic'][i])) {
@@ -65,6 +68,7 @@ $(document).ready(function () {
                     ad_comments.push(data['ad_graphic'][i]['comments']);
                     ad_shares.push(data['ad_graphic'][i]['shares']);
                 }
+                console.log(ad_comments);
                  
                 var ctx = $("#adCanvas");  
                 var ad_chart = {
@@ -197,19 +201,65 @@ $(document).ready(function () {
                       },
                       data: fcity_chart
                   });
-
                   /***
                    * Comments and Shares Dashboard
                    */
-                  var ad_comment_count = 0;
+                  
                   $.each(ad_comments, function(index,value){
                       ad_comment_count = ad_comment_count + Number(value);
                   });
-                  
-                  var ctx5 = $("#comments");
-                  var comments_chart = {
-                      labels: '',
-                  };
+                //   console.log(ad_comment_count);
+
+                 var ctx5 = $("#comments");
+                 var comments_chart = {
+                     labels: ['Diciembre'],
+                     datasets: [{
+                         label: '#Count',
+                         backgroundColor: 'rgba(70,137,80,0.4)',
+                         borderColor: 'rgba(200, 200, 200, 0.75)',
+                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                         data: [ad_comment_count]
+                     }]
+                 };
+                 var commentsGraph = new Chart(ctx5, {
+                     type: 'line',
+                     options: {
+                         title: {
+                             display: true,
+                             text: 'Comments Graphic'
+                         }
+                     },
+                     data: comments_chart
+                 });
+
+                 $.each(ad_shares, function (index, value) {
+                     ad_shares_count = ad_shares_count + Number(value);
+                 });
+                //  console.log(ad_shares_count);
+
+                   var ctx6 = $("#shares");
+                   var shares_chart = {
+                       labels: ['Diciembre'],
+                       datasets: [{
+                           label: '#Count',
+                           backgroundColor: 'rgba(70,137,80,0.4)',
+                           borderColor: 'rgba(200, 200, 200, 0.75)',
+                           hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                           hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                           data: [ad_shares_count]
+                       }]
+                   };
+                   var sharesGraph = new Chart(ctx6, {
+                       type: 'line',
+                       options: {
+                           title: {
+                               display: true,
+                               text: 'Shares Graphic'
+                           }
+                       },
+                       data: shares_chart
+                   });
             },
             error: function (xhr) {
                     return false;
