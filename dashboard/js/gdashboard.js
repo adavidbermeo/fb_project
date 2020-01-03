@@ -98,8 +98,8 @@ $(document).ready(function () {
 
                      for (var i = 0; i < 5; i++) {
                          if ((data['campaign_graphic'][i])) {
-                             camp_value.push(data['campaign_graphic'][i]['clicks']);
-                             camp_label.push(data['campaign_graphic'][i]['campaign_id'] + " / " + data['campaign_graphic'][i]['campaign_name']);
+                            camp_value.push(data['campaign_graphic'][i]['clicks']);
+                            camp_label.push(data['campaign_graphic'][i]['campaign_id'] + " / " + data['campaign_graphic'][i]['campaign_name']);
                          }
                      }
                 
@@ -107,7 +107,7 @@ $(document).ready(function () {
                 var campaign_chart = {
                     labels: camp_label,
                     datasets: [{
-                        label: 'Clicks',
+                        label: '#Count',
                         backgroundColor: 'rgba(105, 132, 255, 0.4)',
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',

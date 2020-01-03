@@ -1,5 +1,6 @@
 <?php  
 namespace functions\submit;
+
         if(isset($_POST['search'])){
                 $data = $_POST['search'];
 
@@ -14,7 +15,7 @@ namespace functions\submit;
 ?>
 
 <script src="js/clicks.js"></script>
-<script src="dashboard/js/custom_dashboard.js"></script>
+<script src="dashboard/js/gdashboard.js"></script>
         
 
    
