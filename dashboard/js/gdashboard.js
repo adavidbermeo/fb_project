@@ -265,7 +265,8 @@ $(document).ready(function () {
                     return false;
                 }
             }),
-            $.ajax({ //Seconds Request
+            $.ajax({ 
+                //Seconds Request
                  url: "dashboard/getTable.php",
                  type: "POST",
                  data: {
