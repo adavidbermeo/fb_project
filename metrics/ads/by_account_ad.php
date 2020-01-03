@@ -287,7 +287,7 @@ use preview\AdsPreview;
                             }elseif($key == 'ads_preview'){
                                 if (@$this->adPerformance['ad_ids'][$i]) {
                                     echo '
-                                     <td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
+                                        <td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
                                 }
                                 echo '<div class="overlay" id="overlay">
                                     <div class="popup" id="popup">

@@ -55,7 +55,7 @@ function getData($ad_account_id){
     /**
      * Main metrics by account for dashboard
      */
-    
+    echo '<script type="text/javascript" src="js/send_btnvalue.js"></script>';
     echo "
         <table id='general-report'>
             <thead>
@@ -100,7 +100,26 @@ function getData($ad_account_id){
         /***
          * Ad Statistics Table with preview
          */
+        
+        // echo "
+        //     <table>
+        //         <thead>
+        //             <tr>
+        //                 <th colspan='3'></th>
+        //             </tr>
+        //             <tr>
+        //                 <th>Preview</th>
+        //                 <th>Ad name</th>
+        //                 <th>Interactions</th>
+        //             </tr>
+        //         <thead>
+        //         <tbody>
+        //             <tr>";
 
-         
-
+        //            echo  '<td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
+                        
+        //            echo "</tr>
+        //         </tbody>
+        //     </table>
+        // ";
 }
