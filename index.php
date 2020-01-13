@@ -36,7 +36,6 @@
     $AccountsPageData = new AccountsPageData();
     
     $iterador = $AccountsPageData->getCountPageData();
-
     ?>
     <a href="index.php"><div class="app"></div></a>
     <div class="custom-container"> 

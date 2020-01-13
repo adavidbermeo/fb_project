@@ -118,7 +118,7 @@
     background:#fff;
 }
 .custom-container{
-    width: 86.5%;
+    width: 94.5%;
     margin: 0 auto;
 }
 #popup{
@@ -520,7 +520,7 @@ body {
     background: #fff;
 } */
 #dash_section {
-    width: 15%;
+    width: 24.5%;
     background: #fff;
     box-shadow: 2px 3px 1px #000;
     border: 1px solid;
@@ -539,4 +539,13 @@ body {
 }
 #general-report{
     margin-top: 5%;
+}
+.dash-container{
+    margin-top:4.5%;
+    background: lightblue;
+    padding: 40px;
+    width: 65%;
+}
+canvas{
+    width:100% !important;
 }

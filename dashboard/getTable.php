@@ -1,6 +1,8 @@
 <?php
 // Db Connection 
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/ads/by_account_ad.php');
+use metrics\ads\ByAccountAd;
 
     if(isset($_POST['selected'])){
         $selected = $_POST['selected'];
@@ -8,10 +10,10 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
         list($click_value,$data) = explode('*', $click);
         list($id_page, $ad_account_id) = explode('%', $data); 
 
-        getData($ad_account_id);
+        getData($ad_account_id, $id_page);
     }
 
-function getData($ad_account_id){
+function getData($ad_account_id, $id_page){
 
 	//setting header to json
 	$db = new database();
@@ -20,7 +22,7 @@ function getData($ad_account_id){
     $sql = $conn->prepare("SELECT `total_new_likes` FROM `page` WHERE `ad_account_id` = '$ad_account_id'");
     $sql->execute();
     $result = $sql->fetchAll();
-
+    echo "<div class='dash-container'>";
     if($result == TRUE){
         for($i=0; $i<count($result); $i++){
             echo '<div id="dash_section"><b>' . 'Total New Likes' . '</b><br>' . $result[0]['total_new_likes']. '</div>';
@@ -51,6 +53,7 @@ function getData($ad_account_id){
         echo '<div id="dash_section"><b>' . 'cost_per_lead' . '</b><br>' . $total_cpl / count($cost_per_lead) . '</div>';
         echo '<div id="dash_section"><b>' . 'spend' . '</b><br>' . array_sum($spend). '</div>';
     }
+    echo "</div>";
 
     /**
      * Main metrics by account for dashboard
@@ -100,26 +103,48 @@ function getData($ad_account_id){
         /***
          * Ad Statistics Table with preview
          */
-        
-        // echo "
-        //     <table>
-        //         <thead>
-        //             <tr>
-        //                 <th colspan='3'></th>
-        //             </tr>
-        //             <tr>
-        //                 <th>Preview</th>
-        //                 <th>Ad name</th>
-        //                 <th>Interactions</th>
-        //             </tr>
-        //         <thead>
-        //         <tbody>
-        //             <tr>";
+        $Ads = new ByAccountAd($id_page, $ad_account_id);
+        echo '<script type="text/javascript" src="js/popup.js"></script>';
+        echo '<script type="text/javascript" src="js/send_btnvalue.js"></script>';
+        echo "
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan='3'>Ad preview</th>
+                    </tr>
+                    <tr>
+                        <th>Preview</th>
+                        <th>Ad Name</th>
+                        <th>Interactions</th>
+                    </tr>
+                <thead>
+                <tbody>";
 
-        //            echo  '<td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
-                        
-        //            echo "</tr>
-        //         </tbody>
-        //     </table>
-        // ";
+                    for($i=0; $i<count($Ads->adPerformance['ad_ids']); $i++){
+                        echo "<tr>";
+                        $metrics = ['ads_preview', 'ad_name','interactions'];
+                        foreach($metrics as $metric){
+
+                            if(@$Ads->adPerformance[$metric][$i]){
+                                 echo '<td>'. $Ads->adPerformance[$metric][$i] .'</td>';
+                            }elseif($metric == 'ads_preview'){
+                                if($Ads->adPerformance['ad_ids'][$i]){
+                                    echo  '<td><button id="'.$Ads->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
+                                }
+                            }
+                              echo '<div class="overlay" id="overlay">
+                                    <div class="popup" id="popup">
+                                    
+                                
+                                  </div>
+                             </div>
+                            ';
+                           
+                        }
+                        echo "</tr>";
+                    }
+                   echo "
+                </tbody>
+            </table>
+        ";
 }
