@@ -5,7 +5,7 @@
   require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
   use Facebook\Facebook as FB;
 
-  Class ByAccountCampaign{
+  Class CampaignInsights{
     // Properties 
 
     public $db_table_name = "campaign";
@@ -38,7 +38,7 @@
       $this->fb = new FB([
         'app_id' => '2350209521888424',
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
-        'default_graph_version' => 'v3.3',
+        'default_graph_version' => 'v4.0',
       ]);
       $this->access_token = ACCESS_TOKEN;
       $this->ad_account_id = $ad_account_id;

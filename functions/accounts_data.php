@@ -25,7 +25,7 @@ Class AccountsPageData{
         $this->fb = new FB([
             'app_id'=>'2350209521888424',
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
-            'default_graph_version'=>'v3.3',
+            'default_graph_version'=>'v4.0',
         ]);
         $this->access_token = ACCESS_TOKEN;
         $this->request = $this->fb->get('me/adaccounts?fields=id,name,adcreatives.limit(10){object_story_id}&limit=100',$this->access_token);

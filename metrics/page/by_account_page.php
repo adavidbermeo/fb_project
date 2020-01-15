@@ -18,6 +18,9 @@ Class ByAccountPage{
   public $id_page;
   public $response;
   public $page_name;
+  public $page_impressions = [];
+  public $page_fans = [];
+  public $page_views_total = [];
 
   public $end_time= [];
   public $total_new_likes= [];
@@ -26,6 +29,7 @@ Class ByAccountPage{
   public $fans_age_gender= [];
   public $fans_city= [];
   public $page_post_engagements= [];
+  public $page_posts_impressions = [];
 
   public $account_info_array= [];
   
@@ -75,7 +79,7 @@ Class ByAccountPage{
   public function setResponse(){
     try{
       // Returns a `Facebook\FacebookResponse` object
-      $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements',
+      $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total&since=2019-12-01T08:00:00&until=2019-12-31T08:00:00',
         $this->page_access_token
       );
     } catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -95,36 +99,75 @@ Class ByAccountPage{
     $item = -1;
     
     foreach ($data as $i => $camp){
+      // print_r($data);
       $item++;
       $name = $camp['name'];
       $this->period = $camp['period'];
       foreach ($data[$item] as $n){
+        
         if (is_array($n)) {
-          switch ($name) {
+          
+          for ($i=0; $i <count($n) ; $i++) { 
+            switch ($name) {
             case 'page_fan_adds_by_paid_non_paid_unique':
-              $this->end_time = $n[1]['end_time']->format('Y-m-d H:i:s');
-              $this->total_new_likes =  $n[1]['value']['total'];
-              $this->people_paid_like = $n[1]['value']['paid'];
-              $this->people_unpaid_like =  $n[1]['value']['unpaid'];
+              // echo count($n);
+              $this->end_time[] = $n[$i]['end_time']->format('Y-m-d H:i:s');
+              $total_new_likes[] =  $n[$i]['value']['total'];
+              $people_paid_like[] = $n[$i]['value']['paid'];
+              $people_unpaid_like[] =  $n[$i]['value']['unpaid'];
               break;
             case 'page_fans_gender_age':
-              $this->fans_age_gender = $n[0]['value'];
+              $fans_age_gender[] = $n[$i]['value'];
             break;
             case 'page_fans_city':
-              $this->fans_city =  $n[0]['value'];
+              $fans_city[] =  $n[$i]['value'];
             break;
             case 'page_post_engagements':
-              if ($this->period == 'days_28') {
-                $this->page_post_engagements =  $n[1]['value'];
+              if ($this->period == 'day') {
+                $page_post_engagements[] =  $n[$i]['value'];
               }
             break;
+            case 'page_impressions':
+              if ($this->period == 'day') {
+                $page_impressions[] = $n[$i]['value'];
+              }
+              break;
+            case 'page_posts_impressions':
+              if ($this->period == 'day') {
+                $page_posts_impressions[] = $n[$i]['value'];
+              }
+              break;
+            case 'page_fans':
+              if ($this->period == 'day') {
+                $page_fans[] = $n[$i]['value'];
+              }
+              break;
+            case 'page_views_total':
+               if ($this->period == 'day') {
+                $page_views_total[] = $n[$i]['value'];
+              }
+              break;
             default:
               echo "An unexpected error has ocurred";
             break;
           }
+          }
         }
       }
     }
+    // Set statistics vars
+
+    $this->page_posts_impressions = array_sum($page_posts_impressions);
+    $this->fans_age_gender = end($fans_age_gender);
+    $this->fans_city = end($fans_city);
+    $this->page_impressions = array_sum($page_impressions);
+    $this->total_new_likes = array_sum($total_new_likes);
+    $this->page_post_engagements = array_sum($page_post_engagements);
+    $this->people_paid_like = array_sum($people_paid_like);
+    $this->people_unpaid_like = array_sum($people_unpaid_like);
+    $this->page_fans = end($page_fans);
+    $this->page_views_total = array_sum($page_views_total);
+
   }
   public function setArrayAccountInfo(){
     $this->account_info_array = [
@@ -133,10 +176,14 @@ Class ByAccountPage{
       'total_new_likes' => $this->total_new_likes,  
       'people_paid_like' => $this->people_paid_like,  
       'people_unpaid_like' => $this->people_unpaid_like,  
+      'page_post_engagements' => $this->page_post_engagements,
+      'page_impressions' => $this->page_impressions,
+      'page_posts_impressions' => $this->page_posts_impressions,
+      'page_fans' => $this->page_fans,
+      'page_views_total' => $this->page_views_total,
       'fans_age_gender' => $this->fans_age_gender,  
       'fans_city' => $this->fans_city,
-      'ad_account_id' => $this->ad_account_id,    
-      'page_post_engagements' => $this->page_post_engagements
+      'ad_account_id' => $this->ad_account_id    
     ];
     $this->db_account_info_array = [
       'id_page'=>$this->id_page,
@@ -167,21 +214,31 @@ Class ByAccountPage{
                 <th>Like <i class="fas fa-money-check-alt fa-2x"></i></th>
                 <th>Like Organico</th>
                 <th>Interacciones Totales</th>
+                <th>Impresiones de Pagina</th>
+                <th>Impresiones de Publicaciones</th>
+                <th>Me gusta</th>
+                <th>Paginas Vistas</th>
             </tr>
           </thead>
           <tbody>';
           for ($i=0; $i <1 ; $i++) { 
             $metrics = array_keys($this->account_info_array);
-            unset($metrics[5]); unset($metrics[6]); unset($metrics[7]);
+            unset($metrics[10]); unset($metrics[11]); unset($metrics[12]);
             echo '
             
               <tr class="fila'. $i .'">';
               foreach ($metrics as $key) {
-                  if($this->account_info_array[$key]){
+                
+                if($key == 'end_time'){
+                  $pos = count($this->account_info_array['end_time']) - 1;
+                  echo '<td>'. $this->account_info_array[$key][0] .' / '.  $this->account_info_array[$key][$pos] .'</td>';
+                }else{
+                   if($this->account_info_array[$key]){
                       echo '<td>' . $this->account_info_array[$key] . '</td>';
                   }else{
                       echo '<td>  </td>';
                   }
+                }     
               }
               // echo '<td>F.13-17</td>';
               echo '
@@ -208,11 +265,13 @@ Class ByAccountPage{
         $i = 0;
         foreach ($keys as $item) {
           $i = $i+1;
-           echo '
-            <tr rowspan="2" class="fila'. $i .'">
-            <th>'. $item .'</th>
-            <td>'. $this->account_info_array['fans_age_gender'][$item] .'</td>  
-          ';   
+             echo '
+              <tr rowspan="2" class="fila'. $i .'">
+              <th>'. $item .'</th>
+              <td>'. $this->account_info_array['fans_age_gender'][$item] .'</td>  
+            ';   
+          
+          
         }
         echo '
         </tbody>
@@ -235,12 +294,13 @@ Class ByAccountPage{
         $i = 0;
         foreach ($keys as $item) {
           $i = $i+1;
-           echo '
+
+              echo '
+              <tr rowspan="2" class="fila'. $i .'">
+              <th>'. $item .'</th>
+              <td>'. $this->account_info_array['fans_city'][$item] .'</td>  
+            ';
           
-            <tr rowspan="2" class="fila'. $i .'">
-            <th>'. $item .'</th>
-            <td>'. $this->account_info_array['fans_city'][$item] .'</td>  
-          ';
         }
         echo '
         </tbody>

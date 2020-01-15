@@ -1,7 +1,7 @@
 <?php
 namespace functions;
-include_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/ads/by_account_ad.php');
-use metrics\ads\ByAccountAd;
+include_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/posts/post_insights.php');
+use metrics\posts\PostInsights;
 class Interactions{
     public $id_page;
     public function __construct($id_page, $ad_account_id){
@@ -9,7 +9,7 @@ class Interactions{
         $this->ad_account_id = $ad_account_id;
     }
     public function moreInteraction(){
-        $info = new ByAccountAd($this->id_page,$this->ad_account_id,1);
+        $info = new PostInsights($this->id_page,$this->ad_account_id,1);
         $info-> setAdIdRequest();
         $info->getDataRequest();
         $info->setAccessToken();

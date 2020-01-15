@@ -1,5 +1,5 @@
 <?php
-namespace metrics\ads;
+namespace metrics\posts;
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/preview/preview.php');
@@ -8,7 +8,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
 use Facebook\Facebook as FB;
 use preview\AdsPreview;
 
- class ByAccountAd{
+ class PostInsights{
 
         public $db_table_name = "ad";
 
@@ -46,7 +46,7 @@ use preview\AdsPreview;
             $this->fb = new FB([
             'app_id'=>'2350209521888424',
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
-            'default_graph_version'=>'v3.3',
+            'default_graph_version'=>'v4.0',
             ]);
 
             $this->id_page = $id_page;

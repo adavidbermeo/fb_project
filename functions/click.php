@@ -2,9 +2,9 @@
     require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/include/include_click.php');
     use functions\AccountsPageData;       
     use metrics\campaign\ByAccountCampaign;
-    use metrics\ads\ByAccountAd;
+    use metrics\posts\PostInsights;
     use metrics\page\ByAccountPage;
-    use metrics\ads\AdIds;
+    // use metrics\ads\AdIds;
     
     if (isset($_GET['selected'])) {
         $selected = $_GET['selected'];
@@ -35,7 +35,7 @@
             case 'yesAd':
             //For Ad Info
                 echo "<h1>Ad Statistics</h1>";
-                $by_account_ad = new ByAccountAd($id_page, $ad_account_id);
+                $by_account_ad = new PostInsights($id_page, $ad_account_id);
                 $by_account_ad->getAdPerformanceTable();
                 $by_account_ad->callReporting();
                 break;
