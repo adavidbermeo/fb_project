@@ -7,7 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
 use functions\Interactions;
 use Facebook\Facebook as FB;
 
-Class ByAccountPage{
+Class PageInsights{
   // Attributes
   public $db_table_name = "page";
 

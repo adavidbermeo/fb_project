@@ -1,10 +1,10 @@
 <?php 
     require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/include/include_click.php');
     use functions\AccountsPageData;       
-    use metrics\campaign\ByAccountCampaign;
+    use metrics\campaign\CampaignInsights;
     use metrics\posts\PostInsights;
-    use metrics\page\ByAccountPage;
-    // use metrics\ads\AdIds;
+    use metrics\page\PageInsights;
+    use metrics\ads\AdInsights;
     
     if (isset($_GET['selected'])) {
         $selected = $_GET['selected'];
@@ -19,7 +19,7 @@
         
         echo '<div class="buttons">';
         echo "<a href='index.php?click=yesCampaign*$data' class='search-option'>Campaign</a>";
-        echo "<a href='index.php?click=yesAd*$data' class='search-option'>Ad</a>";
+        echo "<a href='index.php?click=yesPost*$data' class='search-option'>Post</a>";
         echo "<a href='index.php?click=yesPage*$data' class='search-option'>Page</a>";
         echo "</div>";
         
@@ -27,26 +27,35 @@
             case 'yesCampaign':
             //For Campaign Info   
                
-                echo "<h1>Campaign Statistics</h1>";
-                $by_account_campaign = new ByAccountCampaign($ad_account_id);  
-                $by_account_campaign->getCampaignStatisticsTable(); 
-                $by_account_campaign->callReporting(); 
+                echo "<h1>Campaign Insights</h1>";
+                $CampaignInsights = new CampaignInsights($ad_account_id);  
+                $CampaignInsights->getCampaignStatisticsTable(); 
+                $CampaignInsights->callReporting(); 
                 break;
-            case 'yesAd':
+            case 'yesPost':
             //For Ad Info
-                echo "<h1>Ad Statistics</h1>";
-                $by_account_ad = new PostInsights($id_page, $ad_account_id);
-                $by_account_ad->getAdPerformanceTable();
-                $by_account_ad->callReporting();
+                echo "<h1>Post Insights</h1>";
+                $PostInsights = new PostInsights($id_page, $ad_account_id);
+                $PostInsights->getAdPerformanceTable();
+                $PostInsights->callReporting();
                 break;
             case 'yesPage' :
             //For Page Info
-                echo "<h1>Page Fans</h1>";
-                $by_account_page = new ByAccountPage($id_page,$ad_account_id, 1);
-                $by_account_page->getAdPerformanceGeneralTable();
-                $by_account_page->getAgeGenderTable();
-                $by_account_page->getfansCityTable();
-                $by_account_page->callReporting();
+                echo "<h1>Page Insights</h1>";
+                $PageInsights = new PageInsights($id_page,$ad_account_id, 1);
+                $PageInsights->getAdPerformanceGeneralTable();
+                $PageInsights->getAgeGenderTable();
+                $PageInsights->getfansCityTable();
+                $PageInsights->callReporting();
+                break;
+            case 'yesAd':
+            //For Page Info
+                echo "<h1>Page Insights</h1>";
+                $AdInsights = new AdInsights($ad_account_id);
+                // $AdInsights->getAdPerformanceGeneralTable();
+                // $AdInsights->getAgeGenderTable();
+                // $AdInsights->getfansCityTable();
+                // $AdInsights->callReporting();
                 break;
             default:
                 echo "The model case does not exist";

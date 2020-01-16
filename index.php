@@ -46,7 +46,7 @@
             <option value="" disabled selected>Select your business account</option>
 
             <?php 
-            for ($i=0; $i<= $iterador; $i++) {        
+            for ($i=0; $i<= $iterador-1; $i++) {        
                 echo '<option required value= '.$AccountsPageData->page_data['page_id'][$i].'%'. $AccountsPageData->page_data['ad_account_id'][$i].'>'.$AccountsPageData->page_data['page_name'][$i] .'</option>';
             }
         ?>

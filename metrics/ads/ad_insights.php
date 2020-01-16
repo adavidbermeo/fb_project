@@ -1,106 +1,98 @@
-<?php
-namespace metrics\posts;
+<?php 
+namespace metrics\ads;
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/preview/preview.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
+// require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
+// require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/preview/preview.php');
 
 use Facebook\Facebook as FB;
 use preview\AdsPreview;
 
- class PostInsights{
+ class AdInsights{
 
-        public $db_table_name = "post";
+        public $db_table_name = "ad";
 
         public $ad_account_id;
         public $ad_ids = [];
         public $ad_name = [];
         public $ad_effective_status = [];
-        public $id_page;
+        public $clicks = [];
+        public $ctr = [];
+        public $reach = [];
+        public $impressions = [];
+        public $spend = [];
+        public $action_type = []; //Cost Per Action Type: $action_type . $action_value
+        public $action_value = []; //Cost Per Action Type: $action_type . $action_value
+        public $cpc = [];
+        public $cpm = [];
+        public $date_start;
+        public $date_stop;
+        public $query_array;
+ 
+
+
         public $fb;
         public $app_access_token;
-        public $page_access_token;
 
-        public $page_post = [];
-        public $post_page_id = [];
-        public $post_ids = [];
-        public $likes = [];
-        public $love = [];
-        public $wow = [];
-        public $haha = [];
-        public $sorry = [];
-        public $anger = [];
-        public $total_reactions = [];
-        public $impressions_paid = [];
-        public $impressions_organic = [];
-        public $total_impressions = [];
-        public $post_clicks = [];
-        public $interactions = [];
-        public $adPerformance;
-        public $comments_count = [];
-        public $shares_count = [];
 
-        
-        
-        public function __construct($id_page, $ad_account_id ,$more_interaction = 0){
+        public function __construct($ad_account_id){
             $this->fb = new FB([
             'app_id'=>'2350209521888424',
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
             'default_graph_version'=>'v4.0',
             ]);
-
-            $this->id_page = $id_page;
             $this->ad_account_id = $ad_account_id;
-            
             $this->app_access_token = ACCESS_TOKEN;
 
-            /**
-             * Invoque the callMethods function 
-             */
-            if($more_interaction == FALSE){
-                $this->callMethods();
-            }
+            $this->callMethods();
         }
         public function callMethods(){
         /**
          * Call all methods in the class 
          */ 
-            $this->setAdIdRequest();
-            $this->getDataRequest();
+            $this->queryAdInsights();
 
-            $this->setAccessToken();
-            $this->setAdStatistics();
-
-            $this->totalReactions();
-            $this->setInteractions();
-            $this->setAdPerformance();
         }
-        public function setAdIdRequest(){
-            $request = $this->fb->get($this->ad_account_id . '?fields=ads.limit(50){id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
+        public function queryAdInsights(){
+            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(80){id,name,effective_status,insights.time_range({"since":"2019-12-01","until":"2019-12-31"}){ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
             $GraphRequest = $request->getGraphNode();
             // echo "<pre>";
-            $this->data_array_post_ad = $GraphRequest->asArray();
-            $this->data_array_post_ad;
+            $this->query_array = $GraphRequest->asArray();
+            print_r($this->query_array);
         }
         public function getDataRequest(){
         
-           foreach ($this->data_array_post_ad['ads'] as $key) {
+           foreach ($this->query_array['ads'] as $key) {
                 
                 if($key['effective_status'] == 'ACTIVE'){
                     $this->ad_ids[] = $key['id'];
                     $this->ad_name[] = $key['name'];
                     $this->ad_effective_status[] = $key['effective_status'];
-                    if(@$key['creative']['effective_object_story_id']){
-                        $this->page_post[] = $key['creative']['effective_object_story_id'];
-                    }
-                        
+                    if($key['insights']){
+                        foreach ($key['insights'] as $item) {
+                            $this->ctr[] = $item['ctr'];
+                            $this->reach[] = $item['reach'];
+                            $this->impressions[] = $item['impressions'];
+                            $this->spend[] = $item['spend'];
+                            if($item['cost_per_action_type']){
+                                foreach ($item['cost_per_action_type'] as $k) {
+                                    $this->action_type[] = $k['action_type'];
+                                    $this->action_value[] = $k['value'];
+                                }
+                            }
+                            $this->cpc[] = $item['cpc'];
+                            $this->cpm[] = $item['cpm'];
+                            $this->date_start = $item['date_start'];
+                            $this->date_stop = $item['date_stop'];
+                        }
+                    }    
                 }   
             }
-             foreach ($this->page_post as $item) {
-                    list($this->post_page_id[], $this->post_ids[]) = explode('_', $item);
-                }   
         }
         public function setAccessToken(){
+            // Model Case for tomorrow
+            $this->fb->get('<ad_id>/insights?fields=clicks&breakdowns=age',$this->app_access_token);
+            /* ------------------ */
             $request = $this->fb->get($this->id_page. '?fields=access_token,name',$this->app_access_token); 
             $GraphRequest = $request->getGraphNode();
             
@@ -333,7 +325,8 @@ use preview\AdsPreview;
             }  
             public function callReporting(){
                 echo '
-                    <a href="index.php?idpage='. $this->id_page .'&accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" id="reporting">Ad Reporting</a><a href="index.php?accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" class="graphicSystem" id="reporting"> Graphic System </a> 
+                    <a href="index.php?idpage='. $this->id_page .'&accountid='. $this
+                    ->ad_account_id .'&tablename='. $this->db_table_name .'" id="reporting">Ad Reporting</a><a href="index.php?accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" class="graphicSystem" id="reporting"> Graphic System </a> 
                     <script type="text/javascript" src="js/option_reporting.js"></script>
                     <script src="js/graficas.js" type="text/javascript"></script>
                 ';

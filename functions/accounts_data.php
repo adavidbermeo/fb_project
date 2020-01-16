@@ -49,6 +49,7 @@ Class AccountsPageData{
         $GraphRequest = $this->request->getGraphEdge();
             "<pre>";
         $this->data_array = $GraphRequest->asArray();
+
     }
     public function getDataArray(){
         echo "<pre>";
