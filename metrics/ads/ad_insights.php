@@ -29,7 +29,13 @@ use preview\AdsPreview;
         public $date_stop;
         public $query_array;
  
-
+        //Age per ad click 
+        public $age18_24 = [];
+        public $age25_34 = [];
+        public $age35_44 = [];
+        public $age45_54 = [];
+        public $age55_64 = [];
+        public $age65 = [];
 
         public $fb;
         public $app_access_token;
@@ -51,55 +57,112 @@ use preview\AdsPreview;
          * Call all methods in the class 
          */ 
             $this->queryAdInsights();
+            $this->setFields();
+            // $this->clicksInsightsRequest();
 
         }
         public function queryAdInsights(){
-            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(80){id,name,effective_status,insights.time_range({"since":"2019-12-01","until":"2019-12-31"}){ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(80){id,name,effective_status,insights.breakdowns(age).time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
             $GraphRequest = $request->getGraphNode();
             // echo "<pre>";
             $this->query_array = $GraphRequest->asArray();
             print_r($this->query_array);
         }
-        public function getDataRequest(){
+        public function setFields(){
         
            foreach ($this->query_array['ads'] as $key) {
                 
                 if($key['effective_status'] == 'ACTIVE'){
                     $this->ad_ids[] = $key['id'];
+                    
                     $this->ad_name[] = $key['name'];
                     $this->ad_effective_status[] = $key['effective_status'];
-                    if($key['insights']){
+                    if(@$key['insights']){
                         foreach ($key['insights'] as $item) {
-                            $this->ctr[] = $item['ctr'];
-                            $this->reach[] = $item['reach'];
-                            $this->impressions[] = $item['impressions'];
-                            $this->spend[] = $item['spend'];
-                            if($item['cost_per_action_type']){
-                                foreach ($item['cost_per_action_type'] as $k) {
-                                    $this->action_type[] = $k['action_type'];
-                                    $this->action_value[] = $k['value'];
-                                }
+                            switch($item['age']){
+                                case '18-24':
+                                    $this->age18_24[] = $item['clicks'];
+                                 break;
+                                case '25-34':
+                                    $this->age25_34[] =$item['clicks'];
+                                break;
+                                case '35-44':
+                                    $this->age35_44[] = $item['clicks'];
+                                break;
+                                case '45-54':
+                                    $this->age45_54[] = $item['clicks'];
+                                break;
+                                case '55-64':
+                                    $this->age55_64[] = $item['clicks'];
+                                break;
+                                case '65+':
+                                    $this->age65[] = $item['clicks'];
+                                break;
+                                default:
+                                    echo 'The model case does not exist. Please try again';
+                                break;
                             }
-                            $this->cpc[] = $item['cpc'];
-                            $this->cpm[] = $item['cpm'];
-                            $this->date_start = $item['date_start'];
-                            $this->date_stop = $item['date_stop'];
                         }
+                        $this->ctr[] = $item['ctr'];
+                        $this->reach[] = $item['reach'];
+                        $this->impressions[] = $item['impressions'];
+                        $this->spend[] = $item['spend'];
+                        if($item['cost_per_action_type']){
+                            foreach ($item['cost_per_action_type'] as $k) {
+                                $this->action_type[] = $k['action_type'];
+                                $this->action_value[] = $k['value'];
+                            }
+                        }
+                        $this->cpc[] = $item['cpc'];
+                        $this->cpm[] = $item['cpm'];
+                        $this->date_start = $item['date_start'];
+                        $this->date_stop = $item['date_stop'];
+                        
                     }    
                 }   
             }
+            print_r($this->age18_24);
         }
-        public function setAccessToken(){
+        public function clicksInsightsRequest(){
             // Model Case for tomorrow
-            $this->fb->get('<ad_id>/insights?fields=clicks&breakdowns=age',$this->app_access_token);
-            /* ------------------ */
-            $request = $this->fb->get($this->id_page. '?fields=access_token,name',$this->app_access_token); 
-            $GraphRequest = $request->getGraphNode();
             
-            $data = $GraphRequest->asArray();
-            $this->page_access_token = $data['access_token'];
-            $this->page_name = $data['name'];
+            for ($i=0; $i <count($this->ad_ids); $i++){ 
+              
+                for($iterador=0; $iterador<count($clicks_node); $iterador++) {
+                    switch($clicks_node[$iterador]['age']){
+                        case '18-24':
+                            $this->age18_24[] = $clicks_node[$iterador]['clicks'];
+                        break;
+                        case '25-34':
+                            $this->age25_34[] = $clicks_node[$iterador]['clicks'];
+                        break;
+                        case '35-44':
+                            $this->age35_44[] = $clicks_node[$iterador]['clicks'];
+                        break;
+                        case '45-54':
+                            $this->age45_54[] = $clicks_node[$iterador]['clicks'];
+                        break;
+                        case '55-64':
+                            $this->age55_64[] = $clicks_node[$iterador]['clicks'];
+                        break;
+                        case '65+':
+                            $this->age65[] = $clicks_node[$iterador]['clicks'];
+                        break;
+                        default:
+                            echo 'The model case does not exist. Please try again';
+                        break;
+                    }
+                }
+                print_r($clicks_node);
+            }
+
+            echo "<pre>";
+            
+            // print_r($this->age18_24); echo "Age 18-24";
+            /* ------------------ */
+
         }
+        // Methos for changing 
         public function setAdStatistics(){
             for ($i=0; $i <count($this->page_post) ; $i++) { 
                 $response = $this->fb->get(

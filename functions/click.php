@@ -50,7 +50,7 @@
                 break;
             case 'yesAd':
             //For Page Info
-                echo "<h1>Page Insights</h1>";
+                echo "<h1>Ad Insights</h1>";
                 $AdInsights = new AdInsights($ad_account_id);
                 // $AdInsights->getAdPerformanceGeneralTable();
                 // $AdInsights->getAgeGenderTable();
