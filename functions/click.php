@@ -5,6 +5,7 @@
     use metrics\posts\PostInsights;
     use metrics\page\PageInsights;
     use metrics\ads\AdInsights;
+    use metrics\adset\AdsetInsights;
     
     if (isset($_GET['selected'])) {
         $selected = $_GET['selected'];
@@ -22,6 +23,7 @@
         echo "<a href='index.php?click=yesPost*$data' class='search-option'>Post</a>";
         echo "<a href='index.php?click=yesPage*$data' class='search-option'>Page</a>";
         echo "<a href='index.php?click=yesAd*$data' class='search-option'>Ads</a>";
+        echo "<a href='index.php?click=yesAdset*$data' class='search-option'>Adset</a>";
         echo "</div>";
         
         switch ($click_value) {
@@ -53,6 +55,15 @@
             //For Page Info
                 echo "<h1>Ad Insights</h1>";
                 $AdInsights = new AdInsights($ad_account_id);
+                // $AdInsights->getAdPerformanceGeneralTable();
+                // $AdInsights->getAgeGenderTable();
+                // $AdInsights->getfansCityTable();
+                // $AdInsights->callReporting();
+                break;
+            case 'yesAdset':
+            //For Page Info
+                echo "<h1>Adset Insights</h1>";
+                $AdsetInsights = new AdsetInsights($ad_account_id);
                 // $AdInsights->getAdPerformanceGeneralTable();
                 // $AdInsights->getAgeGenderTable();
                 // $AdInsights->getfansCityTable();

@@ -10,7 +10,7 @@ namespace functions\submit;
                 echo "<a href='index.php?click=yesPage*$data' id='page' class='search-option'><img src='img/page.png' alt='Page Reporting'></a><br>";
                 echo "<a href='index.php?click=dashboard*$data' id='custom-dashboard'><img src='img/dashboard.png' alt='Account Dashboard'></a>";
                 echo "<a href='index.php?click=yesAd*$data' id='ad' class='search-option'><img src='img/ads.png' alt='Ad Reporting'></a>";
-                echo "<a href='index.php?click=yesAdset*$data' id='adset' class='search-option'><img src='img/ads.png' alt='Adset Reporting'></a>";
+                echo "<a href='index.php?click=yesAdset*$data' id='adset' class='search-option'><img src='img/adsets.jpg' alt='Adset Reporting'></a>";
                 echo "</div>";
            
         }
