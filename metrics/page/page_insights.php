@@ -21,6 +21,7 @@ Class PageInsights{
   public $page_impressions = [];
   public $page_fans = [];
   public $page_views_total = [];
+  public $reach_per_city = [];
 
   public $end_time= [];
   public $total_new_likes= [];
@@ -79,7 +80,7 @@ Class PageInsights{
   public function setResponse(){
     try{
       // Returns a `Facebook\FacebookResponse` object
-      $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total&since=2019-12-01T08:00:00&until=2019-12-31T08:00:00',
+      $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique&since=2019-12-01T08:00:00&until=2019-12-31T08:00:00',
         $this->page_access_token
       );
     } catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -94,18 +95,18 @@ Class PageInsights{
     
     $graphNode = $this->response->getGraphEdge();
     $data = $graphNode->asArray();
+    // print_r($data);
 
-    // echo '<h1>Page Fans</h1>';
     $item = -1;
     
     foreach ($data as $i => $camp){
-      // print_r($data);
+
       $item++;
       $name = $camp['name'];
       $this->period = $camp['period'];
       foreach ($data[$item] as $n){
         
-        if (is_array($n)) {
+        if (is_array($n)){
           
           for ($i=0; $i <count($n) ; $i++) { 
             switch ($name) {
@@ -147,6 +148,11 @@ Class PageInsights{
                 $page_views_total[] = $n[$i]['value'];
               }
               break;
+            case 'page_impressions_by_city_unique':
+              if($this->period == 'day'){
+                $reach_per_city[] = $n[$i]['value'];
+              }
+              break;
             default:
               echo "An unexpected error has ocurred";
             break;
@@ -156,7 +162,7 @@ Class PageInsights{
       }
     }
     // Set statistics vars
-
+    print_r($reach_per_city);
     $this->page_posts_impressions = array_sum($page_posts_impressions);
     $this->fans_age_gender = end($fans_age_gender);
     $this->fans_city = end($fans_city);
@@ -168,6 +174,11 @@ Class PageInsights{
     $this->page_fans = end($page_fans);
     $this->page_views_total = array_sum($page_views_total);
 
+    for ($i=0; $i <count($reach_per_city) ; $i++) { 
+      $this->reach_per_city[] = array_keys($reach_per_city[$i]);
+    }
+    print_r($this->reach_per_city);
+    
   }
   public function setArrayAccountInfo(){
     $this->account_info_array = [
