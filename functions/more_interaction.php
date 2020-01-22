@@ -2,6 +2,8 @@
 namespace functions;
 include_once( $_SERVER['DOCUMENT_ROOT'].'/fb_project/metrics/posts/post_insights.php');
 use metrics\posts\PostInsights;
+error_reporting(0);
+
 class Interactions{
     public $id_page;
     public function __construct($id_page, $ad_account_id){
@@ -19,19 +21,22 @@ class Interactions{
 
         $array = $info->interactions;
 
-        for ($i=0; $i <5 ; $i++){ 
-            $maxs = array_keys($array, max($array));
-             foreach ($maxs as $keys) {
-                $key = $keys;
-                
+        if(count($array)>0){
+            for ($i=0; $i <5 ; $i++){ 
+                $maxs = array_keys($array, max($array));
+
+                foreach ($maxs as $keys) {
+                    $key = $keys;
+                    
+                }
+                $max[] = [
+                    'id_post' => $key,
+                    'value' =>max($array)
+                ];
+                unset($array[$key]);
             }
-            $max[] = [
-                'id_post' => $key,
-                'value' =>max($array)
-            ];
-            unset($array[$key]);
-            
         }
+       
         echo "<h3>Top More Interacting Publications</h3>";
         
         for ($i=0; $i <5 ; $i++) { 

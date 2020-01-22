@@ -2,45 +2,19 @@
 namespace metrics\ads;
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
-// require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
-// require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/preview/preview.php');
 
 use Facebook\Facebook as FB;
-use preview\AdsPreview;
 
- class AdInsights{
-
-        public $db_table_name = "ad";
-        public $ad_insights = [];
+ class AdsetInsights{
 
         public $ad_account_id;
-        public $ad_ids = [];
-        public $ad_name = [];
-        public $ad_effective_status = [];
-        public $clicks = [];
-        public $ctr = [];
-        public $reach = [];
-        public $impressions = [];
-        public $spend = [];
-        public $action_type = []; //Cost Per Action Type: $action_type . $action_value
-        public $action_value = []; //Cost Per Action Type: $action_type . $action_value
-        public $cpc = [];
-        public $cpm = [];
-        public $ad_image = [];
-        public $date_start;
-        public $date_stop;
-        
- 
-        //Age per ad click 
-        public $age18_24 = [];
-        public $age25_34 = [];
-        public $age35_44 = [];
-        public $age45_54 = [];
-        public $age55_64 = [];
-        public $age65 = [];
+        public $clicks;
+        public $ctr;
+        public $reach;
+        public $impressions;
+        public $spend;
+        public $cpm;
 
-        public $fb;
-        public $app_access_token;
         public $query_array;
 
         public function __construct($ad_account_id){
@@ -58,21 +32,15 @@ use preview\AdsPreview;
         /**
          * Call all methods in the class 
          */ 
-            $this->queryAdInsights();
-            $this->setFields();
-            $this->setAdInsightsArray();
-            $this->adsOverview();
-            $this->adDetails();
-            // $this->getAdInsightsArray();
-            
+            $this->adsetInsightsQuery();
 
         }
-        public function queryAdInsights(){
-            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(220).thumbnail_width(230){id,name,thumbnail_url},insights.breakdowns(age).time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
+        public function adsetInsightsQuery(){
+            $request = $this->fb->get($this->ad_account_id.'?fields=adsets{id,name,insights.time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,ctr,reach,impressions,spend,cpm}}',$this->app_access_token);
         
             $GraphRequest = $request->getGraphNode();
             $this->query_array = $GraphRequest->asArray();
-            // print_r($this->query_array);
+            print_r($this->query_array);
         }
         public function setFields(){
             $i = 0;
@@ -252,8 +220,3 @@ use preview\AdsPreview;
         }
 
     }
-        // For Sessions arrays
-        // $_SESSION['adPerformance']['data'] = $adPerformance;
-
-
- 

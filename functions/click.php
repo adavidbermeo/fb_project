@@ -21,6 +21,7 @@
         echo "<a href='index.php?click=yesCampaign*$data' class='search-option'>Campaign</a>";
         echo "<a href='index.php?click=yesPost*$data' class='search-option'>Post</a>";
         echo "<a href='index.php?click=yesPage*$data' class='search-option'>Page</a>";
+        echo "<a href='index.php?click=yesAd*$data' class='search-option'>Ads</a>";
         echo "</div>";
         
         switch ($click_value) {

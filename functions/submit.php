@@ -5,11 +5,12 @@ namespace functions\submit;
                 $data = $_POST['search'];
 
                 echo '<div class="menu">';
-                echo "<a href='index.php?click=yesCampaign*$data' id='campaign' class='search-option'><img src='img/campaign.png' alt='Index Background'></a>";
-                echo "<a href='index.php?click=yesPost*$data' id='post' class='search-option'><img src='img/post_insights.jpg' alt='Index Background'></a>";
-                echo "<a href='index.php?click=yesPage*$data' id='page' class='search-option'><img src='img/page.png' alt='Index Background'></a><br>";
-                 echo "<a href='index.php?click=dashboard*$data' id='custom-dashboard'><img src='img/dashboard.png' alt='Account Dashboard'></a>";
-                 echo "<a href='index.php?click=yesAd*$data' id='ad' class='search-option'><img src='img/ads.png' alt='Account Dashboard'></a>";
+                echo "<a href='index.php?click=yesCampaign*$data' id='campaign' class='search-option'><img src='img/campaign.png' alt='Campaign Reporting'></a>";
+                echo "<a href='index.php?click=yesPost*$data' id='post' class='search-option'><img src='img/post_insights.jpg' alt='Post Reporting'></a>";
+                echo "<a href='index.php?click=yesPage*$data' id='page' class='search-option'><img src='img/page.png' alt='Page Reporting'></a><br>";
+                echo "<a href='index.php?click=dashboard*$data' id='custom-dashboard'><img src='img/dashboard.png' alt='Account Dashboard'></a>";
+                echo "<a href='index.php?click=yesAd*$data' id='ad' class='search-option'><img src='img/ads.png' alt='Ad Reporting'></a>";
+                echo "<a href='index.php?click=yesAdset*$data' id='adset' class='search-option'><img src='img/ads.png' alt='Adset Reporting'></a>";
                 echo "</div>";
            
         }

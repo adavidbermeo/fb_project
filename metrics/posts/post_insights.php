@@ -39,6 +39,7 @@ use preview\AdsPreview;
         public $adPerformance;
         public $comments_count = [];
         public $shares_count = [];
+        public $total = [];
 
         
         
@@ -80,7 +81,6 @@ use preview\AdsPreview;
             $GraphRequest = $request->getGraphNode();
             // echo "<pre>";
             $this->data_array_post_ad = $GraphRequest->asArray();
-            $this->data_array_post_ad;
         }
         public function getDataRequest(){
         
@@ -96,9 +96,10 @@ use preview\AdsPreview;
                         
                 }   
             }
-             foreach ($this->page_post as $item) {
-                    list($this->post_page_id[], $this->post_ids[]) = explode('_', $item);
-                }   
+            foreach ($this->page_post as $item) {
+                list($this->post_page_id[], $this->post_ids[]) = explode('_', $item);
+            }
+              
         }
         public function setAccessToken(){
             $request = $this->fb->get($this->id_page. '?fields=access_token,name',$this->app_access_token); 
@@ -116,7 +117,6 @@ use preview\AdsPreview;
                 );
                 $GraphEdge = $response->getGraphNode();
                 $data = $GraphEdge->asArray();
-                // echo "<pre>";
 
                 // print_r($data);
                 /***
@@ -287,7 +287,7 @@ use preview\AdsPreview;
                             }elseif($key == 'ads_preview'){
                                 if (@$this->adPerformance['ad_ids'][$i]) {
                                     echo '
-                                        <td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Ad Preview</button></td>';
+                                        <td><button id="'.$this->adPerformance['ad_ids'][$i].'" class="btn-abrir-popup">Post Preview</button></td>';
                                 }
                                 echo '<div class="overlay" id="overlay">
                                     <div class="popup" id="popup">
