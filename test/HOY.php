@@ -2,8 +2,6 @@
 namespace metrics\ads;
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/core/Facebook/vendor/autoload.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/config/const.php');
-// require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/functions/f_reactions.php');
-// require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/preview/preview.php');
 
 use Facebook\Facebook as FB;
 use preview\AdsPreview;
@@ -29,6 +27,7 @@ use preview\AdsPreview;
         public $ad_image = [];
         public $date_start;
         public $date_stop;
+        public $clicks_array;
         
  
         //Age per ad click 
@@ -61,22 +60,26 @@ use preview\AdsPreview;
             $this->queryAdInsights();
             $this->setFields();
             $this->setAdInsightsArray();
-            // $this->adsOverview();
-            // $this->adDetails();
-            // $this->getAdInsightsArray();
-            
-
+            $this->getAdInsightsArray();
+            // $this->setAdDates();
         }
         public function queryAdInsights(){
             $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(220).thumbnail_width(230){id,name,thumbnail_url},insights.breakdowns(age).time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
-        
+            //$adclicks_per_date = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,insights.time_increment(1).time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks}}', $this->app_access_token);
+
             $GraphRequest = $request->getGraphNode();
             $this->query_array = $GraphRequest->asArray();
-            // print_r($this->query_array);
+            print_r($this->query_array);
+
+            // $graph_clicks = $adclicks_per_date->getGraphNode();
+            // $this->clicks_array = $graph_clicks->asArray();
+
+            // echo "Clicks Array";
+            /* print_r($this->clicks_array); */
         }
         public function setFields(){
             $i = 0;
-           foreach ($this->query_array['ads'] as $key) {
+           foreach($this->query_array['ads'] as $key){
                 
                 if($key['effective_status'] == 'ACTIVE' and $key['insights']){
 
@@ -108,8 +111,8 @@ use preview\AdsPreview;
                                     echo 'The model case does not exist. Please try again';
                                 break;
                             }
-                                
-                            $clicks[$i] = $item['clicks'];  
+                            $metrics[$i] = $item['clicks'];
+
                             $ctr[$i] = $item['ctr'];
                             $reach[$i] = $item['reach'];
                             $impressions[$i] = $item['impressions'];
@@ -117,17 +120,22 @@ use preview\AdsPreview;
                             $cpc[$i] = @$item['cpc'];
                             $cpm[$i] = $item['cpm'];
 
-                            
+                            if($this->ad_ids[$i] != $key['id']){
+                                $i++;
+                            }else{
+                                $i = $i;
+                            } 
 
                         }
 
-                        $this->clicks[$i] = array_sum($clicks);
-                        $this->ctr[$i] = array_sum($ctr);
-                        $this->reach[$i] = array_sum($reach);
-                        $this->impressions[$i] = array_sum($impressions);
-                        $this->spend[$i] = array_sum($spend);
-                        $this->cpc[$i] = array_sum($cpc);
-                        $this->cpm[$i] = array_sum($cpm);
+                        
+                        // $this->ctr[$i] = array_sum($ctr);
+                        // $this->reach[$i] = array_sum($reach);
+                        // $this->impressions[$i] = array_sum($impressions);
+                        // $this->spend[$i] = array_sum($spend);
+                        // $this->cpc[$i] = array_sum($cpc);
+                        // $this->cpm[$i] = array_sum($cpm);
+
 
                         if($item['cost_per_action_type']){
                             // foreach ($item['cost_per_action_type'] as $k) {
@@ -142,9 +150,25 @@ use preview\AdsPreview;
                         $this->ad_image[$i]  = $key['creative']['thumbnail_url'];
                     }    
                 }
-                $i++;    
+               
             }
-            // print_r($this->age18_24);
+            echo "CLICKS";
+            print_r($metrics);
+
+        }
+        public function setAdDates(){
+            // print_r($this->clicks_array);
+
+            foreach ($this->clicks_array as $key) {
+                // print_r($key);
+                if($key['effective_status'] == 'ACTIVE' and $key['insights']){
+                    foreach ($key['insights'] as $item) {
+                        $ad_dates = $item['date_start'];
+                    }
+                }
+            }
+            echo "CLICK AD DATES";
+            print_r($ad_dates);
         }
         public function setAdInsightsArray(){
            $this->adInsights = [
@@ -232,13 +256,15 @@ use preview\AdsPreview;
                     <tbody>";
                     $keys = array_keys($this->ad_ids);
                     $metrics = ['ad_image','ad_name','clicks','ctr','reach','impressions','spend','cpm'];
+                    $i = 0;
                     foreach($keys as $key) {
+                        $i = $i+1;
                         echo "<tr>";
                         foreach($metrics as $metric){
                             if($metric == 'ad_image'){
                                 echo '<td><img src="'. $this->adInsights[$metric][$key] .'"></td>';
                             }else{
-                                echo "<td>" . $this->adInsights[$metric][$key] . "</td>";
+                                echo "<td class='fila".$i."'>" . $this->adInsights[$metric][$key] . "</td>";
                             }
                         }
                         echo "</tr>";
@@ -252,5 +278,5 @@ use preview\AdsPreview;
         }
 
     }
-        // For Sessions arrays
-        // $_SESSION['adPerformance']['data'] = $adPerformance;
+
+ 
