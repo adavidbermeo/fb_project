@@ -39,8 +39,6 @@ use Facebook\Facebook as FB;
             $this->adsetInsightsQuery();
             $this->setFields();
             $this->adsetInsightsArray();
-            // $this->getAdsetInsightsArray();
-            $this->getAdsetInsightsTable();
 
         }
         public function adsetInsightsQuery(){
@@ -112,15 +110,15 @@ use Facebook\Facebook as FB;
                         <tbody>";
                             // print_r($keys);
                             echo "<td rowspan='". (count($keys)+1) ."'>". $this->adsetInsights['date_start']. "/". $this->adsetInsights['date_stop'] . "</td>";
+                            $i = 0;
                             foreach($keys as $key){
+                                $i = $i+1;
                                 echo "<tr>";
-                                $metrics = ['date','adset_name','clicks','ctr','reach','impressions','spend','cpm'];
+                                $metrics = ['adset_name','clicks','ctr','reach','impressions','spend','cpm'];
                                 foreach ($metrics as $metric) {
-                                    if($metric == 'date'){
-                                        //echo "<td>". $this->adsetInsights['date_start'] ."/". $this->adsetInsights['date_stop']  ."</td>";
-                                    }else{
-                                        echo "<td>".  $this->adsetInsights[$metric][$key]  ."</td>";
-                                    }
+
+                                    echo "<td class='fila".$i."'>".  $this->adsetInsights[$metric][$key]  ."</td>";
+                                    
                                 }
                                 echo "</tr>";
                             }

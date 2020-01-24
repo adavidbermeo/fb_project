@@ -77,10 +77,11 @@ use preview\AdsPreview;
             $this->setAdPerformance();
         }
         public function setAdIdRequest(){
-            $request = $this->fb->get($this->ad_account_id . '?fields=ads.limit(50){id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id . '?fields=ads.limit(80){id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
             $GraphRequest = $request->getGraphNode();
             // echo "<pre>";
             $this->data_array_post_ad = $GraphRequest->asArray();
+            
         }
         public function getDataRequest(){
         
@@ -118,7 +119,6 @@ use preview\AdsPreview;
                 $GraphEdge = $response->getGraphNode();
                 $data = $GraphEdge->asArray();
 
-                // print_r($data);
                 /***
                  * Set VARS
                  */
@@ -331,13 +331,13 @@ use preview\AdsPreview;
                     echo "There is no available campaigns";
                 }
             }  
-            public function callReporting(){
-                echo '
-                    <a href="index.php?idpage='. $this->id_page .'&accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" id="reporting">Ad Reporting</a><a href="index.php?accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" class="graphicSystem" id="reporting"> Graphic System </a> 
-                    <script type="text/javascript" src="js/option_reporting.js"></script>
-                    <script src="js/graficas.js" type="text/javascript"></script>
-                ';
-            }
+            // public function callReporting(){
+            //     echo '
+            //         <a href="index.php?idpage='. $this->id_page .'&accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" id="reporting">Ad Reporting</a><a href="index.php?accountid='. $this->ad_account_id .'&tablename='. $this->db_table_name .'" class="graphicSystem" id="reporting"> Graphic System </a> 
+            //         <script type="text/javascript" src="js/option_reporting.js"></script>
+            //         <script src="js/graficas.js" type="text/javascript"></script>
+            //     ';
+            // }
             public function adPreview($ad_id){
                 $ad_preview = new AdsPreview($ad_id);
             }

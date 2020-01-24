@@ -61,7 +61,7 @@
     public function setRequest(){
       try {
         // Returns a `FacebookFacebookResponse` object
-        $this->request = $this->fb->get( $this->ad_account_id .'?fields=name,id,campaigns.limit(50){name,status,objective,insights{clicks,impressions,spend,reach,objective,cost_per_unique_click,cost_per_conversion,cost_per_action_type}}',$this->access_token);
+        $this->request = $this->fb->get( $this->ad_account_id .'?fields=name,id,campaigns.limit(80){name,status,objective,insights.time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,impressions,spend,reach,objective,cost_per_unique_click,cost_per_conversion,cost_per_action_type}}',$this->access_token);
       } catch(FacebookExceptionsFacebookResponseException $e) {
         echo 'Graph returned an error: ' . $e->getMessage();
         exit;
@@ -73,7 +73,7 @@
     public function setDataArray(){
       $graphNodes = $this->request->getGraphNode();
       $this->campaign_info = $graphNodes->asArray();
-     
+    
     }
     public function getDataArray(){
       print_r($this->campaign_info);
@@ -205,13 +205,13 @@
                     busqueda.addEventListener("keyup", buscaTabla);
             </script>';   
     }
-    public function callReporting(){
-        echo "
-          <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Campaign Reporting</a><a href='index.php?accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' class='graphicSystem' id='reporting'> Graphic System </a>
-          <script type='text/javascript' src='js/option_reporting.js'></script>
-          <script src='js/graficas.js' type='text/javascript'></script>
-          ";
-    }
+    // public function callReporting(){
+    //     echo "
+    //       <a href='index.php?accountname=". $this->ad_account_name ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Campaign Reporting</a><a href='index.php?accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' class='graphicSystem' id='reporting'> Graphic System </a>
+    //       <script type='text/javascript' src='js/option_reporting.js'></script>
+    //       <script src='js/graficas.js' type='text/javascript'></script>
+    //       ";
+    // }
   }
 
   

@@ -22,6 +22,7 @@ Class PageInsights{
   public $page_fans = [];
   public $page_views_total = [];
   public $reach_per_city = [];
+  public $reach_per_city_fields = [];
 
   public $end_time= [];
   public $total_new_likes= [];
@@ -60,6 +61,7 @@ Class PageInsights{
     $this->setResponse();
     $this->setAccountInfo();
     $this->setArrayAccountInfo();
+    // $this->getArrayAccountInfo();
 
     if($this->more_interaction == TRUE){
       $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id);
@@ -95,8 +97,7 @@ Class PageInsights{
     
     $graphNode = $this->response->getGraphEdge();
     $data = $graphNode->asArray();
-    // print_r($data);
-
+    print_r($data);
     $item = -1;
     
     foreach ($data as $i => $camp){
@@ -111,8 +112,9 @@ Class PageInsights{
           for ($i=0; $i <count($n) ; $i++) { 
             switch ($name) {
             case 'page_fan_adds_by_paid_non_paid_unique':
-              // echo count($n);
-              $this->end_time[] = $n[$i]['end_time']->format('Y-m-d H:i:s');
+              
+              $this->end_time[] = $n[$i]['end_time']->format('Y-m-d');
+              // $this->end_time[] = $n[$i]['end_time']->format('Y-m-d H:i:s');
               $total_new_likes[] =  $n[$i]['value']['total'];
               $people_paid_like[] = $n[$i]['value']['paid'];
               $people_unpaid_like[] =  $n[$i]['value']['unpaid'];
@@ -150,7 +152,7 @@ Class PageInsights{
               break;
             case 'page_impressions_by_city_unique':
               if($this->period == 'day'){
-                $reach_per_city[] = $n[$i]['value'];
+                $this->reach_per_city[] = $n[$i]['value'];
               }
               break;
             default:
@@ -162,7 +164,7 @@ Class PageInsights{
       }
     }
     // Set statistics vars
-    print_r($reach_per_city);
+
     $this->page_posts_impressions = array_sum($page_posts_impressions);
     $this->fans_age_gender = end($fans_age_gender);
     $this->fans_city = end($fans_city);
@@ -174,11 +176,19 @@ Class PageInsights{
     $this->page_fans = end($page_fans);
     $this->page_views_total = array_sum($page_views_total);
 
-    for ($i=0; $i <count($reach_per_city) ; $i++) { 
-      $this->reach_per_city[] = array_keys($reach_per_city[$i]);
+    for ($i=0; $i <count($this->reach_per_city) ; $i++) { 
+      $reach_per_city_keys[] = array_keys($this->reach_per_city[$i]);
     }
-    print_r($this->reach_per_city);
-    
+
+    foreach ($reach_per_city_keys as $reach_per_city_key => $value) {
+      
+      foreach ($value as $item) {
+        $array_unique[] = $item;
+      }
+    }
+
+    $this->reach_per_city_fields = array_unique($array_unique);
+
   }
   public function setArrayAccountInfo(){
     $this->account_info_array = [
@@ -281,8 +291,6 @@ Class PageInsights{
               <th>'. $item .'</th>
               <td>'. $this->account_info_array['fans_age_gender'][$item] .'</td>  
             ';   
-          
-          
         }
         echo '
         </tbody>
@@ -296,23 +304,30 @@ Class PageInsights{
         <thead>
           <tr><th id="buscador" colspan="2"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="fans-search" autofocus placeholder="Search" class="pageStaTable"></th></tr>
           <tr>
-            <th id="campaign-title"><h4>'. $this->page_name .'<br> Fans City</h4></th>
-            <th class="age-gender"><i class="fas fa-equals fa-2x"></i></th>
+            <th id="campaign-title"><h4>'. $this->page_name .'<br></h4></th>
+            <th class="age-gender"><i class="fas fa-equals fa-2x"> Likes</i></th>
+            <th class="age-gender"><i class="fas fa-equals fa-2x"> Reach per City</i></th>
           </tr>
         </thead>
         <tbody>';
+        
+   
         $keys = array_keys($this->account_info_array['fans_city']);
-        $i = 0;
+        $id = 0;
         foreach ($keys as $item) {
-          $i = $i+1;
-
+              $id = $id+1;
               echo '
-              <tr rowspan="2" class="fila'. $i .'">
-              <th>'. $item .'</th>
-              <td>'. $this->account_info_array['fans_city'][$item] .'</td>  
-            ';
-          
+              <tr rowspan="2" class="fila'. $id .'">
+              <th>'. $item .'</th>';
+              for($i =0; $i<count($this->reach_per_city); $i++){
+                $sum[$i] =  $this->reach_per_city[$i][$item];
+              }
+
+              echo "<td>". $this->account_info_array['fans_city'][$item] ."</td>";
+              echo  '<td>'. array_sum($sum) .'</td>
+              </tr>';
         }
+        
         echo '
         </tbody>
         <tfoot>
@@ -354,13 +369,44 @@ Class PageInsights{
             busqueda2.addEventListener("keyup", buscaTabla2);
     </script>';  
     }
-    public function callReporting(){
+    public function getReachPerCityTable(){
       echo "
-        <a href='index.php?idpage=". $this->id_page ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Page Reporting</a><a href='index.php?accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' class='graphicSystem' id='reporting'> Graphic System </a> 
-        <script type='text/javascript' src='js/option_reporting.js'></script>
-        <script src='js/graficas.js' type='text/javascript'></script>
-        ";
+        <pre>
+          <table>
+            <thead>
+            <tr><th id='buscador' colspan='2'><i class='fas fa-search fa-2x table-search'></i><input type='text' id='search' autofocus placeholder='Search' class='pageStaTable'></th></tr>
+            <tr>
+              <th id='campaign-title'><h4>". $this->page_name ."<br>Reach per City</h4></th>
+              <th class='age-gender'><i class='fas fa-equals fa-2x'></i></th>
+            </tr>";
+
+              $id= 0;
+              foreach ($this->reach_per_city_fields as $key => $value) {
+                $id = $id+1;
+                echo '<tr rowspan="2" class="fila'. $id .'">';
+                echo "<th>". $value . "</th>";
+                
+                  for($i=0; $i <count($this->reach_per_city); $i++){ 
+                    $suma[$i] = $this->reach_per_city[$i][$value];
+                  }
+                  echo "<td>". array_sum($suma) . "</td>";
+              }
+             
+            echo " 
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </pre>
+      ";
     }
+    // public function callReporting(){
+    //   echo "
+    //     <a href='index.php?idpage=". $this->id_page ."&accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' id='reporting'>Page Reporting</a><a href='index.php?accountid=". $this->ad_account_id ."&tablename=". $this->db_table_name ."' class='graphicSystem' id='reporting'> Graphic System </a> 
+    //     <script type='text/javascript' src='js/option_reporting.js'></script>
+    //     <script src='js/graficas.js' type='text/javascript'></script>
+    //     ";
+    // }
 }
 
 

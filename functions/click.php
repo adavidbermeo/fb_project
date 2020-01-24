@@ -33,14 +33,14 @@
                 echo "<h1>Campaign Insights</h1>";
                 $CampaignInsights = new CampaignInsights($ad_account_id);  
                 $CampaignInsights->getCampaignStatisticsTable(); 
-                $CampaignInsights->callReporting(); 
+
                 break;
             case 'yesPost':
             //For Ad Info
                 echo "<h1>Post Insights</h1>";
                 $PostInsights = new PostInsights($id_page, $ad_account_id);
                 $PostInsights->getAdPerformanceTable();
-                $PostInsights->callReporting();
+
                 break;
             case 'yesPage' :
             //For Page Info
@@ -49,25 +49,23 @@
                 $PageInsights->getAdPerformanceGeneralTable();
                 $PageInsights->getAgeGenderTable();
                 $PageInsights->getfansCityTable();
-                $PageInsights->callReporting();
+                $PageInsights->getReachPerCityTable();
+
                 break;
             case 'yesAd':
             //For Page Info
                 echo "<h1>Ad Insights</h1>";
                 $AdInsights = new AdInsights($ad_account_id);
-                // $AdInsights->getAdPerformanceGeneralTable();
-                // $AdInsights->getAgeGenderTable();
-                // $AdInsights->getfansCityTable();
-                // $AdInsights->callReporting();
+                $AdInsights->adsOverview();
+                $AdInsights->adDetails();
+
                 break;
             case 'yesAdset':
             //For Page Info
                 echo "<h1>Adset Insights</h1>";
                 $AdsetInsights = new AdsetInsights($ad_account_id);
-                // $AdInsights->getAdPerformanceGeneralTable();
-                // $AdInsights->getAgeGenderTable();
-                // $AdInsights->getfansCityTable();
-                // $AdInsights->callReporting();
+                $AdsetInsights->getAdsetInsightsTable();
+
                 break;
             default:
                 echo "The model case does not exist";

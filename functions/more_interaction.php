@@ -41,9 +41,11 @@ class Interactions{
         
         for ($i=0; $i <5 ; $i++) { 
             $item = $i+1;
-            echo '#' . $item . '<br>';
-            echo 'ID POST: ' . $max[$i]['id_post'] .'<br>';
-            echo 'INTERACTIONS : ' . $max[$i]['value'] .'<br><br>';
+            echo '<div class="top-interaction">';
+                echo '#' . $item . '<br>';
+                echo 'ID POST: ' . $max[$i]['id_post'] .'<br>';
+                echo 'INTERACTIONS : ' . $max[$i]['value'] .'<br><br>';
+            echo "</div>";
         }
     }
 }
