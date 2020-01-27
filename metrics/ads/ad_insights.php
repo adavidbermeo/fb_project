@@ -29,6 +29,10 @@ use preview\AdsPreview;
         public $ad_image = [];
         public $date_start;
         public $date_stop;
+        public $ad_dates;
+
+        //Testing 
+        public $array;
         
  
         //Age per ad click 
@@ -61,6 +65,7 @@ use preview\AdsPreview;
             $this->queryAdInsights();
             $this->setFields();
             $this->setAdInsightsArray();
+            $this->adDatesQuery();
             $this->adClicksPerDate();
             
 
@@ -74,8 +79,8 @@ use preview\AdsPreview;
             // print_r($this->query_array);
 
             $graph_second_request = $second_request->getGraphNode();
-            $array =  $graph_second_request->asArray();
-            print_r($array);
+            $this->array =  $graph_second_request->asArray();
+            print_r($this->array);
         }
         public function setFields(){
             $i = 0;
@@ -102,7 +107,7 @@ use preview\AdsPreview;
                                  
                                 break;
                                 case '45-54':
-                                    $this->age45_54[] = $item['clicks'];
+                                    $this->age45_54[$i] = $item['clicks'];
                                    
                                 break;
                                 case '55-64':
@@ -159,21 +164,43 @@ use preview\AdsPreview;
                 $i++;    
             }
         }
-        public function adClicksPerDate(){
+        public function adDatesQuery(){
             $i=0;
-             foreach ($this->query_array['ads'] as $key) {
+             foreach ($this->array['ads'] as $key) {
                 
                 if($key['effective_status'] == 'ACTIVE' and $key['insights']){
                     foreach ($key['insights'] as $item) {
                         if($item['date_start']){
-                            $dates[$i] = $item['date_start'];
+                            $dates[] = $item['date_start'];
                         }
                     }
                 }
                 $i++;
             }
-            echo "DATES";
-            print_r($dates);
+            $this->ad_dates = array_unique($dates);
+            print_r($this->ad_dates);
+        }
+        public function adClicksPerDate(){
+            $i=0;
+            foreach ($this->array['ads'] as $key) {
+                 if($key['effective_status'] == 'ACTIVE' and $key['insights']){
+                    foreach ($key['insights'] as $item) {
+                        if($item['date_start']){
+                            echo "AD DATES <br>";
+                            foreach($this->ad_dates as $date){
+                                if($item['date_start'] == $date){
+                                    $click_per_date[] = [
+                                        $date => $item['clicks']
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+                $i++; 
+            }
+            echo "POR FIN";
+            print_r($click_per_date);
         }
         public function setAdInsightsArray(){
            $this->adInsights = [
