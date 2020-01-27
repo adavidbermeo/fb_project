@@ -61,18 +61,21 @@ use preview\AdsPreview;
             $this->queryAdInsights();
             $this->setFields();
             $this->setAdInsightsArray();
-            // $this->adsOverview();
-            // $this->adDetails();
-            // $this->getAdInsightsArray();
+            $this->adClicksPerDate();
             
 
         }
         public function queryAdInsights(){
             $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(220).thumbnail_width(230){id,name,thumbnail_url},insights.breakdowns(age).time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
-        
+            $second_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,insights.time_increment(1).time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks}}',$this->app_access_token);
+
             $GraphRequest = $request->getGraphNode();
             $this->query_array = $GraphRequest->asArray();
             // print_r($this->query_array);
+
+            $graph_second_request = $second_request->getGraphNode();
+            $array =  $graph_second_request->asArray();
+            print_r($array);
         }
         public function setFields(){
             $i = 0;
@@ -88,46 +91,57 @@ use preview\AdsPreview;
                             switch($item['age']){
                                 case '18-24':
                                     $this->age18_24[$i] = $item['clicks'];
+                                  
                                  break;
                                 case '25-34':
                                     $this->age25_34[$i] =$item['clicks'];
+                                   
                                 break;
                                 case '35-44':
                                     $this->age35_44[$i] = $item['clicks'];
+                                 
                                 break;
                                 case '45-54':
-                                    $this->age45_54[$i] = $item['clicks'];
+                                    $this->age45_54[] = $item['clicks'];
+                                   
                                 break;
                                 case '55-64':
                                     $this->age55_64[$i] = $item['clicks'];
+                                   
                                 break;
                                 case '65+':
                                     $this->age65[$i] = $item['clicks'];
+                                   
                                 break;
                                 default:
                                     echo 'The model case does not exist. Please try again';
                                 break;
                             }
-                                
-                            $clicks[$i] = $item['clicks'];  
-                            $ctr[$i] = $item['ctr'];
-                            $reach[$i] = $item['reach'];
-                            $impressions[$i] = $item['impressions'];
-                            $spend[$i] = $item['spend'];
-                            $cpc[$i] = @$item['cpc'];
-                            $cpm[$i] = $item['cpm'];
 
-                            
+                            $clicks[] = $item['clicks'];    
+                            $ctr[] = $item['ctr'];
+                            $reach[] = $item['reach'];
+                            $impressions[] = $item['impressions'];
+                            $spend[] = $item['spend'];
+                            $cpc[] = @$item['cpc'];
+                            $cpm[] = $item['cpm'];
 
                         }
 
                         $this->clicks[$i] = array_sum($clicks);
+                        unset($clicks);
                         $this->ctr[$i] = array_sum($ctr);
+                        unset($ctr);
                         $this->reach[$i] = array_sum($reach);
+                        unset($reach);
                         $this->impressions[$i] = array_sum($impressions);
+                        unset($impressions);
                         $this->spend[$i] = array_sum($spend);
+                        unset($spend);
                         $this->cpc[$i] = array_sum($cpc);
+                        unset($cpc);
                         $this->cpm[$i] = array_sum($cpm);
+                        unset($cpm);
 
                         if($item['cost_per_action_type']){
                             // foreach ($item['cost_per_action_type'] as $k) {
@@ -144,7 +158,22 @@ use preview\AdsPreview;
                 }
                 $i++;    
             }
-            // print_r($this->age18_24);
+        }
+        public function adClicksPerDate(){
+            $i=0;
+             foreach ($this->query_array['ads'] as $key) {
+                
+                if($key['effective_status'] == 'ACTIVE' and $key['insights']){
+                    foreach ($key['insights'] as $item) {
+                        if($item['date_start']){
+                            $dates[$i] = $item['date_start'];
+                        }
+                    }
+                }
+                $i++;
+            }
+            echo "DATES";
+            print_r($dates);
         }
         public function setAdInsightsArray(){
            $this->adInsights = [
