@@ -40,6 +40,7 @@ use preview\AdsPreview;
         public $comments_count = [];
         public $shares_count = [];
         public $total = [];
+        public $ad_image = [];
 
         
         
@@ -77,14 +78,14 @@ use preview\AdsPreview;
             $this->setAdPerformance();
         }
         public function setAdIdRequest(){
-            $request = $this->fb->get($this->ad_account_id . '?fields=ads.limit(80){id,name,effective_status,creative{effective_object_story_id}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id . '?fields=ads.limit(80){id,name,effective_status,creative.thumbnail_height(245).thumbnail_width(255){effective_object_story_id,thumbnail_url}}',$this->app_access_token);
             $GraphRequest = $request->getGraphNode();
             // echo "<pre>";
             $this->data_array_post_ad = $GraphRequest->asArray();
             
         }
         public function getDataRequest(){
-        
+            $i=0;
            foreach ($this->data_array_post_ad['ads'] as $key) {
                 
                 if($key['effective_status'] == 'ACTIVE'){
@@ -94,8 +95,12 @@ use preview\AdsPreview;
                     if(@$key['creative']['effective_object_story_id']){
                         $this->page_post[] = $key['creative']['effective_object_story_id'];
                     }
+                    if(@$key['creative']){
+                        $this->ad_image[$i]  = $key['creative']['thumbnail_url'];
+                    } 
                         
-                }   
+                }  
+                $i++; 
             }
             foreach ($this->page_post as $item) {
                 list($this->post_page_id[], $this->post_ids[]) = explode('_', $item);
@@ -197,6 +202,7 @@ use preview\AdsPreview;
             $this->adPerformance = [
                 'ad_ids' => $this->ad_ids,
                 'ad_name' => $this->ad_name,
+                'ad_image' => $this->ad_image,
                 'ad_effective_status' => $this->ad_effective_status,
                 'post_page_id' => $this->post_page_id,
                 'post_ids' => $this->post_ids, 

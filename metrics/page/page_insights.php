@@ -20,9 +20,12 @@ Class PageInsights{
   public $page_name;
   public $page_impressions = [];
   public $page_fans = [];
-  public $page_views_total = [];
+  public $page_views_per_date = [];
   public $reach_per_city = [];
   public $reach_per_city_fields = [];
+  public $impressions_by_age = [];
+  public $posts_like_per_day = [];
+  public $posts_like_per_day_total = [];
 
   public $end_time= [];
   public $total_new_likes= [];
@@ -35,6 +38,13 @@ Class PageInsights{
 
   public $account_info_array= [];
   
+  public $age_13_17 = [];
+  public $age_18_24 = [];
+  public $age_25_34 = [];
+  public $age_35_44 = [];
+  public $age_45_54 = [];
+  public $age_55_64 = [];
+  public $age_65 = [];
 
   // Methods
   public function __construct($id_page, $ad_account_id, $more_interaction = 0){
@@ -60,9 +70,10 @@ Class PageInsights{
     $this->setAccessToken();
     $this->setResponse();
     $this->setAccountInfo();
+    $this->impressionsByAge();
     $this->setArrayAccountInfo();
-    // $this->getArrayAccountInfo();
-
+    //$this->getArrayAccountInfo();
+    
     if($this->more_interaction == TRUE){
       $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id);
       $most_interactionsPost->moreInteraction();
@@ -82,7 +93,7 @@ Class PageInsights{
   public function setResponse(){
     try{
       // Returns a `Facebook\FacebookResponse` object
-      $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique&since=2019-12-01T08:00:00&until=2019-12-31T08:00:00',
+      $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique,page_impressions_by_age_gender_unique,page_actions_post_reactions_like_total&since=2019-12-01T08:00:00&until=2019-12-31T08:00:00',
         $this->page_access_token
       );
     } catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -97,7 +108,8 @@ Class PageInsights{
     
     $graphNode = $this->response->getGraphEdge();
     $data = $graphNode->asArray();
-    print_r($data);
+    //print_r($data);
+
     $item = -1;
     
     foreach ($data as $i => $camp){
@@ -108,7 +120,7 @@ Class PageInsights{
       foreach ($data[$item] as $n){
         
         if (is_array($n)){
-          
+
           for ($i=0; $i <count($n) ; $i++) { 
             switch ($name) {
             case 'page_fan_adds_by_paid_non_paid_unique':
@@ -147,12 +159,22 @@ Class PageInsights{
               break;
             case 'page_views_total':
                if ($this->period == 'day') {
-                $page_views_total[] = $n[$i]['value'];
+                $this->page_views_per_date[] = $n[$i]['value'];
               }
               break;
             case 'page_impressions_by_city_unique':
               if($this->period == 'day'){
                 $this->reach_per_city[] = $n[$i]['value'];
+              }
+              break;
+            case 'page_impressions_by_age_gender_unique':
+                if($this->period == 'day'){
+                  $this->impressions_by_age[] = $n[$i]['value']; //Filter by age only (Solamente Edad, excluyendo genero)
+                }
+              break;
+            case 'page_actions_post_reactions_like_total':
+              if($this->period == 'day'){
+                $this->posts_like_per_day[] = $n[$i]['value']; // This data is per date (No es necesario ya todas tienen fecha guardada en el arreglo end_time)
               }
               break;
             default:
@@ -163,7 +185,8 @@ Class PageInsights{
         }
       }
     }
-    // Set statistics vars
+
+    // print_r($this->posts_like_per_day);
 
     $this->page_posts_impressions = array_sum($page_posts_impressions);
     $this->fans_age_gender = end($fans_age_gender);
@@ -174,7 +197,8 @@ Class PageInsights{
     $this->people_paid_like = array_sum($people_paid_like);
     $this->people_unpaid_like = array_sum($people_unpaid_like);
     $this->page_fans = end($page_fans);
-    $this->page_views_total = array_sum($page_views_total);
+    $this->page_views_total = array_sum($this->page_views_per_date);
+    $this->posts_like_per_day_total = array_sum($this->posts_like_per_day);
 
     for ($i=0; $i <count($this->reach_per_city) ; $i++) { 
       $reach_per_city_keys[] = array_keys($this->reach_per_city[$i]);
@@ -190,6 +214,63 @@ Class PageInsights{
     $this->reach_per_city_fields = array_unique($array_unique);
 
   }
+  public function impressionsByAge(){
+
+    foreach ($this->impressions_by_age as $key){
+      foreach ($key as $items => $item) {
+        switch ($items) {
+          case 'F.13-17':
+          case 'M.13-17':
+            $age_13_17[] = $item;  
+            break;
+          case 'M.18-24':
+          case 'U.18-24':
+          case 'F.18-24':
+            $age_18_24[] = $item;
+            break;
+          case 'F.25-34':
+          case 'M.25-34':
+          case 'U.25-34':
+            $age_25_34[] = $item; 
+            break;
+          case 'U.35-44':
+          case 'M.35-44':
+          case 'F.35-44': 
+            $age_35_44[] = $item;
+            break;
+          case 'F.45-54':
+          case 'U.45-54':
+          case 'M.45-54':
+            $age_45_54[] = $item;
+            break;
+          case 'U.55-64':
+          case 'M.55-64':
+          case 'F.55-64':
+            $age_55_64[] = $item;
+            break;
+          case 'U.65+':
+          case 'F.65+':
+          case 'M.65+':
+            $age_65[] = $item;
+            break;
+        default:
+          echo "The field does not exist for the age";
+          break;
+        }
+      }
+    }
+    //Sumatoria
+    $this->age_13_17 = array_sum($age_13_17);
+    $this->age_18_24 = array_sum($age_18_24);
+    $this->age_25_34 = array_sum($age_25_34);
+    $this->age_35_44 = array_sum($age_35_44);
+    $this->age_45_54 = array_sum($age_45_54);
+    $this->age_55_64 = array_sum($age_55_64);
+    $this->age_65 = array_sum($age_65);
+
+    // echo "PAGE VIEWS PER DATE";
+    // print_r($this->page_views_per_date);
+  }
   public function setArrayAccountInfo(){
     $this->account_info_array = [
       'id_page'=>$this->id_page,
@@ -202,6 +283,19 @@ Class PageInsights{
       'page_posts_impressions' => $this->page_posts_impressions,
       'page_fans' => $this->page_fans,
       'page_views_total' => $this->page_views_total,
+      'posts_like_per_day_total' => $this->posts_like_per_day_total,
+      'posts_like_per_day' => $this->posts_like_per_day,
+      'page_impressions_per_age' => [
+        '13-17'=> $this->age_13_17,
+        '18-24' => $this->age_18_24,
+        '25-34' => $this->age_25_34,
+        '35-44' => $this->age_35_44,
+        '45-54' => $this->age_45_54,
+        '55-64' => $this->age_55_64,
+        '65+' => $this->age_65
+      ],
+      'page_views_per_date' => $this->page_views_per_date,
+      'posts_like_per_day' => $this->posts_like_per_day,
       'fans_age_gender' => $this->fans_age_gender,  
       'fans_city' => $this->fans_city,
       'ad_account_id' => $this->ad_account_id    
@@ -237,14 +331,14 @@ Class PageInsights{
                 <th>Interacciones Totales</th>
                 <th>Impresiones de Pagina</th>
                 <th>Impresiones de Publicaciones</th>
-                <th>Me gusta</th>
+                <th>Me gusta (Pagina)</th>
                 <th>Paginas Vistas</th>
+                <th>Me gusta (Publicaciones)</th>
             </tr>
           </thead>
           <tbody>';
           for ($i=0; $i <1 ; $i++) { 
-            $metrics = array_keys($this->account_info_array);
-            unset($metrics[10]); unset($metrics[11]); unset($metrics[12]);
+            $metrics = ['id_page','end_time','total_new_likes','people_paid_like','people_unpaid_like','page_post_engagements','page_impressions','page_posts_impressions','page_fans','page_views_total','posts_like_per_day_total'];
             echo '
             
               <tr class="fila'. $i .'">';

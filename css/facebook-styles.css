@@ -640,14 +640,19 @@ body {
     display: inline-block;
 }
 .graphics{
-    width:100%;
+    width:48%;
+    margin:0.5px;
     height: 100%;
     border: 1px solid #ccc;
     padding:26px;
     box-sizing: border-box;
+    float: left;
 }
 .graphic-dashboard{
-   margin-top: -4%; 
+    display: none;
+    width: 94.5%;
+    margin-top: -4%;
+    margin-bottom: 5%; 
 }
 #general-report{
     margin-top: 5%;
@@ -667,4 +672,17 @@ canvas{
     padding: 20px;
     box-sizing:border-box;
     text-align: center;
+}
+.graphic-likes{
+    width:96%;
+    margin:0.5px;
+    height: 100%;
+    border: 1px solid #ccc;
+    padding:26px;
+    box-sizing: border-box;
+    float: left;
+    margin-bottom: 10%;
+}
+.dash-table{
+    width:100%;
 }

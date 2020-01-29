@@ -1,14 +1,12 @@
 <?php
-// Db Connection 
-require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/database/connectDb.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/include/include_click.php');
 
-
-use metrics\page\ByAccountPage;
+use metrics\page\PageInsights;
+use metrics\ads\AdInsights;
     
-    if(isset($_POST['selected'])){
-        //$selected = 'index.php?click=dashboard*303239893027115%act_131251207293544';
-        $selected = $_POST['selected'];
+    if(isset($_REQUEST['selected'])){
+        $selected = 'index.php?click=dashboard*303239893027115%act_131251207293544';
+        //$selected = $_REQUEST['selected'];
         // echo $selected; 
         
         list($url, $click) = explode('=', $selected);
@@ -19,45 +17,40 @@ use metrics\page\ByAccountPage;
     }
 
 function getData($id_page,$ad_account_id){
+
+    //Page Insights
+
+    $PageInsights = new PageInsights($id_page, $ad_account_id);
+    $page_insights_array = $PageInsights->account_info_array;
     
-	// //setting header to json
-	// $db = new database();
-	// $conn = $db->conn();
-
-    // // Campaign Graphics
-    // $sql = $conn->prepare("SELECT `campaign_id`,`campaign_name`,`clicks` FROM `campaign` WHERE `ad_account_id` ='$ad_account_id' ORDER BY `clicks` DESC");
-    // $sql->execute();
-    // $campaign_graphic = $sql->fetchAll();
-
-    // // Ad Graphics
-    // $sql = $conn->prepare("SELECT * FROM `ad` WHERE `ad_account_id` ='$ad_account_id' ORDER BY `total_reactions` DESC");
-    // $sql->execute(); 
-    // $ad_graphic = $sql->fetchAll();
+    // Ad Insights
     
-    // //Age - Gender
+    $AdInsights = new AdInsights($ad_account_id);
+    $ad_insights_array = $AdInsights->adInsights;
 
-    // $by_account_page = new ByAccountPage($id_page, $ad_account_id);
-    // $fans_age_gender = $by_account_page->account_info_array['fans_age_gender'];
-    
-    // $age_gender_array = [];
-    // foreach($fans_age_gender as $key => $value){
-    //     array_push($age_gender_array, array("key"=>$key,"value"=>$value));
-    // }
+    /* Ad Clicks per Date */
 
-    // $fans_city = $by_account_page->account_info_array['fans_city'];
+    $age = ($ad_insights_array['ad_clicks_per_age']);
+    // $fans_city = $by_account_page->account_info_array['fans_city']
+     $ages = [];
+     foreach($age as $key => $value){
+         array_push($ages, ['key' => $key, 'value'=> $value]); 
+     }
+     $ad_insights_array['ad_clicks_per_age'] = $ages;
 
-    // $fans_city_array = [];
-    // foreach($fans_city as $key => $value){
-    //     array_push($fans_city_array, ['key' => $key, 'value'=> $value]); 
-    // }
-    // /**
-    //  * Comments and Shares graphics $ad_graphic
-    // */
-    
+    /* Page Impressions Per Age */
 
-    // // Send to cdashboard.js
-    // $graphic_array = ['campaign_graphic'=> $campaign_graphic, 'ad_graphic'=> $ad_graphic, 'fans_age_gender'=> $age_gender_array, 'fans_city' => $fans_city_array];
-    // //print_r($graphic_array);
-    // echo json_encode($graphic_array);
-       
+     $impressions = ($page_insights_array['page_impressions_per_age']);
+     $impressions_per_age = [];
+     foreach($impressions as $key => $value){
+         array_push($impressions_per_age, ['key' => $key, 'value'=> $value]); 
+     }
+     $page_insights_array['page_impressions_per_age'] = $impressions_per_age;
+
+
+    // Send to cdashboard.js
+    $graphic_array = ['page_graphic'=> $page_insights_array, 'ad_graphic'=> $ad_insights_array];
+    // print_r($graphic_array);
+    echo json_encode($graphic_array);
+    //  echo 'ss'; 
 }

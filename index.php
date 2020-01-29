@@ -12,6 +12,14 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
     <!--  -->
+    <link type="text/css" href="plugins/zoomy/zoomy.css" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+    <script type="text/javascript" src="plugins/zoomy/zoomy.min.js"></script>
+    <!-- <script type="text/javascript">
+        $(function () {
+            $('.zoom').zoomy();
+        });
+    </script> -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Facebook App</title>
@@ -64,7 +72,7 @@
             
             <h3 class="welcome">Welcome to Facebook Api Project</h3>
             <img src="img/facebook_insights.png" alt="Index Background" id="index-back">
-            <?php $AccountsPageData->callReporting(); ?>
+            
 
             <!-- <div id="chart-container"><canvas id="mycanvas"></canvas></div> -->
         </div>
