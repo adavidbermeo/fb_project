@@ -314,6 +314,52 @@ Class PageInsights{
   public function getArrayAccountInfo(){
     print_r($this->account_info_array);
   }
+  public function dashboardPerformanceGeneralTable(){
+    echo '
+      <div class="dash-section">
+        <table class="ad-overview-table">
+          <thead>
+            <tr>
+                <th>Impresiones de Pagina</th>
+                <th>Interaccion de Usuarios</th>
+                <th>Me gusta (Pagina)</th>
+                
+            </tr>
+          </thead>
+          <tbody>';
+            $row1 = ['page_impressions','page_post_engagements','page_fans'];
+            $row2 = ['total_new_likes','page_views_total','page_posts_impressions'];
+            echo '
+              <tr>';
+                foreach ($row1 as $key) {
+      
+                  if($this->account_info_array[$key]){
+                        echo '<td>' . $this->account_info_array[$key] . '</td>';
+                  }else{
+                    echo 'An unexpected error has ocurred';
+                  }
+                }     
+                echo '
+              </tr>
+          </tbody>   
+          <tfooter>
+            <th>Nuevos Me gusta (Pagina)</th>
+            <th>Paginas Vistas</th>
+            <th>Impresiones de Publicaciones</th>
+          </tfooter>
+            <tr>';  
+                foreach ($row2 as $key) {
+                  if($this->account_info_array[$key]){
+                        echo '<td>' . $this->account_info_array[$key] . '</td>';
+                  }else{
+                    echo 'An unexpected error has ocurred';
+                  }
+                }
+          echo '
+          </tr>
+        </table>
+      </div>'; 
+  }
   public function getAdPerformanceGeneralTable(){
       echo '
       <pre>

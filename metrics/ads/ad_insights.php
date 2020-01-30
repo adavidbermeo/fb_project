@@ -258,7 +258,6 @@ use preview\AdsPreview;
         }
         public function adsOverview(){
             echo "
-            <pre>
                 <table>
                     <thead>
                         <tr>

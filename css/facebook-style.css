@@ -12,8 +12,7 @@
 .fila9,
 .fila11,
 .fila13,
-.fila15,
-.fila17,
+.fila15,.fila17,
 .fila19,
 .fila21,
 .fila23,
@@ -681,8 +680,32 @@ canvas{
     padding:26px;
     box-sizing: border-box;
     float: left;
-    margin-bottom: 10%;
+    margin-bottom: 6%;
 }
-.dash-table{
+.dash-section{
     width:100%;
+    display: block;
+}
+.ad-overview-table tr,.ad-overview-table th, .ad-overview-table td{
+    border:none;
+    padding: 22px;
+}
+/* .ad-overview-table td:nth-child(even){
+    background-color:lightskyblue;
+}
+.ad-overview-table td:nth-child(odd){
+    background-color: lightsteelblue;
+} */
+.ad-overview-table tr{
+    width: 100%;
+}
+.ad-overview-table th{
+    width: 14%;
+    text-align: left;
+    background: #eee;
+    font-size: 17px;
+    border-collapse: separate;
+}
+.ad-overview-table td{
+    font-size: 18px;
 }
