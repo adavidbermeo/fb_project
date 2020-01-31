@@ -8,9 +8,8 @@
     <!-- Favicon -->
     <link rel="icon" href="img/fbprojectlogo.png" type="img/png">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
     <!--  -->
     <link type="text/css" href="plugins/zoomy/zoomy.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
@@ -23,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Facebook App</title>
-    <link rel="stylesheet" href="css/facebook-style.css">
+    <link rel="stylesheet" href="css/facebook-styles.css">
     <script src="js/jquery/jquery.js" text="text/javascript"></script>
     <script src="js/submit.js" text="text/javascript"></script>
     <script src="js/random_color/randomColor.js" type="text/javascript"></script>

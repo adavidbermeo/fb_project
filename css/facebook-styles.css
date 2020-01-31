@@ -118,7 +118,6 @@
     text-align: left;
     background: white;
     padding-bottom: 18px;
-    background: #EEE !important;
 }
 #options{
     width: 100%;
@@ -268,7 +267,6 @@
     left: -7%;
 }
 .business-manager-info{
-    background-color:#EEE;
     position: relative;
     margin-top: 0%;
     border: 1px solid #ccc;
@@ -452,7 +450,6 @@ a:hover{
 
 body {
 	background: #fff;
-    font-family: 'Roboto', sans-serif;
 }
 .contenedor {
 	width: 90%;
@@ -651,7 +648,9 @@ body {
     display: none;
     width: 94.5%;
     margin-top: -4%;
-    margin-bottom: 5%; 
+    margin-bottom: 5%;
+    font-family: 'Roboto',
+    sans-serif !important;
 }
 #general-report{
     margin-top: 5%;
@@ -680,32 +679,49 @@ canvas{
     padding:26px;
     box-sizing: border-box;
     float: left;
-    margin-bottom: 6%;
+    margin-bottom: 4%;
 }
 .dash-section{
     width:100%;
-    display: block;
+    float: left;
 }
-.ad-overview-table tr,.ad-overview-table th, .ad-overview-table td{
+.dash-section h3{
+    text-align: left;
+    margin-bottom: 42px;
+}
+.overview-table tr,.overview-table th, .overview-table td{
     border:none;
     padding: 22px;
 }
-/* .ad-overview-table td:nth-child(even){
+/* .overview-table td:nth-child(even){
     background-color:lightskyblue;
 }
-.ad-overview-table td:nth-child(odd){
+.overview-table td:nth-child(odd){
     background-color: lightsteelblue;
 } */
-.ad-overview-table tr{
+.overview-table tr{
     width: 100%;
 }
-.ad-overview-table th{
-    width: 14%;
+.overview-table th{
+    width: 8%;
     text-align: left;
-    background: #eee;
+    background: #f4f4f4;
     font-size: 17px;
-    border-collapse: separate;
+    border: 4px solid #FFF;
 }
-.ad-overview-table td{
+.overview-table td{
     font-size: 18px;
+}
+.fb-icon{
+    font-size: 1.3em;
+    color:#4e71ba;
+    margin-right: 3.5px;
+}
+.dark-blue{
+    background-color:#4e71ba;
+    color: #FFF;
+    font-weight: bold;
+}
+.dash-fanscity-table th{
+    background-color: #f4f4f4;
 }

@@ -18,12 +18,12 @@ function getData($ad_account_id, $id_page){
     
     //Visión General de la pagina
     $PageInsights = new PageInsights($id_page,$ad_account_id);
-    // echo "Visión General de la pagina";
     $PageInsights->dashboardPerformanceGeneralTable();
-    // echo "<div>".  ."</div>";
 
     //Visión General de los Anuncios
     $AdInsights = new AdInsights($ad_account_id);
-    // echo "Visión General de los Anuncios";
-    $AdInsights->adsOverview();
+    $AdInsights->dashboardAdsOverview();
+
+    //Rendimiento de pagina por fecha
+    $PageInsights->dashboardGetFansCityTable();
 }

@@ -256,6 +256,43 @@ use preview\AdsPreview;
            print_r($this->adInsights);
             
         }
+        public function dashboardAdsOverview(){
+            echo "
+                <div class='dash-section'>";
+                    echo "<h3> <i class='fas fa-ad fb-icon'></i> Visión general de los anuncios </h3>";
+                    echo 
+                        "<table class='overview-table'>
+                            <thead>
+                                <tr>
+                                    <th>Clics</th>
+                                    <th>CTR</th>
+                                    <th>Alcance</th>
+                                </tr>
+                            </thead>";
+                            $table_fields_head = ['clicks','ctr','reach']; 
+                            $table_fields_footer = ['impressions','spend','cpm']; 
+                            echo "<tr>";
+                                for($i=0; $i< count($table_fields_head); $i++){
+                                    echo "<td>". array_sum($this->adInsights[$table_fields_head[$i]]) ."</td>";
+                                }
+                            echo "
+                                </tr>
+                            <tbody>
+                                <tr>
+                                    <th>Impresiones</th>
+                                    <th>Gastado</th>
+                                    <th>CPM Medio</th>
+                                </tr>
+                                <tr>";
+                                for($i=0; $i< count($table_fields_footer); $i++){
+                                    echo "<td>". array_sum($this->adInsights[$table_fields_footer[$i]]) ."</td>";
+                                }
+                            echo "
+                            </tr>    
+                        </tbody>
+                    </table>
+                </div>";
+        }
         public function adsOverview(){
             echo "
                 <table>

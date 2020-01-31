@@ -316,8 +316,9 @@ Class PageInsights{
   }
   public function dashboardPerformanceGeneralTable(){
     echo '
-      <div class="dash-section">
-        <table class="ad-overview-table">
+      <div class="dash-section">';
+        echo "<h3> <i class='fab fa-facebook fb-icon'></i> Visión general de la página </h3>";
+        echo '<table class="overview-table">
           <thead>
             <tr>
                 <th>Impresiones de Pagina</th>
@@ -341,12 +342,9 @@ Class PageInsights{
                 }     
                 echo '
               </tr>
-          </tbody>   
-          <tfooter>
             <th>Nuevos Me gusta (Pagina)</th>
             <th>Paginas Vistas</th>
             <th>Impresiones de Publicaciones</th>
-          </tfooter>
             <tr>';  
                 foreach ($row2 as $key) {
                   if($this->account_info_array[$key]){
@@ -357,6 +355,7 @@ Class PageInsights{
                 }
           echo '
           </tr>
+        </tbody>
         </table>
       </div>'; 
   }
@@ -437,6 +436,76 @@ Class PageInsights{
         <tfoot>
         </tfoot>
       </table>';  
+    }
+    public function dashboardGetFansCityTable(){
+       echo '
+      <table class="dash-fanscity-table" id="fansCity-table">
+        <thead>
+          <tr><th id="buscador" colspan="2"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="fans-search" autofocus placeholder="Search" class="pageStaTable"></th></tr>
+          <tr>
+            <th class="dark-blue"><h4> Ciudad </h4></th>
+            <th class="age-gender"> Me gusta </th>
+            <th class="age-gender"> Alcance de la pagina </th>
+          </tr>
+        </thead>
+        <tbody>';
+  
+        $keys = array_keys($this->account_info_array['fans_city']);
+        $id = 0;
+        foreach ($keys as $item) {
+              $id = $id+1;
+              echo '
+              <tr rowspan="2" class="fila'. $id .'">
+              <th>'. $item .'</th>';
+              for($i =0; $i<count($this->reach_per_city); $i++){
+                $sum[$i] =  $this->reach_per_city[$i][$item];
+              }
+
+              echo "<td>". $this->account_info_array['fans_city'][$item] ."</td>";
+              echo  '<td>'. array_sum($sum) .'</td>
+              </tr>';
+        }
+        
+        echo '
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+      <script type="text/javascript">
+        var busqueda = document.getElementById("search");
+            var table = document.getElementById("fansCity-table").tBodies[0];
+
+            buscaTabla = function () {
+                texto = busqueda.value.toLowerCase();
+                var r = 0;
+                while (row = table.rows[r++]) {
+                    if (row.innerText.toLowerCase().indexOf(texto) !== -1)
+                        row.style.display = null;
+                    else
+                        row.style.display = "none";
+                }
+            }
+
+            busqueda.addEventListener("keyup", buscaTabla);
+
+            /*Second Table*/
+
+            var busqueda2 = document.getElementById("fans-search");
+            var table2 = document.getElementById("fansCity-table").tBodies[0];
+
+            buscaTabla2 = function () {
+                texto = busqueda2.value.toLowerCase();
+                var r = 0;
+                while (row = table2.rows[r++]) {
+                    if (row.innerText.toLowerCase().indexOf(texto) !== -1)
+                        row.style.display = null;
+                    else
+                        row.style.display = "none";
+                }
+            }
+
+            busqueda2.addEventListener("keyup", buscaTabla2);
+    </script>';  
     }
     public function getfansCityTable(){
       echo '
