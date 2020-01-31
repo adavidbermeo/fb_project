@@ -273,7 +273,7 @@ use preview\AdsPreview;
                             $table_fields_footer = ['impressions','spend','cpm']; 
                             echo "<tr>";
                                 for($i=0; $i< count($table_fields_head); $i++){
-                                    echo "<td>". array_sum($this->adInsights[$table_fields_head[$i]]) ."</td>";
+                                    echo "<td>". number_format(array_sum($this->adInsights[$table_fields_head[$i]]),0,',','.') ."</td>";
                                 }
                             echo "
                                 </tr>
@@ -285,7 +285,7 @@ use preview\AdsPreview;
                                 </tr>
                                 <tr>";
                                 for($i=0; $i< count($table_fields_footer); $i++){
-                                    echo "<td>". array_sum($this->adInsights[$table_fields_footer[$i]]) ."</td>";
+                                    echo "<td>". number_format(array_sum($this->adInsights[$table_fields_footer[$i]]),0,',','.') ."</td>";
                                 }
                             echo "
                             </tr>    

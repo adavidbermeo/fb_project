@@ -335,7 +335,7 @@ Class PageInsights{
                 foreach ($row1 as $key) {
       
                   if($this->account_info_array[$key]){
-                        echo '<td>' . $this->account_info_array[$key] . '</td>';
+                        echo '<td>' . number_format($this->account_info_array[$key],0,',','.') . '</td>';
                   }else{
                     echo 'An unexpected error has ocurred';
                   }
@@ -348,7 +348,7 @@ Class PageInsights{
             <tr>';  
                 foreach ($row2 as $key) {
                   if($this->account_info_array[$key]){
-                        echo '<td>' . $this->account_info_array[$key] . '</td>';
+                        echo '<td>' . number_format($this->account_info_array[$key],0,',','.') . '</td>';
                   }else{
                     echo 'An unexpected error has ocurred';
                   }
@@ -439,38 +439,41 @@ Class PageInsights{
     }
     public function dashboardGetFansCityTable(){
        echo '
-      <table class="dash-fanscity-table" id="fansCity-table">
-        <thead>
-          <tr><th id="buscador" colspan="2"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="fans-search" autofocus placeholder="Search" class="pageStaTable"></th></tr>
-          <tr>
-            <th class="dark-blue"><h4> Ciudad </h4></th>
-            <th class="age-gender"> Me gusta </th>
-            <th class="age-gender"> Alcance de la pagina </th>
-          </tr>
-        </thead>
-        <tbody>';
-  
-        $keys = array_keys($this->account_info_array['fans_city']);
-        $id = 0;
-        foreach ($keys as $item) {
-              $id = $id+1;
-              echo '
-              <tr rowspan="2" class="fila'. $id .'">
-              <th>'. $item .'</th>';
-              for($i =0; $i<count($this->reach_per_city); $i++){
-                $sum[$i] =  $this->reach_per_city[$i][$item];
-              }
+        <div class="dash-section">
+          <table class="dash-fanscity-table" id="fansCity-table">';
+          echo '<h3> <i class="fas fa-ad fb-icon"></i> Rendimiento de la pagina por fecha </h3>';
+          echo '<thead>
+            <tr><th id="buscador" colspan="2"><i class="fas fa-search fa-2x table-search"></i><input type="text" id="search" autofocus placeholder="Search" class="pageStaTable"></th></tr>
+            <tr>
+              <th class="dark-blue"><h4> Ciudad </h4></th>
+              <th class="age-gender"> Me gusta </th>
+              <th class="age-gender"> Alcance de la pagina </th>
+            </tr>
+          </thead>
+          <tbody>';
+    
+          $keys = array_keys($this->account_info_array['fans_city']);
+          $id = 0;
+          foreach ($keys as $item) {
+                $id = $id+1;
+                echo '
+                <tr rowspan="2">
+                <th>'. $item .'</th>';
+                for($i =0; $i<count($this->reach_per_city); $i++){
+                  $sum[$i] =  $this->reach_per_city[$i][$item];
+                }
 
-              echo "<td>". $this->account_info_array['fans_city'][$item] ."</td>";
-              echo  '<td>'. array_sum($sum) .'</td>
-              </tr>';
-        }
-        
-        echo '
-        </tbody>
-        <tfoot>
-        </tfoot>
-      </table>
+                echo "<td>". $this->account_info_array['fans_city'][$item] ."</td>";
+                echo  '<td>'. array_sum($sum) .'</td>
+                </tr>';
+          }
+          
+          echo '
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+      </div>
       <script type="text/javascript">
         var busqueda = document.getElementById("search");
             var table = document.getElementById("fansCity-table").tBodies[0];

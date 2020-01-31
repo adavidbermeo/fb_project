@@ -3,7 +3,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/fb_project/include/include_click.php');
 use metrics\ads\AdInsights;
 use metrics\adset\AdsetInsights;
 use metrics\page\PageInsights;
-use metrics\post\PostInsights;
+use metrics\posts\PostInsights;
 
     if(isset($_POST['selected'])){
         $selected = $_POST['selected'];
@@ -26,4 +26,20 @@ function getData($ad_account_id, $id_page){
 
     //Rendimiento de pagina por fecha
     $PageInsights->dashboardGetFansCityTable();
+
+    // // Principales publicaciones
+    /*    $PostInsights = new PostInsights($id_page,$ad_account_id);
+        $PostInsights->mainPublicactions(); */
+
+    // Reacciones de las publicaciones 
+    /* 
+        $PostInsights->reactionsTable(); */
+
+    //Principales Conjuntos de Anuncios en Facebook    
+    $AdSetInsights = new AdsetInsights($ad_account_id);
+    $AdSetInsights->adsetDahboard();
+
+    //Principales Anuncios de Facebook 
+
+    $AdInsights->adDetails();
 }

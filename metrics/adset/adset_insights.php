@@ -39,6 +39,7 @@ use Facebook\Facebook as FB;
             $this->adsetInsightsQuery();
             $this->setFields();
             $this->adsetInsightsArray();
+            //$this->getAdsetInsightsArray();
 
         }
         public function adsetInsightsQuery(){
@@ -89,6 +90,40 @@ use Facebook\Facebook as FB;
         public function getAdsetInsightsArray(){
            print_r($this->adsetInsights);
             
+        }
+        public function adsetDahboard(){
+            $keys = array_keys($this->adsetInsights['adset_id']);
+            echo "
+                <div class='dash-section'>
+                    <pre>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Conjunto de Auncios</th>
+                                    <th>Clics</th>
+                                    <th>CTR %</th>
+                                    <th>Alcance</th>
+                                    <th>Impresiones</th>
+                                    <th>Gastado</th>
+                                    <th>CPM</th>
+                                </tr>
+                            </thead>
+                            <tbody>";
+                                foreach($keys as $key){
+                                    echo "<tr>";
+                                    $metrics = ['adset_name','clicks','ctr','reach','impressions','spend','cpm'];
+                                    foreach ($metrics as $metric) {
+
+                                        echo "<td>".  $this->adsetInsights[$metric][$key]  ."</td>";
+                                    }
+                                    echo "</tr>";
+                                }
+                            echo "
+                            </tbody>
+                        </table>
+                    </pre>
+                </div>
+            ";
         }
         public function getAdsetInsightsTable(){
             $keys = array_keys($this->adsetInsights['adset_id']);

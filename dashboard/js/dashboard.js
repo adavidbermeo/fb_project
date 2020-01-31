@@ -191,7 +191,7 @@ $(document).ready(function () {
                         }]
                     };
                     var adCliksAgeGraph = new Chart(ctx4, {
-                        type: 'doughnut',
+                        type: 'bar',
                         options: {
                             title: {
                                 display: true,
