@@ -7,5 +7,5 @@
     <input type="button" value="VER REPORTE" id="send-data">
 </div>
 <script src="js/filter_by_date.js"></script>
-<!-- <script src="js/accounts_click.js"> -->
+
     

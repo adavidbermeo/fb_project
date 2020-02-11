@@ -60,12 +60,7 @@ use preview\AdsPreview;
             $this->app_access_token = ACCESS_TOKEN;
             $this->start_date = $start_date;
             $this->end_date = $end_date;
-
-            // var_dump($id_page);
-            // var_dump($ad_account_id);
-            // var_dump($start_date);
-            // var_dump($end_date);
-
+            
             /**
              * Invoque the callMethods function 
              */

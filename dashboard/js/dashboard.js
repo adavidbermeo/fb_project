@@ -1,16 +1,18 @@
 var data = '';
 $(document).ready(function () {
-     $('#custom-dashboard').click(
+     $('#create-dashboard').click(
          function () {
              $('.con-loader').css(
                  "display", "block"
              );
          }
      );
-    $(".menu #custom-dashboard").one('click', function (event){
+    $("#create-dashboard").click(function (event) {
         event.preventDefault();
 
-        var selected = $(this).attr('href');
+        var selected = $('#data').val();
+        var start_date = $('.start-date').val();
+        var end_date = $('.end-date').val();
 
         var result1;
         var result2;
@@ -27,6 +29,8 @@ $(document).ready(function () {
                 type: "POST", //send it through get method
                 data: {
                     selected: selected,
+                    start_date: start_date,
+                    end_date: end_date
                 },
                 cache: false,
                 success: function (response) {

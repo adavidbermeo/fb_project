@@ -460,7 +460,7 @@ Class PageInsights{
     
           $keys = array_keys($this->account_info_array['fans_city']);
           $id = 0;
-          foreach ($keys as $item) {
+          foreach ($keys as $item){
                 $id = $id+1;
                 echo '
                 <tr rowspan="2">

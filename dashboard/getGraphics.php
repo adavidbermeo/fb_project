@@ -5,7 +5,7 @@ use metrics\page\PageInsights;
 use metrics\ads\AdInsights;
     
     if(isset($_REQUEST['selected'])){
-        $selected = 'index.php?click=dashboard*303239893027115%act_131251207293544';
+        $selected = $_REQUEST['selected'];
         //$selected = $_REQUEST['selected'];
         // echo $selected; 
         
@@ -13,19 +13,19 @@ use metrics\ads\AdInsights;
         list($click_value,$data) = explode('*', $click);
         list($id_page, $ad_account_id) = explode('%', $data); 
 
-        getData($id_page,$ad_account_id);
+        getData($id_page,$ad_account_id,$_REQUEST['start_date'],$_REQUEST['end_date']);
     }
 
-function getData($id_page,$ad_account_id){
+function getData($id_page,$ad_account_id, $start_date, $end_date){
 
     //Page Insights
 
-    $PageInsights = new PageInsights($id_page, $ad_account_id);
+    $PageInsights = new PageInsights($id_page, $ad_account_id, $start_date, $end_date);
     $page_insights_array = $PageInsights->account_info_array;
     
     // Ad Insights
     
-    $AdInsights = new AdInsights($ad_account_id);
+    $AdInsights = new AdInsights($ad_account_id,$start_date, $end_date);
     $ad_insights_array = $AdInsights->adInsights;
 
     /* Ad Clicks per Date */
