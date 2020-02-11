@@ -95,8 +95,9 @@ use Facebook\Facebook as FB;
             $keys = array_keys($this->adsetInsights['adset_id']);
             echo "
                 <div class='dash-section'>
+                    <h3> <i class='fab fa-facebook fb-icon'></i> Principales Conjuntos de Anuncios en Facebook </h3>
                     <pre>
-                        <table>
+                        <table class='overview-table'>
                             <thead>
                                 <tr>
                                     <th>Conjunto de Auncios</th>

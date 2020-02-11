@@ -15,7 +15,7 @@ use metrics\posts\PostInsights;
     }
 
 function getData($ad_account_id, $id_page){
-    
+
     //Visión General de la pagina
     $PageInsights = new PageInsights($id_page,$ad_account_id);
     $PageInsights->dashboardPerformanceGeneralTable();
@@ -41,5 +41,5 @@ function getData($ad_account_id, $id_page){
 
     //Principales Anuncios de Facebook 
 
-    $AdInsights->adDetails();
+    $AdInsights->gashboardAdDetails();
 }

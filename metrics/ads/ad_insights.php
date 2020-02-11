@@ -326,9 +326,50 @@ use preview\AdsPreview;
                     </tbody>
                 </table>";
         }
+        public function gashboardAdDetails(){
+            echo "
+            <div class='dash-section'>
+                <h3> <i class='fas fa-puzzle-piece fb-icon'></i> Principales Anuncios en Facebook</h3>
+                <br>
+                <table class='overview-table'>
+                    <thead>
+                        <tr>
+                            <th>Ads</th>
+                            <th>Ad Name</th>
+                            <th>Clicks</th>
+                            <th>CTR %</th>
+                            <th>Alcance</th>
+                            <th>Impresiones</th>
+                            <th>Gastado</th>
+                            <th>CPM Medio</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+                    $keys = array_keys($this->ad_ids);
+                    $metrics = ['ad_image','ad_name','clicks','ctr','reach','impressions','spend','cpm'];
+                    foreach($keys as $key) {
+                        echo "<tr>";
+                        foreach($metrics as $metric){
+                            if($metric == 'ad_image'){
+                                echo '<td><a href="'. $this->adInsights[$metric][$key] .'" class="zoom parent-zoom" target="_blank"><img src="'. $this->adInsights[$metric][$key] .'"></a></td>';
+                            }else{
+                                echo "<td>" . $this->adInsights[$metric][$key] . "</td>";
+                            }
+                        }
+                        echo "</tr>";
+                    }
+
+                    echo "
+                    </tbody>
+                </table>
+            </div>
+            
+            ";
+        }
         public function adDetails(){
             echo "
-            <br>
+                <h3> <i class='fas fa-puzzle-piece fb-icon'></i> Principales Anuncios en Facebook</h3>
+                <br>
                 <table>
                     <thead>
                         <tr>
@@ -360,7 +401,6 @@ use preview\AdsPreview;
                     echo "
                     </tbody>
                 </table>
-            
             ";
         }
 

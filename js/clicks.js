@@ -6,14 +6,6 @@ $(document).ready(function () {
             );
         }
     );
-    // $('#custom-dashboard').click(
-    //      function () {
-    //         $('.graphic-dashboard').css(
-    //              "display", "block"
-    //         );
-    //     }
-    // );
-    
     $(".menu .search-option").click(function (event) {
         event.preventDefault();
 
