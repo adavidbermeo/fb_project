@@ -6,12 +6,18 @@ error_reporting(0);
 
 class Interactions{
     public $id_page;
-    public function __construct($id_page, $ad_account_id){
+    public $ad_account_id;
+    public $start_date;
+    public $end_date;
+
+    public function __construct($id_page, $ad_account_id, $start_date, $end_date){
         $this->id_page = $id_page;
         $this->ad_account_id = $ad_account_id;
+        $this->start_date = $start_date; 
+        $this->end_time = $end_date;
     }
     public function moreInteraction(){
-        $info = new PostInsights($this->id_page,$this->ad_account_id,1);
+        $info = new PostInsights($this->id_page,$this->ad_account_id,$this->start_date, $this->end_date,1);
         $info-> setAdIdRequest();
         $info->getDataRequest();
         $info->setAccessToken();

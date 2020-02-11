@@ -1,9 +1,12 @@
 $(document).ready(function(){
     $("#send-data").click(function (event) {
         // event.preventDefault();
+        $('.con-loader').css(
+              "display", "block"
+        );
 
-        var start_date = $("#start-date").val();
-        var end_date = $("#end-date").val();
+        var start_date = $(".start-date").val();
+        var end_date = $(".end-date").val();
         var data = $("#data").val();
 
         $.post("functions/call_to_class.php",
@@ -13,13 +16,15 @@ $(document).ready(function(){
             data: data
             // datavalue: datavalue
         }, function(respuesta){
+            $('.con-loader').css(
+                "display", "none"
+            );
+
             $(".business-manager-info").css(
-                "display",
-            "block"
+                "display", "block"
             );
             $(".graphic-dashboard").css(
-                "display",
-            "none"
+                "display", "none"
             )
     
             $(".business-manager-info").html(respuesta);

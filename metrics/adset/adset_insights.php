@@ -20,8 +20,10 @@ use Facebook\Facebook as FB;
         public $date_stop;
 
         public $query_array = [];
+        public $start_date = [];
+        public $end_date = [];
 
-        public function __construct($ad_account_id){
+        public function __construct($ad_account_id, $start_date, $end_date){
             $this->fb = new FB([
             'app_id'=>'2350209521888424',
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
@@ -29,6 +31,8 @@ use Facebook\Facebook as FB;
             ]);
             $this->ad_account_id = $ad_account_id;
             $this->app_access_token = ACCESS_TOKEN;
+            $this->start_date = $start_date;
+            $this->end_time = $end_date;
 
             $this->callMethods();
         }
@@ -43,7 +47,7 @@ use Facebook\Facebook as FB;
 
         }
         public function adsetInsightsQuery(){
-            $request = $this->fb->get($this->ad_account_id.'?fields=adsets{id,name,insights.time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,ctr,reach,impressions,spend,cpm}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id.'?fields=adsets{id,name,insights.time_range({"since":"'. $this->start_date .'","until":"'. $this->end_time .'"}){clicks,ctr,reach,impressions,spend,cpm}}',$this->app_access_token);
         
             $GraphRequest = $request->getGraphNode();
             $this->query_array = $GraphRequest->asArray();

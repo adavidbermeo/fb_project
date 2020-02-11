@@ -31,10 +31,11 @@
     public $cost_per_result = [];
     public $action_type = [];
     public $action_value = [];
-
+    public $start_date;
+    public $end_date;
 
     // Methods 
-    public function __construct($ad_account_id){
+    public function __construct($ad_account_id, $start_date, $end_date){
       $this->fb = new FB([
         'app_id' => '2350209521888424',
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
@@ -43,6 +44,9 @@
       $this->access_token = ACCESS_TOKEN;
       $this->ad_account_id = $ad_account_id;
 
+      $this->start_date = $start_date;
+      $this->end_date = $end_date;
+      
       /**
        * Invoque the CallMethods function
        */
@@ -61,7 +65,7 @@
     public function setRequest(){
       try {
         // Returns a `FacebookFacebookResponse` object
-        $this->request = $this->fb->get( $this->ad_account_id .'?fields=name,id,campaigns.limit(80){name,status,objective,insights.time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,impressions,spend,reach,objective,cost_per_unique_click,cost_per_conversion,cost_per_action_type}}',$this->access_token);
+        $this->request = $this->fb->get( $this->ad_account_id .'?fields=name,id,campaigns.limit(80){name,status,objective,insights.time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks,impressions,spend,reach,objective,cost_per_unique_click,cost_per_conversion,cost_per_action_type}}',$this->access_token);
       } catch(FacebookExceptionsFacebookResponseException $e) {
         echo 'Graph returned an error: ' . $e->getMessage();
         exit;
@@ -83,7 +87,7 @@
       foreach ($this->campaign_info['campaigns'] as $n){
 
         
-        if($n['status']=="ACTIVE"){
+        if($n['status']=="ACTIVE" and $n['insights']){
           $this->campaign_name[] =  $n['name'];
           $this->campaign_id[] = $n['id']; 
           $this->status[] = $n['status'];

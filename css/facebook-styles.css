@@ -744,3 +744,8 @@ canvas{
     color: #FFF;
     font-size:18px;
 }
+.calendar-section{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}

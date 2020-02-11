@@ -46,8 +46,10 @@ use preview\AdsPreview;
         public $fb;
         public $app_access_token;
         public $query_array;
+        public $start_date;
+        public $end_date;
 
-        public function __construct($ad_account_id){
+        public function __construct($ad_account_id, $start_date , $end_date){
             $this->fb = new FB([
             'app_id'=>'2350209521888424',
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
@@ -55,6 +57,8 @@ use preview\AdsPreview;
             ]);
             $this->ad_account_id = $ad_account_id;
             $this->app_access_token = ACCESS_TOKEN;
+            $this->start_date = $start_date;
+            $this->end_date = $end_date;
 
             $this->callMethods();
         }
@@ -70,8 +74,8 @@ use preview\AdsPreview;
 
         }
         public function queryAdInsights(){
-            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(245).thumbnail_width(255){id,name,thumbnail_url},insights.breakdowns(age).time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
-            $second_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,effective_status,insights.time_increment(1).time_range({"since":"2019-12-01","until":"2019-12-31"}){clicks}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(245).thumbnail_width(255){id,name,thumbnail_url},insights.breakdowns(age).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
+            $second_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,effective_status,insights.time_increment(1).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
 
             $GraphRequest = $request->getGraphNode();
             $this->query_array = $GraphRequest->asArray();

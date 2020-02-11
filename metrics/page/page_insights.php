@@ -46,8 +46,11 @@ Class PageInsights{
   public $age_55_64 = [];
   public $age_65 = [];
 
+  public $start_date;
+  public $end_date;
+
   // Methods
-  public function __construct($id_page, $ad_account_id, $more_interaction = 0){
+  public function __construct($id_page, $ad_account_id, $start_date, $end_date){
     $this->fb = new FB([
       'app_id' => '2350209521888424',
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
@@ -57,6 +60,8 @@ Class PageInsights{
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
     $this->more_interaction = $more_interaction;
+    $this->start_date = $start_date;
+    $this->end_date = $end_date;
 
     /**
      * Pre-load methods 
@@ -72,12 +77,12 @@ Class PageInsights{
     $this->setAccountInfo();
     $this->impressionsByAge();
     $this->setArrayAccountInfo();
-    //$this->getArrayAccountInfo();
+    // $this->getArrayAccountInfo();
     
-    if($this->more_interaction == TRUE){
-      $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id);
-      $most_interactionsPost->moreInteraction();
-    }
+    // if($this->more_interaction == TRUE){
+    //   $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id, $this->start_date, $this->end_date);
+    //   $most_interactionsPost->moreInteraction();
+    // }
   }
    public function setAccessToken(){
     $request = $this->fb->get($this->id_page. '?fields=access_token,name',$this->app_access_token); 
@@ -93,7 +98,7 @@ Class PageInsights{
   public function setResponse(){
     try{
       // Returns a `Facebook\FacebookResponse` object
-      $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique,page_impressions_by_age_gender_unique,page_actions_post_reactions_like_total&since=2019-12-01T08:00:00&until=2019-12-31T08:00:00',
+      $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique,page_impressions_by_age_gender_unique,page_actions_post_reactions_like_total&since='. $this->start_date .'T08:00:00&until='. $this->end_date .'T08:00:00',
         $this->page_access_token
       );
     } catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -360,6 +365,7 @@ Class PageInsights{
       </div>'; 
   }
   public function getAdPerformanceGeneralTable(){
+    // echo "No se";
       echo '
       <pre>
         <table>
