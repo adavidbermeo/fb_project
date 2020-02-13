@@ -13,7 +13,7 @@ use metrics\ads\AdInsights;
         list($click_value,$data) = explode('*', $click);
         list($id_page, $ad_account_id) = explode('%', $data); 
 
-        getData($id_page,$ad_account_id,$_REQUEST['start_date'],$_REQUEST['end_date']);
+        getData($id_page,$ad_account_id,$_REQUEST['start_time'],$_REQUEST['end_time']);
     }
 
 function getData($id_page,$ad_account_id, $start_date, $end_date){

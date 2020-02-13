@@ -118,8 +118,12 @@ use Facebook\Facebook as FB;
                                     echo "<tr>";
                                     $metrics = ['adset_name','clicks','ctr','reach','impressions','spend','cpm'];
                                     foreach ($metrics as $metric) {
-
-                                        echo "<td>".  $this->adsetInsights[$metric][$key]  ."</td>";
+                                        if($metric == 'adset_name'){
+                                            echo "<td>". $this->adsetInsights[$metric][$key] ."</td>";
+                                        }else{
+                                            echo "<td>".  number_format($this->adsetInsights[$metric][$key],0,',','.')  ."</td>";
+                                        }
+                                        
                                     }
                                     echo "</tr>";
                                 }

@@ -74,7 +74,7 @@ use preview\AdsPreview;
 
         }
         public function queryAdInsights(){
-            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(245).thumbnail_width(255){id,name,thumbnail_url},insights.breakdowns(age).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(245).thumbnail_width(255){id,name,thumbnail_url,image_url},insights.breakdowns(age).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
             $second_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,effective_status,insights.time_increment(1).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
 
             $GraphRequest = $request->getGraphNode();
@@ -355,9 +355,11 @@ use preview\AdsPreview;
                         echo "<tr>";
                         foreach($metrics as $metric){
                             if($metric == 'ad_image'){
-                                echo '<td><a href="'. $this->adInsights[$metric][$key] .'" class="zoom parent-zoom" target="_blank"><img src="'. $this->adInsights[$metric][$key] .'"></a></td>';
-                            }else{
+                                echo '<td><a href="'. $this->adInsights[$metric][$key] .'" class="zoom parent-zoom" target="_blank"><img class="dash-img" src="'. $this->adInsights[$metric][$key] .'"></a></td>';
+                            }elseif($metric == 'ad_name'){
                                 echo "<td>" . $this->adInsights[$metric][$key] . "</td>";
+                            }else{
+                                echo "<td>" . number_format($this->adInsights[$metric][$key],0,',','.') . "</td>";
                             }
                         }
                         echo "</tr>";
@@ -394,7 +396,7 @@ use preview\AdsPreview;
                         echo "<tr>";
                         foreach($metrics as $metric){
                             if($metric == 'ad_image'){
-                                echo '<td><a href="'. $this->adInsights[$metric][$key] .'" class="zoom parent-zoom" target="_blank"><img src="'. $this->adInsights[$metric][$key] .'"></a></td>';
+                                echo '<td><a href="'. $this->adInsights[$metric][$key] .'" class="zoom parent-zoom" target="_blank"><img class="dash-img" src="'. $this->adInsights[$metric][$key] .'"></a></td>';
                             }else{
                                 echo "<td>" . $this->adInsights[$metric][$key] . "</td>";
                             }

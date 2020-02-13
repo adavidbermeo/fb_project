@@ -236,31 +236,12 @@ use preview\AdsPreview;
         
         public function getAdPerformance(){
             print_r($this->adPerformance);
-            // $keys = array_keys($this->adPerformance);
-
-            //     for ($i=0; $i <count($this->adPerformance['post_page_id']) ; $i++) { 
-            //         echo 'ID PAGE POST: '. $this->adPerformance['post_page_id'][$i]."<br>";
-            //         echo 'INTERACTIONS: '. $this->adPerformance['interactions'][$i]."<br>";
-            //         echo 'AD IDS: '. $this->adPerformance['ad_ids'][$i]."<br>";
-            //         echo 'POST ID: '. $this->adPerformance['post_ids'][$i]."<br>";
-            //         echo 'LIKES: '. $this->adPerformance['likes'][$i].'  ';               
-            //         echo 'LOVE: '. $this->adPerformance['love'][$i].'  ';
-            //         echo 'WOW: '. $this->adPerformance['wow'][$i].'  ';
-            //         echo 'HAHA: '. $this->adPerformance['haha'][$i].'  ';
-            //         echo 'SORRY '. $this->adPerformance['sorry'][$i].'  ';
-            //         echo 'ANGER: '. $this->adPerformance['anger'][$i].'  <br>';
-            //         echo 'TOTAL REACTIONS: '. $this->adPerformance['total_reactions'][$i]."<br>";
-            //         echo 'IMPRESSIONS PAID: '. $this->adPerformance['impressions_paid'][$i]."<br>";
-            //         echo 'IMPRESSIONS ORGANIC: '. $this->adPerformance['impressions_organic'][$i]."<br>";
-            //         echo 'TOTAL IMPRESSIONS: '. $this->adPerformance['total_impressions'][$i]."<br>";
-            //         echo 'POST CLICKS: '. $this->adPerformance['post_clicks'][$i]."<br><br><br>";
-            //         echo 'AD ACCOUNT ID: '. $this->adPerformance['ad_account_id']."<br><br><br>";
-            // }
         }
         public function mainPublicactions(){
             echo "
             <div class='dash-section'>
-                <table>
+                <h3> <i class='fas fa-puzzle-piece fb-icon'></i> Principales Publicaciones </h3>
+                <table class='overview-table'>
                     <thead>
                         <tr>
                             <th>Publicaciones</th>
@@ -278,9 +259,9 @@ use preview\AdsPreview;
                         echo "<tr>";
                         foreach ($fields as $field){
                             if($field == 'ad_image'){
-                                echo '<td><img src="'. $this->adPerformance[$field][$i] .'"></td>';
+                                echo '<td><img class="dash-img" src="'. $this->adPerformance[$field][$i] .'"></td>';
                             }else{
-                                echo "<td>". $this->adPerformance[$field][$i] ."</td>";
+                                echo "<td>". number_format($this->adPerformance[$field][$i],0,',','.') ."</td>";
                             }  
                         }
                         echo "</tr>";
@@ -294,7 +275,8 @@ use preview\AdsPreview;
         public function reactionsTable(){
                echo "
             <div class='dash-section'>
-                <table>
+                <h3> <i class='fas fa-puzzle-piece fb-icon'></i> Reacciones de Publicaciones </h3>
+                <table class='overview-table'>
                     <thead>
                         <tr>
                             <th>Publicaciones</th>
@@ -313,9 +295,9 @@ use preview\AdsPreview;
                         echo "<tr>";
                         foreach ($fields as $field) {
                             if($field == 'ad_image'){
-                                echo '<td><img src="'. $this->adPerformance[$field][$i] .'"></td>';
+                                echo '<td><img class="dash-img" src="'. $this->adPerformance[$field][$i] .'"></td>';
                             }else{
-                                echo "<td>". $this->adPerformance[$field][$i] ."</td>";
+                                echo "<td>". number_format($this->adPerformance[$field][$i],0,',','.') ."</td>";
                             }  
                         }
                         echo "</tr>";

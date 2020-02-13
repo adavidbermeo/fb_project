@@ -1,25 +1,38 @@
 var data = '';
 $(document).ready(function () {
-     $('#create-dashboard').click(
+    $('#create-dashboard').click(
          function () {
              $('.con-loader').css(
                  "display", "block"
              );
          }
      );
-    $("#create-dashboard").click(function (event) {
+    $("#create-dashboard").click(function (event){
         event.preventDefault();
 
-        var selected = $('#data').val();
-        var start_date = $('.start-date').val();
-        var end_date = $('.end-date').val();
+        var selected = $("#data").val();
+        var start_time = $(".first-option").val();
+        var end_time = $(".second-option").val();var coloR = [];
+        var coloR = [];
 
-        var result1;
+        // var result1;
         var result2;
         var canvas = ['page_views_per_date', 'adClicks_per_date', 'impressions_per_age', 'adClicks_per_age']; //, 'impressions_per_age', 'adClicks_per_date','adClicks_per_age'
         var likes_evolution = 'likes_evolution';
         var selector = $(".business-manager-info");
         var dashboard = $(".graphic-dashboard");
+
+        var dynamicColors = function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            var a = 0.4;
+            return "rgb(" + r + "," + g + "," + b + ","+ a +")";
+        };
+
+        for (var i in selected) {
+            coloR.push(dynamicColors());
+         }
 
         // Campaign Graphics
 
@@ -29,8 +42,8 @@ $(document).ready(function () {
                 type: "POST", //send it through get method
                 data: {
                     selected: selected,
-                    start_date: start_date,
-                    end_date: end_date
+                    start_time: start_time,
+                    end_time: end_time
                 },
                 cache: false,
                 success: function (response) {
@@ -151,7 +164,7 @@ $(document).ready(function () {
                         labels: page_impressions_label,
                         datasets: [{
                             label: 'Impressions',
-                            backgroundColor: 'rgba(178, 5, 230, 0.4)',
+                            backgroundColor: coloR,
                             borderColor: 'rgba(200, 200, 200, 0.75)',
                             hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                             hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -160,7 +173,7 @@ $(document).ready(function () {
                         }]
                     };
                     var impressionsPerAgeGraph = new Chart(ctx3, {
-                        type: 'line',
+                        type: 'pie',
                         options: {
                             title: {
                                 display: true,
@@ -188,7 +201,7 @@ $(document).ready(function () {
                         labels: ad_cliksAge_label,
                         datasets: [{
                             label: 'Ad Clicks',
-                            backgroundColor: '#ff4040',
+                            backgroundColor: coloR,
                             borderColor: 'rgba(200, 200, 200, 0.75)',
                             hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                             hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -196,7 +209,7 @@ $(document).ready(function () {
                         }]
                     };
                     var adCliksAgeGraph = new Chart(ctx4, {
-                        type: 'bar',
+                        type: 'pie',
                         options: {
                             title: {
                                 display: true,
@@ -239,34 +252,6 @@ $(document).ready(function () {
                         },
                         data: likes_evolution_chart
                     });
-
-                    // $.each(ad_shares, function (index, value) {
-                    //     ad_shares_count = ad_shares_count + Number(value);
-                    // });
-                    // //  console.log(ad_shares_count);
-
-                    // var ctx6 = $("#shares");
-                    // var shares_chart = {
-                    //     labels: ['Diciembre'],
-                    //     datasets: [{
-                    //         label: '#Count',
-                    //         backgroundColor: 'rgba(70,137,80,0.4)',
-                    //         borderColor: 'rgba(200, 200, 200, 0.75)',
-                    //         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                    //         hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                    //         data: [ad_shares_count]
-                    //     }]
-                    // };
-                    // var sharesGraph = new Chart(ctx6, {
-                    //     type: 'line',
-                    //     options: {
-                    //         title: {
-                    //             display: true,
-                    //             text: 'Shares Graphic'
-                    //         }
-                    //     },
-                    //     data: shares_chart
-                    // });
                 },
                 error: function (xhr) {
                     return false;
@@ -278,6 +263,8 @@ $(document).ready(function () {
                 type: "POST",
                 data: {
                     selected: selected,
+                    start_time: start_time,
+                    end_time: end_time
                 },
                 cache: false,
                 success: function (response) {

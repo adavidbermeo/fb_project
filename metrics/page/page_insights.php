@@ -469,8 +469,8 @@ Class PageInsights{
                   $sum[$i] =  $this->reach_per_city[$i][$item];
                 }
 
-                echo "<td>". $this->account_info_array['fans_city'][$item] ."</td>";
-                echo  '<td>'. array_sum($sum) .'</td>
+                echo "<td>". number_format($this->account_info_array['fans_city'][$item],0,',','.') ."</td>";
+                echo  '<td>'. number_format(array_sum($sum),0,',','.') .'</td>
                 </tr>';
           }
           

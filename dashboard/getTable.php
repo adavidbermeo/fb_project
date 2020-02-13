@@ -6,41 +6,41 @@ use metrics\page\PageInsights;
 use metrics\posts\PostInsights;
 
     if(isset($_REQUEST['selected'])){
+
         $selected = $_REQUEST['selected'];
         list($url, $click) = explode('=', $selected);
         list($click_value,$data) = explode('*', $click);
         list($id_page, $ad_account_id) = explode('%', $data); 
 
-        getData($ad_account_id, $id_page, $_REQUEST['start_date'],$_REQUEST['end_date']);
+        getData($ad_account_id, $id_page, $_REQUEST['start_time'], $_REQUEST['end_time']);
     }
 
-function getData($ad_account_id, $id_page, $start_date, $end_date){
-    
-    //Visión General de la pagina
-    $PageInsights = new PageInsights($id_page,$ad_account_id,$start_date, $end_date);
-    $PageInsights->dashboardPerformanceGeneralTable();
-    $PageInsights->dashboardGetFansCityTable();
+function getData($ad_account_id, $id_page, $start_time, $end_time){
 
-    // //Visión General de los Anuncios
-    $AdInsights = new AdInsights($ad_account_id,$start_date, $end_date);
+    //Visión General de la pagina
+    $PageInsights = new PageInsights($id_page,$ad_account_id,$start_time, $end_time);
+    $PageInsights->dashboardPerformanceGeneralTable();
+
+    //Visión General de los Anuncios
+    $AdInsights = new AdInsights($ad_account_id,$start_time, $end_time);
     $AdInsights->dashboardAdsOverview();
 
     //Rendimiento de pagina por fecha
-    
+    $PageInsights->dashboardGetFansCityTable();
 
     // // Principales publicaciones
-    // $PostInsights = new PostInsights($id_page,$ad_account_id);
-    // $PostInsights->mainPublicactions(); 
+    $PostInsights = new PostInsights($id_page,$ad_account_id, $start_time, $end_time);
+    $PostInsights->mainPublicactions(); 
 
     // Reacciones de las publicaciones 
     
-    // $PostInsights->reactionsTable();
+    $PostInsights->reactionsTable();
 
     //Principales Conjuntos de Anuncios en Facebook    
-    // $AdSetInsights = new AdsetInsights($ad_account_id,$start_date, $end_date);
-    // $AdSetInsights->adsetDahboard();
+    $AdSetInsights = new AdsetInsights($ad_account_id,$start_time, $end_time);
+    $AdSetInsights->adsetDahboard();
 
     //Principales Anuncios de Facebook 
 
-    // $AdInsights->gashboardAdDetails();
+    $AdInsights->gashboardAdDetails();
 }
