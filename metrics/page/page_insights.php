@@ -48,6 +48,9 @@ Class PageInsights{
 
   public $start_date;
   public $end_date;
+  public $ctve_start_date;
+  public $ctve_end_date;
+  public $ctve_response;
   public $total_reach;
   public $fans_city_keys;
 
@@ -63,8 +66,11 @@ Class PageInsights{
     $this->ad_account_id = $ad_account_id;
     $this->more_interaction = $more_interaction;
     $s_date = $start_date;
-    $this->start_date = date('Y-m-d', strtotime('-1 day', strtotime($s_date)));
     $this->end_date = $end_date;
+    $this->start_date = date('Y-m-d', strtotime('-1 day', strtotime($s_date)));
+    $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($s_date)));
+    $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
+    // print_r($this->ctve_start_date); die();
 
     /**
      * Pre-load methods 
@@ -104,7 +110,8 @@ Class PageInsights{
       $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique,page_impressions_by_age_gender_unique,page_actions_post_reactions_like_total&since='. $this->start_date .'T08:00:00&until='. $this->end_date .'T08:00:00',
         $this->page_access_token
       );
-    } catch(Facebook\Exceptions\FacebookResponseException $e) {
+      // $this->ctv_response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique,page_impressions_by_age_gender_unique,page_actions_post_reactions_like_total&since='. $this->ctve_start_date .'T08:00:00&until='. $this->ctve_end_date .'T08:00:00',
+    } catch(Facebook\Exceptions\FacebookResponseException $e){
       echo 'Graph returned an error: ' . $e->getMessage();
       exit;
     } catch(Facebook\Exceptions\FacebookSDKException $e) {
@@ -311,7 +318,6 @@ Class PageInsights{
         '65+' => $this->age_65
       ],
       'page_views_per_date' => $this->page_views_per_date,
-      'posts_like_per_day' => $this->posts_like_per_day,
       'fans_age_gender' => $this->fans_age_gender,  
       'fans_city' => $this->fans_city,
       'fans_city_keys' => $this->fans_city_keys,
