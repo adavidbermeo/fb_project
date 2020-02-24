@@ -17,30 +17,24 @@ use metrics\posts\PostInsights;
 
 function getData($ad_account_id, $id_page, $start_time, $end_time){
 
-    //Visión General de la pagina
+    //Page Insights
     $PageInsights = new PageInsights($id_page,$ad_account_id,$start_time, $end_time);
-    $PageInsights->dashboardPerformanceGeneralTable();
-
-    //Visión General de los Anuncios
-    $AdInsights = new AdInsights($ad_account_id,$start_time, $end_time);
-    $AdInsights->dashboardAdsOverview();
-
-    //Rendimiento de pagina por fecha
-    $PageInsights->dashboardGetFansCityTable();
-
-    // // Principales publicaciones
-    $PostInsights = new PostInsights($id_page,$ad_account_id, $start_time, $end_time);
-    $PostInsights->mainPublicactions(); 
-
-    // Reacciones de las publicaciones 
+    $page_insights_array = $PageInsights->account_info_array;
     
-    $PostInsights->reactionsTable();
 
-    //Principales Conjuntos de Anuncios en Facebook    
-    $AdSetInsights = new AdsetInsights($ad_account_id,$start_time, $end_time);
-    $AdSetInsights->adsetDahboard();
+    //Ad Insights
+    $AdInsights = new AdInsights($ad_account_id,$start_time, $end_time);
+    $ad_insights_array = $AdInsights->adInsights;
 
-    //Principales Anuncios de Facebook 
+    // // Post Insights
+    $PostInsights = new PostInsights($id_page,$ad_account_id, $start_time, $end_time);
+    $post_insights_array = $PostInsights->adPerformance;
 
-    $AdInsights->gashboardAdDetails();
+    //Adset Insights   
+    $AdSetInsights = new AdsetInsights($ad_account_id,$start_time, $end_time);  
+    $adset_insights_array = $AdSetInsights->adsetInsights;
+
+    /* Table Values Array */
+    $table_values_array = ['adset_insights' => $adset_insights_array, 'post_insights'=> $post_insights_array, 'ad_insights'=> $ad_insights_array, 'page_insights'=> $page_insights_array ];
+    echo json_encode($table_values_array);
 }

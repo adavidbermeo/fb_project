@@ -48,6 +48,8 @@ Class PageInsights{
 
   public $start_date;
   public $end_date;
+  public $total_reach;
+  public $fans_city_keys;
 
   // Methods
   public function __construct($id_page, $ad_account_id, $start_date, $end_date){
@@ -60,7 +62,8 @@ Class PageInsights{
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
     $this->more_interaction = $more_interaction;
-    $this->start_date = $start_date;
+    $s_date = $start_date;
+    $this->start_date = date('Y-m-d', strtotime('-1 day', strtotime($s_date)));
     $this->end_date = $end_date;
 
     /**
@@ -113,7 +116,7 @@ Class PageInsights{
     
     $graphNode = $this->response->getGraphEdge();
     $data = $graphNode->asArray();
-    //print_r($data);
+    // print_r($data);
 
     $item = -1;
     
@@ -196,6 +199,8 @@ Class PageInsights{
     $this->page_posts_impressions = array_sum($page_posts_impressions);
     $this->fans_age_gender = end($fans_age_gender);
     $this->fans_city = end($fans_city);
+    $this->fans_city_keys = array_keys($this->fans_city);
+
     $this->page_impressions = array_sum($page_impressions);
     $this->total_new_likes = array_sum($total_new_likes);
     $this->page_post_engagements = array_sum($page_post_engagements);
@@ -217,6 +222,12 @@ Class PageInsights{
     }
 
     $this->reach_per_city_fields = array_unique($array_unique);
+
+    foreach($this->fans_city_keys as $item){
+      for($i =0; $i<count($this->reach_per_city); $i++){
+          $this->total_reach[$i] =  $this->reach_per_city[$i][$item];
+      }
+    }
 
   }
   public function impressionsByAge(){
@@ -303,17 +314,9 @@ Class PageInsights{
       'posts_like_per_day' => $this->posts_like_per_day,
       'fans_age_gender' => $this->fans_age_gender,  
       'fans_city' => $this->fans_city,
+      'fans_city_keys' => $this->fans_city_keys,
+      'total_reach' => $this->total_reach,
       'ad_account_id' => $this->ad_account_id    
-    ];
-    $this->db_account_info_array = [
-      'id_page'=>$this->id_page,
-      'page_name' => $this->page_name,
-      'end_time' => $this->end_time,
-      'total_new_likes' => $this->total_new_likes,  
-      'people_paid_like' => $this->people_paid_like,  
-      'people_unpaid_like' => $this->people_unpaid_like,  
-      'ad_account_id' => $this->ad_account_id,    
-      'page_post_engagement' => $this->page_post_engagements
     ];
   }
   public function getArrayAccountInfo(){
@@ -329,7 +332,6 @@ Class PageInsights{
                 <th>Impresiones de Pagina</th>
                 <th>Interaccion de Usuarios</th>
                 <th>Me gusta (Pagina)</th>
-                
             </tr>
           </thead>
           <tbody>';
@@ -458,20 +460,17 @@ Class PageInsights{
           </thead>
           <tbody>';
     
-          $keys = array_keys($this->account_info_array['fans_city']);
-          $id = 0;
-          foreach ($keys as $item){
-                $id = $id+1;
-                echo '
-                <tr rowspan="2">
-                <th>'. $item .'</th>';
-                for($i =0; $i<count($this->reach_per_city); $i++){
-                  $sum[$i] =  $this->reach_per_city[$i][$item];
-                }
+          $ite = 0;
+          foreach ($this->account_info_array['fans_city_keys'] as $item){
+              echo '
+              <tr rowspan="2">
+              <th>'. $item .'</th>';
 
-                echo "<td>". number_format($this->account_info_array['fans_city'][$item],0,',','.') ."</td>";
-                echo  '<td>'. number_format(array_sum($sum),0,',','.') .'</td>
-                </tr>';
+              echo "<td>". number_format($this->account_info_array['fans_city'][$item],0,',','.') ."</td>";
+              echo  '<td>'. number_format(($this->account_info_array['total_reach'][$ite]),0,',','.') .'</td>
+              </tr>';
+
+              $ite = $ite+1;
           }
           
           echo '

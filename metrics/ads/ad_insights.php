@@ -29,6 +29,8 @@ use preview\AdsPreview;
         public $date_stop;
         public $ad_clicks_per_date = [];
         public $dates;
+        public $bimg = [];
+        public $bimg_request;
 
         //Testing 
         public $array;
@@ -69,12 +71,14 @@ use preview\AdsPreview;
             $this->queryAdInsights();
             $this->setFields();
             $this->adDatesQuery();
+            $this->bImage();
             $this->setAdInsightsArray();
-            //$this->getAdInsightsArray();
+            // $this->getAdInsightsArray();
 
         }
         public function queryAdInsights(){
-            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(245).thumbnail_width(255){id,name,thumbnail_url,image_url},insights.breakdowns(age).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(170).thumbnail_width(180){id,name,thumbnail_url,image_url},insights.breakdowns(age).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
+            $bimg_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){effective_status,creative.thumbnail_height(700).thumbnail_width(800){thumbnail_url},insights.time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
             $second_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,effective_status,insights.time_increment(1).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
 
             $GraphRequest = $request->getGraphNode();
@@ -83,7 +87,10 @@ use preview\AdsPreview;
 
             $graph_second_request = $second_request->getGraphNode();
             $this->array =  $graph_second_request->asArray();
-            // print_r($this->array);
+
+            $graph_bimg_request = $bimg_request->getGraphNode();
+            $this->bimg_request = $graph_bimg_request->asArray();
+            // print_r($this->bimg_request); die();
         }
         public function setFields(){
             $i = 0;
@@ -170,6 +177,14 @@ use preview\AdsPreview;
                 }
                 $i++;    
             }
+
+            $this->total_clicks = array_sum($this->clicks);    
+            $this->total_ctr = (array_sum($this->ctr)/count($this->ad_ids));    
+            $this->total_reach = array_sum($this->reach);    
+            $this->total_impressions = array_sum($this->impressions);    
+            $this->total_spend = array_sum($this->spend);    
+            $this->total_cpm = array_sum($this->cpm);    
+
             $this->age13_17 = array_sum($age13_17);
             $this->age18_24 = array_sum($age18_24);
             $this->age25_34 = array_sum($age25_34);
@@ -177,6 +192,18 @@ use preview\AdsPreview;
             $this->age45_54 = array_sum($age45_54);
             $this->age55_64 = array_sum($age55_64);
             $this->age65 = array_sum($age65);
+        }
+        public function bImage(){
+            $i = 0;
+            foreach($this->bimg_request['ads'] as $img){
+
+                if($img['effective_status'] == 'ACTIVE' && $img['insights']){
+                    
+                    $this->bimg[$i] = $img['creative']['thumbnail_url'];
+                } 
+                $i++; 
+            }
+            // print_r($this->bimg);
         }
         public function adDatesQuery(){
             $i=1;
@@ -226,22 +253,29 @@ use preview\AdsPreview;
         }
 
         public function setAdInsightsArray(){
-           $this->adInsights = [
+          $this->adInsights = [
                 'ad_account_id' => $this->ad_account_id, 
                 'ad_ids' => $this->ad_ids,
                 'ad_image' => $this->ad_image,
+                'bimg' => $this->bimg,
                 'ad_name' => $this->ad_name,
                 'ad_effective_status' => $this->ad_effective_status,
                 'clicks' => $this->clicks,
+                'total_clicks' => $this->total_clicks,
                 'ctr' => $this->ctr,
+                'total_ctr' => $this->total_ctr,
                 'reach' => $this->reach,
+                'total_reach' => $this->total_reach,
                 'ad_clicks_per_date' => $this->ad_clicks_per_date,
                 'impressions' => $this->impressions,
+                'total_impressions' => $this->total_impressions,
                 'spend' => $this->spend,
+                'total_spend' => $this->total_spend,
                 'action_type' => $this->action_type,
                 'action_value' => $this->action_value,
                 'cpc' => $this->cpc,
                 'cpm' => $this->cpm,
+                'total_cpm' => $this->total_cpm,
                 'ad_clicks_per_age' => [
                     '13-17' => $this->age13_17,
                     '18-24' => $this->age18_24,
@@ -273,8 +307,8 @@ use preview\AdsPreview;
                                     <th>Alcance</th>
                                 </tr>
                             </thead>";
-                            $table_fields_head = ['clicks','ctr','reach']; 
-                            $table_fields_footer = ['impressions','spend','cpm']; 
+                            $table_fields_head = ['total_clicks','total_ctr','total_reach']; 
+                            $table_fields_footer = ['total_impressions','total_spend','total_cpm']; 
                             echo "<tr>";
                                 for($i=0; $i< count($table_fields_head); $i++){
                                     echo "<td>". number_format(array_sum($this->adInsights[$table_fields_head[$i]]),0,',','.') ."</td>";

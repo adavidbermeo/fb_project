@@ -42,6 +42,8 @@ use preview\AdsPreview;
         public $shares_count = [];
         public $total = [];
         public $ad_image = [];
+        public $bimg = [];
+        public $bimg_request;
         
         public $start_date = [];
         public $end_date = [];
@@ -58,7 +60,10 @@ use preview\AdsPreview;
             $this->ad_account_id = $ad_account_id;
             
             $this->app_access_token = ACCESS_TOKEN;
-            $this->start_date = $start_date;
+            $s_date = $start_date;
+
+            $this->start_date = date('Y-m-d', strtotime('-1 day', strtotime($s_date)));
+
             $this->end_date = $end_date;
             
             /**
@@ -78,17 +83,23 @@ use preview\AdsPreview;
             $this->setAdStatistics();
             $this->totalReactions();
             $this->setInteractions();
+            $this->bImage();
             $this->setAdPerformance();
             // $this->getAdPerformance();
 
         }
         public function setAdIdRequest(){
-            $request = $this->fb->get($this->ad_account_id . '?fields=ads.limit(80){id,name,insights.time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){impressions},effective_status,created_time,creative.thumbnail_height(245).thumbnail_width(255){effective_object_story_id,thumbnail_url}}',$this->app_access_token);
+            $request = $this->fb->get($this->ad_account_id . '?fields=ads.limit(80){id,name,insights.time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){impressions},effective_status,created_time,creative.thumbnail_height(170).thumbnail_width(180){effective_object_story_id,thumbnail_url}}',$this->app_access_token);
+            $bimg_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){effective_status,creative.thumbnail_height(700).thumbnail_width(800){thumbnail_url},insights.time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
             $GraphRequest = $request->getGraphNode();
             // echo "<pre>";
             
             $this->data_array_post_ad = $GraphRequest->asArray();
             // print_r($this->data_array_post_ad);
+
+            $graph_bimg_request = $bimg_request->getGraphNode();
+            $this->bimg_request = $graph_bimg_request->asArray();
+            // print_r($this->bimg_request); die();
             
         }
 
@@ -124,7 +135,7 @@ use preview\AdsPreview;
             $this->page_name = $data['name'];
         }
         public function setAdStatistics(){
-            for ($i=0; $i <count($this->page_post) ; $i++) { 
+            for ($i=0; $i <count($this->page_post); $i++){ 
                 $response = $this->fb->get(
                         $this->post_page_id[$i] .'_'. $this->post_ids[$i] .'/?fields=insights.metric(post_reactions_by_type_total,post_impressions_paid_unique,post_impressions_organic_unique,post_impressions_unique,post_clicks_unique),shares,comments.summary(true)',
                         $this->page_access_token
@@ -178,38 +189,50 @@ use preview\AdsPreview;
                 
             }
         }
-    public function totalReactions(){
-        $reactions = [];
-        $reactions = [
-            'likes' => $this->likes,
-            'love' => $this->love,
-            'wow' => $this->wow,
-            'haha' => $this->haha,
-            'sorry' => $this->sorry,
-            'anger' => $this->anger
-        ];
-        
-        for ($i=0; $i <count($reactions['likes']) ; $i++) { 
-            $this->total[$i] = [ $reactions['likes'][$i],$reactions['love'][$i],$reactions['wow'][$i],$reactions['haha'][$i],$reactions['sorry'][$i], $reactions['anger'][$i] ];
-           
+        public function totalReactions(){
+            $reactions = [];
+            $reactions = [
+                'likes' => $this->likes,
+                'love' => $this->love,
+                'wow' => $this->wow,
+                'haha' => $this->haha,
+                'sorry' => $this->sorry,
+                'anger' => $this->anger
+            ];
+            
+            for ($i=0; $i <count($reactions['likes']) ; $i++) { 
+                $this->total[$i] = [ $reactions['likes'][$i],$reactions['love'][$i],$reactions['wow'][$i],$reactions['haha'][$i],$reactions['sorry'][$i], $reactions['anger'][$i] ];
+            
+            }
+            
+            for ($i=0; $i <count($this->total) ; $i++) { 
+                $this->total_reactions[$i] = array_sum($this->total[$i]);
+            }
+            
         }
-        
-        for ($i=0; $i <count($this->total) ; $i++) { 
-            $this->total_reactions[$i] = array_sum($this->total[$i]);
+        public function setInteractions(){
+            
+            for ($i=0; $i <count($this->total_reactions) ; $i++) { 
+                $this->interactions[$i] = interactions($this->total_reactions[$i],$this->post_clicks[$i]);
+            }
+            
         }
-        
-    }
-    public function setInteractions(){
-        
-        for ($i=0; $i <count($this->total_reactions) ; $i++) { 
-            $this->interactions[$i] = interactions($this->total_reactions[$i],$this->post_clicks[$i]);
+        public function bImage(){
+            foreach($this->bimg_request['ads'] as $img){
+
+                if($img['effective_status'] == 'ACTIVE' && $img['insights']){
+                    
+                    $this->bimg[] = $img['creative']['thumbnail_url'];
+                } 
+            }
+                // print_r($this->bimg);
         }
-        
-    }
         public function setAdPerformance(){
             $this->adPerformance = [
                 'ad_ids' => $this->ad_ids,
+                'id_page' => $this->id_page,
                 'ad_name' => $this->ad_name,
+                'bimg' => $this->bimg,
                 'ad_image' => $this->ad_image,
                 'ad_effective_status' => $this->ad_effective_status,
                 'post_page_id' => $this->post_page_id,
