@@ -53,6 +53,15 @@ Class PageInsights{
   public $ctve_response;
   public $total_reach;
   public $fans_city_keys;
+  public $ctve_period;
+  public $ctve_posts_like_per_day = [];
+  public $ctve_page_posts_impressions;
+  public $ctve_page_impressions;
+  public $ctve_total_new_likes;
+  public $ctve_page_post_engagements;
+  public $ctve_page_fans;
+  public $ctve_page_views_total;
+  public $ctve_end_time;
 
   // Methods
   public function __construct($id_page, $ad_account_id, $start_date, $end_date){
@@ -68,7 +77,7 @@ Class PageInsights{
     $s_date = $start_date;
     $this->end_date = $end_date;
     $this->start_date = date('Y-m-d', strtotime('-1 day', strtotime($s_date)));
-    $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($s_date)));
+    $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($this->start_date)));
     $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
     // print_r($this->ctve_start_date); die();
 
@@ -85,22 +94,24 @@ Class PageInsights{
     $this->setResponse();
     $this->setAccountInfo();
     $this->impressionsByAge();
+    $this->setComparativeInfo();
+    $this->monthlyVariation();
     $this->setArrayAccountInfo();
-    // $this->getArrayAccountInfo();
+    $this->getArrayAccountInfo();
     
     // if($this->more_interaction == TRUE){
     //   $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id, $this->start_date, $this->end_date);
     //   $most_interactionsPost->moreInteraction();
     // }
   }
-   public function setAccessToken(){
+  public function setAccessToken(){
     $request = $this->fb->get($this->id_page. '?fields=access_token,name',$this->app_access_token); 
     $GraphRequest = $request->getGraphNode();
     
     $data = $GraphRequest->asArray();
     $this->page_access_token = $data['access_token'];
     $this->page_name = $data['name'];
-    }
+  }
   public function getAccessToken(){
       echo $this->access_token;
   }
@@ -110,7 +121,8 @@ Class PageInsights{
       $this->response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique,page_impressions_by_age_gender_unique,page_actions_post_reactions_like_total&since='. $this->start_date .'T08:00:00&until='. $this->end_date .'T08:00:00',
         $this->page_access_token
       );
-      // $this->ctv_response = $this->fb->get($this->id_page .'/insights?metric=page_fan_adds_by_paid_non_paid_unique,page_fans_gender_age,page_fans_city,page_post_engagements,page_impressions,page_posts_impressions,page_fans,page_views_total,page_impressions_by_city_unique,page_impressions_by_age_gender_unique,page_actions_post_reactions_like_total&since='. $this->ctve_start_date .'T08:00:00&until='. $this->ctve_end_date .'T08:00:00',
+      $this->ctve_response = $this->fb->get($this->id_page .'/insights?metric=page_actions_post_reactions_like_total,page_impressions,page_post_engagements,page_fans,page_fan_adds_by_paid_non_paid_unique,page_views_total,page_posts_impressions&since='. $this->ctve_start_date .'T08:00:00&until='. $this->ctve_end_date .'T08:00:00',
+      $this->page_access_token);
     } catch(Facebook\Exceptions\FacebookResponseException $e){
       echo 'Graph returned an error: ' . $e->getMessage();
       exit;
@@ -139,7 +151,6 @@ Class PageInsights{
           for ($i=0; $i <count($n) ; $i++) { 
             switch ($name) {
             case 'page_fan_adds_by_paid_non_paid_unique':
-              
               $this->end_time[] = $n[$i]['end_time']->format('Y-m-d');
               // $this->end_time[] = $n[$i]['end_time']->format('Y-m-d H:i:s');
               $total_new_likes[] =  $n[$i]['value']['total'];
@@ -237,6 +248,103 @@ Class PageInsights{
     }
 
   }
+   public function setComparativeInfo(){
+    
+    $ctve_graphEdge = $this->ctve_response->getGraphEdge();
+    $ctve_data = $ctve_graphEdge->asArray();
+    // print_r($ctve_data);
+
+    $item = -1;
+    
+    foreach ($ctve_data as $i => $camp){
+
+      $item++;
+      $name = $camp['name'];
+      // print_r($name); echo "<br>";
+      $this->ctve_period = $camp['period'];
+      foreach ($ctve_data[$item] as $n){
+       
+        if (is_array($n)){
+          //  print_r($n);   
+          for ($i=0; $i <count($n) ; $i++) { 
+            switch ($name) {
+            case 'page_fan_adds_by_paid_non_paid_unique':
+              $this->ctve_end_time[] = $n[$i]['end_time']->format('Y-m-d');
+              $ctve_total_new_likes[] =  $n[$i]['value']['total'];
+              // print_r($ctve_total_new_likes);
+              break;
+            case 'page_post_engagements':
+              if ($this->ctve_period == 'day') {
+                $ctve_page_post_engagements[] =  $n[$i]['value'];
+              }
+            break;
+            case 'page_impressions':
+              if ($this->ctve_period == 'day') {
+                $ctve_page_impressions[] = $n[$i]['value'];
+              }
+              break;
+            case 'page_posts_impressions':
+              if ($this->ctve_period == 'day') {
+                $ctve_page_posts_impressions[] = $n[$i]['value'];
+              }
+              break;
+            case 'page_fans':
+              if ($this->ctve_period == 'day') {
+                $ctve_page_fans[] = $n[$i]['value'];
+              }
+              break;
+            case 'page_views_total':
+               if ($this->ctve_period == 'day') {
+                $ctve_page_views_per_date[] = $n[$i]['value'];
+              }
+              break;
+            case 'page_actions_post_reactions_like_total':
+              if($this->ctve_period == 'day'){
+                $this->ctve_posts_like_per_day[] = $n[$i]['value']; // This data is per date (No es necesario ya todas tienen fecha guardada en el arreglo end_time)
+              }
+              break;
+            default:
+              echo "An unexpected error has ocurred";
+            break;
+          }
+          }
+        }
+      }
+    }
+
+    // print_r($this->ctve_posts_like_per_day);
+
+    $this->ctve_page_posts_impressions = array_sum($ctve_page_posts_impressions);
+    $this->ctve_page_impressions = array_sum($ctve_page_impressions);
+    $this->ctve_total_new_likes = array_sum($ctve_total_new_likes);
+    $this->ctve_page_post_engagements = array_sum($ctve_page_post_engagements);
+    $this->ctve_page_fans = end($ctve_page_fans). "<br>";
+    $this->ctve_page_views_total = array_sum($ctve_page_views_per_date);
+
+  }
+public function monthlyVariation(){
+  
+  // Calculo de Diferencia porcentual vs Mes Anterior
+  $i=0;
+  $metrics = [$this->page_posts_impressions => $this->ctve_page_posts_impressions, $this->page_post_engagements =>$this->ctve_page_post_engagements, $this->page_fans => $this->ctve_page_fans, $this->total_new_likes => $this->ctve_total_new_likes, $this->page_views_total => $this->ctve_page_views_total, $this->page_impressions => $this->ctve_page_impressions];
+  $names = ['ctve_page_posts_impressions','ctve_page_post_engagements','ctve_page_fans','ctve_total_new_likes','ctve_page_views_total','ctve_page_impressions'];
+  foreach($metrics as $key => $value){
+    $difference = ($key-$value);
+    $percentage_process = ($difference/$key);
+    ${$names[$i]} = ($percentage_process * 100); 
+    $i++;
+  }
+  
+  $this->ctve_page_posts_impressions = $ctve_page_posts_impressions;
+  $this->ctve_page_post_engagements = $ctve_page_post_engagements;
+  $this->ctve_page_fans = $ctve_page_fans;
+  $this->ctve_total_new_likes = $ctve_total_new_likes;
+  $this->ctve_page_views_total = $ctve_page_views_total;
+  $this->ctve_page_impressions = $ctve_page_impressions;
+  // print_r($this->ctve_page_impressions); die();
+  
+  
+}
   public function impressionsByAge(){
 
     foreach ($this->impressions_by_age as $key){
@@ -322,6 +430,15 @@ Class PageInsights{
       'fans_city' => $this->fans_city,
       'fans_city_keys' => $this->fans_city_keys,
       'total_reach' => $this->total_reach,
+      /* Default Comparative */
+      'ctve_end_time' => $this->ctve_end_time,
+      'ctve_posts_like_per_day' => $this->ctve_posts_like_per_day,
+      'ctve_page_posts_impressions' => $this->ctve_page_posts_impressions,
+      'ctve_page_post_engagements' => $this->ctve_page_post_engagements,
+      'ctve_page_fans' => $this->ctve_page_fans,
+      'ctve_total_new_likes' => $this->ctve_total_new_likes,
+      'ctve_page_views_total' => $this->ctve_page_views_total,
+      'ctve_page_impressions' => $this->ctve_page_impressions,
       'ad_account_id' => $this->ad_account_id    
     ];
   }

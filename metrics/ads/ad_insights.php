@@ -50,6 +50,7 @@ use preview\AdsPreview;
         public $query_array;
         public $start_date;
         public $end_date;
+        public $ctve_response;
 
         public function __construct($ad_account_id, $start_date , $end_date){
             $this->fb = new FB([
@@ -80,6 +81,7 @@ use preview\AdsPreview;
             $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(170).thumbnail_width(180){id,name,thumbnail_url,image_url},insights.breakdowns(age).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
             $bimg_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){effective_status,creative.thumbnail_height(700).thumbnail_width(800){thumbnail_url},insights.time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
             $second_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,effective_status,insights.time_increment(1).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
+            $ctve_response
 
             $GraphRequest = $request->getGraphNode();
             $this->query_array = $GraphRequest->asArray();
