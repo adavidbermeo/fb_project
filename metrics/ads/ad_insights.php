@@ -51,6 +51,15 @@ use preview\AdsPreview;
         public $start_date;
         public $end_date;
         public $ctve_response;
+        public $ctve_end_date;
+        public $ctve_start_date;
+        public $ctve_total_clicks;
+        public $ctve_total_ctr;
+        public $ctve_total_reach;
+        public $ctve_total_impressions;
+        public $ctve_total_spend;
+        public $ctve_total_cpm;
+
 
         public function __construct($ad_account_id, $start_date , $end_date){
             $this->fb = new FB([
@@ -63,6 +72,18 @@ use preview\AdsPreview;
             $this->start_date = $start_date;
             $this->end_date = $end_date;
 
+            // print_r($this->end_date);    
+
+            $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($this->start_date)));
+            $dates = explode('-',$this->end_date);
+            if(end($dates) == 31){
+                // echo "Es mayor";
+                $this->ctve_end_date = date('Y-m-d', strtotime('-1 month -1 day', strtotime($this->end_date)));
+            }else{
+                // echo "Es menor";
+                $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
+            }
+
             $this->callMethods();
         }
         public function callMethods(){
@@ -73,15 +94,17 @@ use preview\AdsPreview;
             $this->setFields();
             $this->adDatesQuery();
             $this->bImage();
+            $this->setComparativeFields();
+            $this->monthlyVariation();
             $this->setAdInsightsArray();
-            // $this->getAdInsightsArray();
+            $this->getAdInsightsArray();
 
         }
         public function queryAdInsights(){
             $request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,creative.thumbnail_height(170).thumbnail_width(180){id,name,thumbnail_url,image_url},insights.breakdowns(age).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks,ctr,reach,impressions,spend,cost_per_action_type,cpc,cpm}}',$this->app_access_token);
             $bimg_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){effective_status,creative.thumbnail_height(700).thumbnail_width(800){thumbnail_url},insights.time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
             $second_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,effective_status,insights.time_increment(1).time_range({"since":"'. $this->start_date .'","until":"'. $this->end_date .'"}){clicks}}',$this->app_access_token);
-            $ctve_response
+            $ctve_request = $this->fb->get($this->ad_account_id.'?fields=ads.limit(100){id,name,effective_status,insights.time_range({"since":"'. $this->ctve_start_date .'","until":"'. $this->ctve_end_date .'"}){clicks,ctr,reach,impressions,spend,cpm}}',$this->app_access_token);
 
             $GraphRequest = $request->getGraphNode();
             $this->query_array = $GraphRequest->asArray();
@@ -92,7 +115,10 @@ use preview\AdsPreview;
 
             $graph_bimg_request = $bimg_request->getGraphNode();
             $this->bimg_request = $graph_bimg_request->asArray();
-            // print_r($this->bimg_request); die();
+
+            $graph_ctve_response = $ctve_request->getGraphNode();
+            $this->ctve_response = $graph_ctve_response->asArray();
+            // print_r($this->ctve_response); die();
         }
         public function setFields(){
             $i = 0;
@@ -194,6 +220,61 @@ use preview\AdsPreview;
             $this->age45_54 = array_sum($age45_54);
             $this->age55_64 = array_sum($age55_64);
             $this->age65 = array_sum($age65);
+        }
+         public function setComparativeFields(){
+            $i = 0;
+           foreach ($this->ctve_response['ads'] as $key) {
+                
+                if($key['effective_status'] == 'ACTIVE' and $key['insights']){
+
+                    foreach ($key['insights'] as $item) {
+                    
+                        $clicks[$i] = $item['clicks'];    
+                        $ctr[$i] = $item['ctr'];
+                        $reach[$i] = $item['reach'];
+                        $impressions[$i] = $item['impressions'];
+                        $spend[$i] = $item['spend'];
+                        $cpm[$i] = $item['cpm'];
+
+                    }
+                    // print_r($clicks);
+
+                    $this->ctve_total_clicks = array_sum($clicks);
+                    $this->ctve_total_ctr = array_sum($ctr);
+                    $this->ctve_total_impressions = array_sum($impressions);
+                    $this->ctve_total_reach = array_sum($reach);
+                    $this->ctve_total_spend = array_sum($spend);
+                    $this->ctve_total_cpm = array_sum($cpm);  
+                }
+                $i++;
+                
+            }
+            // print_r($this->ctve_total_clicks);
+    
+        }
+        public function monthlyVariation(){
+            // print_r($this->ctve_total_clicks);   
+
+            // Calculo de Diferencia porcentual vs Mes Anterior
+            $i=0;
+            $metrics = [$this->total_clicks => $this->ctve_total_clicks, $this->total_ctr => $this->ctve_total_ctr,$this->total_reach => $this->ctve_total_reach,$this->total_impressions =>$this->ctve_total_impressions,$this->total_spend => $this->ctve_total_spend, $this->total_cpm => $this->ctve_total_cpm ];
+            $names = ['ctve_total_clicks','ctve_total_ctr','ctve_total_reach','ctve_total_impressions','ctve_total_spend','ctve_total_cpm'];
+            foreach($metrics as $key => $value){
+                $difference = ($key-$value);
+                $percentage_process = ($difference/$key);
+                ${$names[$i]} = ($percentage_process * 100); 
+                $i++;
+            }
+            
+            $this->ctve_total_clicks = $ctve_total_clicks;
+            $this->ctve_total_ctr = $ctve_total_ctr;
+            $this->ctve_total_reach = $ctve_total_reach;
+            $this->ctve_total_impressions = $ctve_total_impressions;
+            $this->ctve_total_spend = $ctve_total_spend;
+            $this->ctve_total_cpm = $ctve_total_cpm;
+
+            print_r($this->ctve_total_clicks);
+
         }
         public function bImage(){
             $i = 0;

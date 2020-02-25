@@ -78,8 +78,16 @@ Class PageInsights{
     $this->end_date = $end_date;
     $this->start_date = date('Y-m-d', strtotime('-1 day', strtotime($s_date)));
     $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($this->start_date)));
-    $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
-    // print_r($this->ctve_start_date); die();
+
+    $dates = explode('-',$this->end_date);
+    if(end($dates) == 31){
+        // echo "Es mayor";
+        $this->ctve_end_date = date('Y-m-d', strtotime('-1 month -1 day', strtotime($this->end_date)));
+    }else{
+        // echo "Es menor";
+        $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
+    }
+    // print_r($this->ctve_end_date); die();
 
     /**
      * Pre-load methods 
@@ -97,7 +105,7 @@ Class PageInsights{
     $this->setComparativeInfo();
     $this->monthlyVariation();
     $this->setArrayAccountInfo();
-    $this->getArrayAccountInfo();
+    // $this->getArrayAccountInfo();
     
     // if($this->more_interaction == TRUE){
     //   $most_interactionsPost  = new Interactions($this->id_page, $this->ad_account_id, $this->start_date, $this->end_date);
