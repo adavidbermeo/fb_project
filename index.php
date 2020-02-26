@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
     <!--  -->
-    <link type="text/css" href="plugins/zoomy/zoomy.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -21,7 +20,6 @@
     <script src="js/jquery/jquery.js" text="text/javascript"></script>
     <script src="js/submit.js" text="text/javascript"></script>
     
-    <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
     <script type="text/javascript" src="js/Chart.min.js"></script>
     <script type="text/javascript" src="js/graphics.js"></script>
 
@@ -31,29 +29,29 @@
     <script src="js/functions.js" type="text/javascript"></script>
 
     <!-- Data Table -->
-    <!-- <script src="http://paxzupruebas.com/bower_components/jquery/dist/jquery.min.js"></script> -->
-    <!-- Bootstrap Core JavaScript -->
+   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- <script src="http://paxzupruebas.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
   
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <!-- <script src="http://paxzupruebas.com/bower_components/metisMenu/dist/metisMenu.min.js"></script> -->
-    <!-- DataTables JavaScript -->
-    <!-- <script src="http://paxzupruebas.com/bower_components/datatables/media/js/jquery.dataTables.js"></script> -->
     <script src="https://cdn.datatables.net/rowreorder/1.0.0/js/dataTables.rowReorder.js"></script>
     <link href="https://cdn.datatables.net/rowreorder/1.0.0/css/rowReorder.dataTables.css" type="text/css" rel="stylesheet">
-    <!-- <script src="http://paxzupruebas.com/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> -->
-    <!-- Custom Theme JavaScript -->
-    <!-- <script src="http://paxzupruebas.com/dist/js/sb-admin-2.js"></script> -->
-    <!-- <link href="http://paxzupruebas.com/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+   
 
     <!-- Date Picker Js -->
-    
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+        $( function() {
+            $( "#datepicker2" ).datepicker();
+        } );
+    </script> -->
 </head>
 <body class="index-background">
      <?php
@@ -143,13 +141,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <!--<script src="dashboard/js/dashboard.js"></script>-->
-    <script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
-        $( function() {
-            $( "#datepicker2" ).datepicker();
-        } );
-    <script>
 </body>
 </html>
