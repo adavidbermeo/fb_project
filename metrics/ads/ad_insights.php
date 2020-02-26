@@ -97,7 +97,7 @@ use preview\AdsPreview;
             $this->setComparativeFields();
             $this->monthlyVariation();
             $this->setAdInsightsArray();
-            $this->getAdInsightsArray();
+            // $this->getAdInsightsArray();
 
         }
         public function queryAdInsights(){
@@ -253,7 +253,7 @@ use preview\AdsPreview;
     
         }
         public function monthlyVariation(){
-            // print_r($this->ctve_total_clicks);   
+            // print_r($this->ctve_total_ctr); echo "Comparative <br>";
 
             // Calculo de Diferencia porcentual vs Mes Anterior
             $i=0;
@@ -273,7 +273,7 @@ use preview\AdsPreview;
             $this->ctve_total_spend = $ctve_total_spend;
             $this->ctve_total_cpm = $ctve_total_cpm;
 
-            print_r($this->ctve_total_clicks);
+            // print_r($this->ctve_total_ctr); echo " Percentage<br>";
 
         }
         public function bImage(){
@@ -368,6 +368,12 @@ use preview\AdsPreview;
                     '55-64' => $this->age55_64,
                     '65+' => $this->age65
                 ],
+                'ctve_total_clicks' => $this->ctve_total_clicks,
+                'ctve_total_ctr' => $this->ctve_total_ctr,
+                'ctve_total_reach' => $this->ctve_total_reach,
+                'ctve_total_impressions' => $this->ctve_total_impressions,
+                'ctve_total_spend' => $this->ctve_total_spend,
+                'ctve_total_cpm' => $this->ctve_total_cpm,
                 'date_start' => $this->date_start,
                 'date_stop' => $this->date_stop
            ]; 

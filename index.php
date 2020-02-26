@@ -51,6 +51,8 @@
     <!-- Custom Theme JavaScript -->
     <!-- <script src="http://paxzupruebas.com/dist/js/sb-admin-2.js"></script> -->
     <!-- <link href="http://paxzupruebas.com/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- Date Picker Js -->
     
 </head>
 <body class="index-background">
@@ -127,7 +129,8 @@
                 
             </div>
             <div class="texto-loading">
-                Loading data..... Please wait
+            Se esta generando su reporte personalizado...<br>
+            <em> * Por favor espere un momento, suele tomar menos de un minuto *</em>
             </div>
         </div>
         
@@ -140,5 +143,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <!--<script src="dashboard/js/dashboard.js"></script>-->
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+        $( function() {
+            $( "#datepicker2" ).datepicker();
+        } );
+    <script>
 </body>
 </html>

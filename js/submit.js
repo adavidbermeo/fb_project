@@ -9,6 +9,7 @@ $(document).ready(function(){
             search: search,
             // datavalue: datavalue
         }, function(respuesta){
+            // $('.custom-container').append('<div class="business-manager-info"></div>')
             $(".business-manager-info").css(
                 "display", "block"
             );
