@@ -35,7 +35,7 @@
     public $end_date;
 
     // Methods 
-    public function __construct($ad_account_id, $start_date, $end_date){
+    public function __construct($ad_account_id, $start_date, $end_date =0){
       $this->fb = new FB([
         'app_id' => '2350209521888424',
         'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
@@ -44,8 +44,19 @@
       $this->access_token = ACCESS_TOKEN;
       $this->ad_account_id = $ad_account_id;
 
-      $this->start_date = $start_date;
-      $this->end_date = $end_date;
+      list($date1,$date2) = explode(' - ',$start_date);
+      $ndate1 = explode('/',$date1);
+      $ndate2 = explode('/', $date2);
+      // print_r($ndate1);
+      // print_r($ndate2);
+      $this->start_date = $ndate1[2].'-'.$ndate1[0].'-'.$ndate1[1];
+      $this->end_date = $ndate2[2].'-'.$ndate2[0].'-'.$ndate2[1];
+
+      // echo $newdate1 . "<br>";
+      // echo $newdate2 . "<br>";
+
+      // $this->start_date = $start_date;
+      // $this->end_date = $end_date;
       
       /**
        * Invoque the CallMethods function

@@ -6,7 +6,7 @@ $(document).ready(function(){
         );
 
         var start_date = $(".start-date").val();
-        var end_date = $(".end-date").val();
+        // var end_date = $(".end-date").val();
         var data = $("#data").val();
 
         $.post("functions/call_to_class.php",

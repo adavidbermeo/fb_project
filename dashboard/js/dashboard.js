@@ -1,7 +1,7 @@
 var data = '';
 var result2 = '';
 $(document).ready(function () {
-
+    
     $('#create-dashboard').click(
         function () {
             $('.con-loader').css(
@@ -291,12 +291,14 @@ $(document).ready(function () {
                 },
                 cache: false,
                 success: function (response) {
+                    jQuery.noConflict();
                     result2 = JSON.parse(response);
                     var mssgMayor = 'mayor que el periodo anterior';
                     var mssgMenor = 'menor que el periodo anterior';
                     // console.log(result2);
 
                     /* Multiple modal */
+                   
                     $('#exampleModalCenter').modal({
                         backdrop: 'static',
                         keyboard: false,
@@ -452,7 +454,8 @@ $(document).ready(function () {
                         dashboard.append(texto);
 
                     // /* Rendimiento de la pagina por fecha */
-
+                    
+                     
                     dashboard.append(
                         '<div class="dash-section">' +
                         '<h3> <i class="fas fa-ad fb-icon"></i> Rendimiento de la pagina por fecha </h3>' +

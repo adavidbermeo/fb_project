@@ -1,4 +1,5 @@
-  $(document).ready(function () {
+$(document).ready(function () {
+    
       $('#custom-dashboard').click(
           function () {
               $('.con-loader').css(
@@ -7,9 +8,11 @@
           }
       );
       $(".menu #custom-dashboard").click(function (event) {
-          event.preventDefault();
+        // jQuery.noConflict();
+        event.preventDefault();
+        
 
-          var selected = $(this).attr('href');
+        var selected = $(this).attr('href');
 
           $.ajax({
               url: "functions/click_dashboard.php",
@@ -19,7 +22,9 @@
               },
               cache: false,
               success: function (response) {
-                    $('.business-manager-info').html(response);
+                    // jQuery.noConflict();
+                    $('.business-manager-info').html(response).show();
+                   
                     // $(".business-manager-info").find("#datepicker1,#datepicker2").datepicker({
                     //     dateFormat: "yy-mm-dd",
                     //     numberOfMonths: 3,

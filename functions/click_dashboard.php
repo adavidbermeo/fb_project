@@ -1,6 +1,14 @@
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
 <div class="calendar-section delete">
-    <p>Fecha Inicial : <input type="date" id="datepicker1" class="first-option" name="start-date" autofocus step="1"  value="<?php echo date('Y-m-d'); ?>" required></p><br>    
-    <p>Fecha Final   : <input type="date" id="datepicker2" class="second-option" name="end-date" autofocus step="1"  value="<?php echo date('Y-m-d'); ?>" required></p>
+    <input class="first-option" type="text" name="daterange" value="12/01/2019 - 12/31/2019" />    
     <input type="hidden" id="data" value="<?php echo $_GET['selected'] ?>">    
     <input type="button" value="VER REPORTE" id="create-dashboard">
 </div>

@@ -64,7 +64,7 @@ Class PageInsights{
   public $ctve_end_time;
 
   // Methods
-  public function __construct($id_page, $ad_account_id, $start_date, $end_date){
+  public function __construct($id_page, $ad_account_id, $start_date, $end_date = 0){
     $this->fb = new FB([
       'app_id' => '2350209521888424',
       'app_secret' => 'ac382c09d088b06f29e04878922c71f7',
@@ -74,20 +74,28 @@ Class PageInsights{
     $this->id_page = $id_page;
     $this->ad_account_id = $ad_account_id;
     $this->more_interaction = $more_interaction;
-    $s_date = $start_date;
-    $this->end_date = $end_date;
+    
+    list($date1,$date2) = explode(' - ',$start_date);
+    $ndate1 = explode('/',$date1);
+    $ndate2 = explode('/', $date2);
+    // print_r($ndate1);
+    // print_r($ndate2);
+    $s_date = $ndate1[2].'-'.$ndate1[0].'-'.$ndate1[1];
     $this->start_date = date('Y-m-d', strtotime('-1 day', strtotime($s_date)));
-    $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($this->start_date)));
+    $this->end_date = $ndate2[2].'-'.$ndate2[0].'-'.$ndate2[1];
 
-    $dates = explode('-',$this->end_date);
-    if(end($dates) == 31){
-        // echo "Es mayor";
-        $this->ctve_end_date = date('Y-m-d', strtotime('-1 month -1 day', strtotime($this->end_date)));
-    }else{
-        // echo "Es menor";
-        $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
-    }
-    // print_r($this->ctve_end_date); die();
+    // $this->end_date = $end_date;
+
+    // $dates = explode('-',$this->start_date);
+    // if(end($dates) == 31){
+    //     // echo "Es mayor";
+    //     $this->ctve_start_date = date('Y-m-d', strtotime('-1 month -1 day', strtotime($this->start_date)));
+    // }else{
+    //     // echo "Es menor";
+    //     $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($this->start_date)));
+    // }
+
+    // $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
 
     /**
      * Pre-load methods 

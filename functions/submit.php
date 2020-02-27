@@ -17,7 +17,7 @@ namespace functions\submit;
 ?>
 
 <script src="js/click.js"></script>
-<script src="dashboard/js/cdashboard.js">
+<script src="dashboard/js/click_dashboard.js">
         
 
    

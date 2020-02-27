@@ -49,7 +49,7 @@ use preview\AdsPreview;
         public $end_date = [];
         
         
-        public function __construct($id_page, $ad_account_id , $start_date, $end_date, $more_interaction = 0){
+        public function __construct($id_page, $ad_account_id , $start_date, $end_date = 0, $more_interaction = 0){
             $this->fb = new FB([
             'app_id'=>'2350209521888424',
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
@@ -60,11 +60,18 @@ use preview\AdsPreview;
             $this->ad_account_id = $ad_account_id;
             
             $this->app_access_token = ACCESS_TOKEN;
-            $s_date = $start_date;
 
+            
+            list($date1,$date2) = explode(' - ',$start_date);
+            $ndate1 = explode('/',$date1);
+            $ndate2 = explode('/', $date2);
+            // print_r($ndate1);
+            // print_r($ndate2);
+            $s_date = $ndate1[2].'-'.$ndate1[0].'-'.$ndate1[1];
             $this->start_date = date('Y-m-d', strtotime('-1 day', strtotime($s_date)));
+            $this->end_date = $ndate2[2].'-'.$ndate2[0].'-'.$ndate2[1];
 
-            $this->end_date = $end_date;
+            // $this->end_date = $end_date;
             
             /**
              * Invoque the callMethods function 

@@ -11,10 +11,10 @@
     if (isset($_REQUEST['data'])) {
         $selected = $_REQUEST['data'];
         list($url, $click) = explode('=', $selected);
-        showInfo($click, $_REQUEST['start_date'], $_REQUEST['end_date']);
+        showInfo($click, $_REQUEST['start_date']);
     }
   
-    function showInfo($click, $start_date, $end_date){
+    function showInfo($click, $start_date, $end_date = 0){
         global $AccountsPageData;
         list($click_value,$data) = explode('*', $click);
         list($id_page, $ad_account_id) = explode('%', $data); 
@@ -31,21 +31,21 @@
             case 'yesCampaign':
             //For Campaign Info   
                 echo "<h1>Campaign Insights</h1>";
-                $CampaignInsights = new CampaignInsights($ad_account_id,$start_date, $end_date);  
+                $CampaignInsights = new CampaignInsights($ad_account_id,$start_date);  
                 $CampaignInsights->getCampaignStatisticsTable(); 
 
                 break;
             case 'yesPost':
             //For Ad Info
                 echo "<h1>Post Insights</h1>";
-                $PostInsights = new PostInsights($id_page, $ad_account_id, $start_date, $end_date);
+                $PostInsights = new PostInsights($id_page, $ad_account_id, $start_date);
                 $PostInsights->getAdPerformanceTable();
 
                 break;
             case 'yesPage' :
             //For Page Info
                 echo "<h1>Page Insights</h1>";
-                $PageInsights = new PageInsights($id_page, $ad_account_id, $start_date, $end_date);
+                $PageInsights = new PageInsights($id_page, $ad_account_id, $start_date);
                 $PageInsights->getAdPerformanceGeneralTable();
                 $PageInsights->getAgeGenderTable();
                 $PageInsights->getfansCityTable();
@@ -55,7 +55,7 @@
             case 'yesAd':
             //For Page Info
                 echo "<h1>Ad Insights</h1>";
-                $AdInsights = new AdInsights($ad_account_id, $start_date, $end_date);
+                $AdInsights = new AdInsights($ad_account_id, $start_date);
                 $AdInsights->adsOverview();
                 $AdInsights->adDetails();
 
@@ -63,7 +63,7 @@
             case 'yesAdset':
             //For Page Info
                 echo "<h1>Adset Insights</h1>";
-                $AdsetInsights = new AdsetInsights($ad_account_id ,$start_date, $end_date);
+                $AdsetInsights = new AdsetInsights($ad_account_id ,$start_date);
                 $AdsetInsights->getAdsetInsightsTable();
 
                 break;

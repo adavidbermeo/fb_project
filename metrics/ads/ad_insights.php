@@ -61,7 +61,7 @@ use preview\AdsPreview;
         public $ctve_total_cpm;
 
 
-        public function __construct($ad_account_id, $start_date , $end_date){
+        public function __construct($ad_account_id, $start_date , $end_date = 0){
             $this->fb = new FB([
             'app_id'=>'2350209521888424',
             'app_secret'=>'ac382c09d088b06f29e04878922c71f7',
@@ -69,20 +69,38 @@ use preview\AdsPreview;
             ]);
             $this->ad_account_id = $ad_account_id;
             $this->app_access_token = ACCESS_TOKEN;
-            $this->start_date = $start_date;
-            $this->end_date = $end_date;
+                    
+            list($date1,$date2) = explode(' - ',$start_date);
+            $ndate1 = explode('/',$date1);
+            $ndate2 = explode('/', $date2);
+            // print_r($ndate1);
+            // print_r($ndate2);
+            $this->start_date = $ndate1[2].'-'.$ndate1[0].'-'.$ndate1[1];
+            $this->end_date = $ndate2[2].'-'.$ndate2[0].'-'.$ndate2[1];
+
+            // $this->start_date = $start_date;
+            // $this->end_date = $end_date;
+            $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($this->start_date)));
+            $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
 
             // print_r($this->end_date);    
+            // $dates = explode('-',$this->start_date);
+            // if(end($dates) == 31){
+            //     // echo "Es mayor";
+            //     $this->ctve_start_date = date('Y-m-d', strtotime('-1 month -1 day', strtotime($this->start_date)));
+            // }else{
+            //     // echo "Es menor";
+            //     $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($this->start_date)));
+            // }
 
-            $this->ctve_start_date = date('Y-m-d', strtotime('-1 month', strtotime($this->start_date)));
-            $dates = explode('-',$this->end_date);
-            if(end($dates) == 31){
-                // echo "Es mayor";
-                $this->ctve_end_date = date('Y-m-d', strtotime('-1 month -1 day', strtotime($this->end_date)));
-            }else{
-                // echo "Es menor";
-                $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
-            }
+            // $dates = explode('-',$this->end_date);
+            // if(end($dates) == 31){
+            //     // echo "Es mayor";
+            //     $this->ctve_end_date = date('Y-m-d', strtotime('-1 month -1 day', strtotime($this->end_date)));
+            // }else{
+            //     // echo "Es menor";
+            //     $this->ctve_end_date = date('Y-m-d', strtotime('-1 month', strtotime($this->end_date)));
+            // }
 
             $this->callMethods();
         }
