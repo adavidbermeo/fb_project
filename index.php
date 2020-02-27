@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Facebook App</title>
     <link rel="stylesheet" href="css/facebook-styles.css">
-    <!-- <script src="js/jquery/jquery.js" text="text/javascript"></script> -->
+    <script src="js/jquery/jquery.js" text="text/javascript"></script>
     <script src="js/submit.js" text="text/javascript"></script>
     
     <script type="text/javascript" src="js/Chart.min.js"></script>
@@ -36,8 +36,8 @@
   
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
-    <!-- <script src="https://cdn.datatables.net/rowreorder/1.0.0/js/dataTables.rowReorder.js"></script> -->
-    <!-- <link href="https://cdn.datatables.net/rowreorder/1.0.0/css/rowReorder.dataTables.css" type="text/css" rel="stylesheet"> -->
+    <script src="https://cdn.datatables.net/rowreorder/1.0.0/js/dataTables.rowReorder.js"></script>
+    <link href="https://cdn.datatables.net/rowreorder/1.0.0/css/rowReorder.dataTables.css" type="text/css" rel="stylesheet">
    
 
     <!-- Date Picker Js -->
