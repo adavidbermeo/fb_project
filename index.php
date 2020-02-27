@@ -11,13 +11,13 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
-    <!--  -->
+    
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
 
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     <title>Facebook App</title>
     <link rel="stylesheet" href="css/facebook-styles.css">
-    <script src="js/jquery/jquery.js" text="text/javascript"></script>
+    <!-- <script src="js/jquery/jquery.js" text="text/javascript"></script> -->
     <script src="js/submit.js" text="text/javascript"></script>
     
     <script type="text/javascript" src="js/Chart.min.js"></script>
@@ -40,18 +40,11 @@
    
 
     <!-- Date Picker Js -->
-    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
-        $( function() {
-            $( "#datepicker2" ).datepicker();
-        } );
-    </script> -->
+    
 </head>
 <body class="index-background">
      <?php
@@ -83,6 +76,14 @@
 
         <!-- Button trigger modal -->
         <button id="show-post" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Show </button> 
+<!--         
+        <div class="calendar-section delete">
+            <p>Fecha Inicial : <input type="text" id="datepicker" class="first-option" name="start-date" autofocus step="1" min="2000-12-1" max="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d');?>" required></p><br>    
+            <p>Fecha Final   : <input type="text" id="datepicker2" class="second-option" name="end-date" autofocus step="1" min="2000-12-1" max="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d');?>" required></p>
+            <input type="hidden" id="data" value="<?php echo $_GET['selected'] ?>">    
+            <input type="button" value="VER REPORTE" id="create-dashboard">
+        </div>
+        <script src="dashboard/js/dashboard.js"></script> -->
 
         <!-- Modal -->
         <div class="modal fade bd-example-modal-xl" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
