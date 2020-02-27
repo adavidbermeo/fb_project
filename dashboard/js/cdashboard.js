@@ -19,14 +19,14 @@
               },
               cache: false,
               success: function (response) {
-                    $('.business-manager-info').html(response).show();
-                    $(".business-manager-info").find("#datepicker1,#datepicker2").datepicker({
-                        dateFormat: "yy-mm-dd",
-                        numberOfMonths: 3,
-                        showButtonPanel: true,
-                        minDate: '-5y', 
-                        maxDate: 0
-                    });
+                    $('.business-manager-info').html(response);
+                    // $(".business-manager-info").find("#datepicker1,#datepicker2").datepicker({
+                    //     dateFormat: "yy-mm-dd",
+                    //     numberOfMonths: 3,
+                    //     showButtonPanel: true,
+                    //     minDate: '-5y', 
+                    //     maxDate: 0
+                    // });
                     $('.con-loader').css(
                         "display", "none"
                     );
